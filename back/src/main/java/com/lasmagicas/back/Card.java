@@ -3,7 +3,7 @@ package com.lasmagicas.back;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(value = "PruebaCartas")
+@Document(value = "Cards")
 public class Card {
     @Id
     private String id;
