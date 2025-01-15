@@ -1,21 +1,23 @@
 import logo from './logo.svg';
 import './App.css';
 import React, { useState, useEffect } from 'react';
+import Card from './components/Card.tsx';
+import CardDoubleFace from './components/CardDoubleFace.tsx';
 
 function App() {
+  const [cardList, setCardList] = useState([]);
 
-  const App = () => {
-    const [posts, setPosts] = useState([]);
-    useEffect(() => {
-       fetch('https://jsonplaceholder.typicode.com/posts?_limit=10')
-          .then((response) => response.json())
-          .then((data) => {
-             console.log(data);
-             setPosts(data);
-          })
-          .catch((err) => {
-             console.log(err.message);
-          });
+  useEffect(() => {
+      const obtenerCartas = async () => {
+        const res = await fetch('http://127.0.0.1:8080/getAllCard/2', {mode:'cors'});
+        const data = await res.json();
+        console.log(data)
+        setCardList([...data.content]);
+        
+      }
+
+      obtenerCartas();
+
     }, []);
     
     return (
@@ -35,11 +37,25 @@ function App() {
           </a>
         </header>
   
+        <div style={{display:'flex', width:'100%', flexWrap:'wrap'}}>
+
+        {
+        cardList.map((card, i) => {
+          if(card.image_uris != null){
+            return <Card key={i} card={card}></Card>
+          }
+          else {
+            return <CardDoubleFace key={i} card={card} face={0}></CardDoubleFace>
+          }
+         })
+        
+        }
+        
   
+        </div>
       </div>
     );
-  
-}
-}
+   
+  }
 
 export default App;

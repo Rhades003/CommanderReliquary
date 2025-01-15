@@ -1,7 +1,10 @@
 package com.lasmagicas.back;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
 
 @Document(value = "Cards")
 public class Card {
@@ -11,13 +14,18 @@ public class Card {
     private String mana_cost;
     private String rarity;
     private String type_line;
+    private CardImages image_uris;
 
-    public Card(String id, String name, String mana_cost, String rarity, String type_line) {
+    @JsonProperty("card_faces")
+    private List<Card> card_faces;
+
+    public Card(String id, String name, String mana_cost, String rarity, String type_line, CardImages image_uris) {
         this.id = id;
         this.name = name;
         this.mana_cost = mana_cost;
         this.rarity = rarity;
         this.type_line = type_line;
+        this.image_uris = image_uris;
     }
 
     public String getId() {
@@ -58,5 +66,13 @@ public class Card {
 
     public void setType_line(String type_line) {
         this.type_line = type_line;
+    }
+
+    public CardImages getImage_uris() {
+        return image_uris;
+    }
+
+    public void setImage_uris(CardImages image_uris) {
+        this.image_uris = image_uris;
     }
 }
