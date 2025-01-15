@@ -1,19 +1,38 @@
 import React from 'react'
+import { useState } from 'react';
 
-const CardDoubleFace = ({card}, face) => {
+const CardDoubleFace = ({card, face}) => {
+  //class Card extends React.Component {
+    const [key, setKey] = useState(0)
+
+     function changeFace() {
+      
+      if(face == 0) face = 1;
+      
+      else face = 0;
+    
+      setKey(key + 1);
+      console.log(face);
+      
+     } 
+  
   return (
-    <div style={{display:'flex', width:'30%', border: '1px solid white', justifyContent:'center', flexDirection:'column', margin: '1rem',}}>
+    <div style={{display:'flex', width:'30%', border: '1px solid white', justifyContent:'center', flexDirection:'column', margin: '1rem',}} key={key}>
         <script src="./SwapFaces.js"></script>
         <img src={card.card_faces[face].image_uris.large} className='imgCard'></img>
         <div style={{height: '30vh'}}>
             <h1 className='nameCard'>{card.card_faces[face].name}</h1><p>{card.card_faces[face].mana_cost}</p>
             <br/>
             <p className='rarityCard'>{card.rarity}</p>
-            <p className='typeCard'>{card.card_faces[face].type_line}</p> 
+            <p className='typeCard'>{card.card_faces[face].type_line}</p>
+            <button className='changeFaceHTML' onClick={changeFace}>Cambia la carta</button>
         </div>
-        <button className='changeFace'>Cambia la carta</button>        
+                
     </div>
+
+    
   )
+  
 }
 
 export default CardDoubleFace
