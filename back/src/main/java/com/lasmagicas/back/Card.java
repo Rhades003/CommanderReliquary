@@ -15,6 +15,9 @@ public class Card {
     private String rarity;
     private String type_line;
     private CardImages image_uris;
+    private String[] keywords;
+    //@JsonProperty("legalities")
+    //private Legalities legalities;
 
     @JsonProperty("card_faces")
     private List<Card> card_faces;
@@ -26,6 +29,8 @@ public class Card {
         this.rarity = rarity;
         this.type_line = type_line;
         this.image_uris = image_uris;
+        //this.legalities = legalities;
+        //this.keywords = keywords;
     }
 
     public String getId() {
@@ -74,5 +79,30 @@ public class Card {
 
     public void setImage_uris(CardImages image_uris) {
         this.image_uris = image_uris;
+    }
+
+    /*
+    public String[] getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(String[] keywords) {
+        this.keywords = keywords;
+    }
+
+    public Legalities getLegalities() {
+        return legalities;
+    }
+
+    public void setLegalities(Legalities legalities) {
+        this.legalities = legalities;
+    }
+    */
+    public List<Card> getCard_faces() {
+        return card_faces;
+    }
+
+    public void setCard_faces(List<Card> card_faces) {
+        this.card_faces = card_faces;
     }
 }

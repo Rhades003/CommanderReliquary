@@ -9,7 +9,7 @@ function App() {
 
   useEffect(() => {
       const obtenerCartas = async () => {
-        const res = await fetch('http://127.0.0.1:8080/getAllCard/2', {mode:'cors'});
+        const res = await fetch('http://192.168.1.137:8080/getAllCard/333', {mode:'cors'});
         const data = await res.json();
         console.log(data)
         setCardList([...data.content]);
@@ -45,7 +45,7 @@ function App() {
             return <Card key={i} card={card}></Card>
           }
           else {
-            return <CardDoubleFace key={i} card={card} face={0}></CardDoubleFace>
+            return <CardDoubleFace key={i} card={card}></CardDoubleFace>
           }
          })
         
