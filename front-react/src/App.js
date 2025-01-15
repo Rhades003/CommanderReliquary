@@ -45,7 +45,7 @@ function App() {
             return <Card key={i} card={card}></Card>
           }
           else {
-            return <CardDoubleFace key={i} card={card} face={0}></CardDoubleFace>
+            return <CardDoubleFace key={i} card={card}></CardDoubleFace>
           }
          })
         
