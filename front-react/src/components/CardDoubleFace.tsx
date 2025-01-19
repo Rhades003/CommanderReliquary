@@ -7,39 +7,23 @@ const CardDoubleFace = ({card}) => {
 
      function changeFace() {
       
-      if(face === false) setKey(true);
+      if(face == 0) face = 1;
       
-      else if(face === true) setKey(false);
-    
+      else face = 0;
+
       console.log(face);
       
      } 
-  if(face === false){
+  
   return (
-    <div style={{display:'flex', width:'30%', border: '1px solid white', justifyContent:'center', flexDirection:'column', margin: '1rem',}}>
+    <div style={{display:'flex', width:'30%', border: '1px solid white', justifyContent:'center', flexDirection:'column', margin: '1rem',}} key={key}>
         <script src="./SwapFaces.js"></script>
-        <img src={card.card_faces[0].image_uris.large} className='imgCard' alt="Facecard"></img>
+        <img src={card.card_faces[face].image_uris.large} className='imgCard'></img>
         <div style={{height: '30vh'}}>
-            <h1 className='nameCard'>{card.card_faces[0].name}</h1><p>{card.card_faces[0].mana_cost}</p>
+            <h1 className='nameCard'>{card.card_faces[face].name}</h1><p>{card.card_faces[face].mana_cost}</p>
+            <br/>
             <p className='rarityCard'>{card.rarity}</p>
-            <p className='typeCard'>{card.card_faces[0].type_line}</p>
-            <button className='changeFaceHTML' onClick={changeFace}>Cambia la carta</button>
-        </div>
-                
-    </div>
-
-    
-  )
-  }
-  else if(face === true){
-    return(
-    <div style={{display:'flex', width:'30%', border: '1px solid white', justifyContent:'center', flexDirection:'column', margin: '1rem',}}>
-        <script src="./SwapFaces.js"></script>
-        <img src={card.card_faces[1].image_uris.large} className='imgCard'></img>
-        <div style={{height: '30vh'}}>
-            <h1 className='nameCard'>{card.card_faces[1].name}</h1><p>{card.card_faces[1].mana_cost}</p>
-            <p className='rarityCard'>{card.rarity}</p>
-            <p className='typeCard'>{card.card_faces[1].type_line}</p>
+            <p className='typeCard'>{card.card_faces[face].type_line}</p>
             <button className='changeFaceHTML' onClick={changeFace}>Cambia la carta</button>
         </div>
                 
