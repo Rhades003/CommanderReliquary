@@ -3,7 +3,7 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 import Card from './components/Card.tsx';
 import CardDoubleFace from './components/CardDoubleFace.tsx';
-
+import FormRegister from './components/FormRegister.tsx';
 function App() {
   const [cardList, setCardList] = useState([]);
 
@@ -21,7 +21,7 @@ function App() {
     }, []);
     
     return (
-      <div className="App">
+      /*<div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
@@ -50,10 +50,10 @@ function App() {
          })
         
         }
-        
-  
         </div>
-      </div>
+      </div>*/
+
+      <FormRegister></FormRegister>
     );
    
   }
