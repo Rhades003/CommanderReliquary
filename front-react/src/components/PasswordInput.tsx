@@ -6,7 +6,7 @@ const PasswordInput = () => {
     const [errorPasswordMessage, setErrorPasswordMessage] = useState(validatePassword(password));
 
     // Función genérica para manejar cambios en los inputs
-    const handleInputChange = (ev) => {
+    const handleInputChange = (ev:any) => {
         const { value } = ev.target;
             setPassword(value);
             setErrorPasswordMessage(validatePassword(value));
@@ -27,7 +27,7 @@ const PasswordInput = () => {
             </div>
     );
     
-    function validatePassword(password){
+    function validatePassword(password:string){
         if (password.length < 8 && password.trim() !== "") return "La contraseña ha de tener al menos 8 caracteres.";
 
         else  if (!/[A-Z]/.test(password) && password.trim() !== "") return "La contraseña debe incluir al menos una letra mayúscula.";

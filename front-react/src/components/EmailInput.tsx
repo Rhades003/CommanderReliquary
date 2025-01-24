@@ -4,7 +4,7 @@ const EmailInput = () => {
     const [email, setEmail] = useState('');
     const [errorEmailMessage, setErrorEmailMessage] = useState(validateEmail(email));
 
-    const handleInputChange = (ev) => {
+    const handleInputChange = (ev: any) => {
         const { name, value } = ev.target;
         if (name === "email") {
             setEmail(value);
@@ -26,7 +26,7 @@ const EmailInput = () => {
         </div>
     );
 
-    function validateEmail(email){
+    function validateEmail(email:string){
         if (!email.includes("@gmail.com")
             && !email.includes("@hotmail.com")
             && !email.includes("@yahoo.com")

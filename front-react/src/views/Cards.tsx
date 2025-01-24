@@ -1,12 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import Card from '../components/Card.tsx';
-import CardDoubleFace from '../components/CardDoubleFace.tsx';
+import Card from '../components/Card.js';
+import CardDoubleFace from '../components/CardDoubleFace.js';
 
 interface CardBase {
   image_uris?: any; // Ajusta el tipo según la estructura real de 'image_uris'
 }
+interface CardProps {
+  card: {
+    id:string;
+    name:string;
+    mana_cost:string;
+    rarity:string;
+    type_line:string;
+    image_uris: {
+      small:string;
+      normal:string;
+      large:string;
+      png:string;
+    };
+  };
+}
 
-const Cards = <T extends CardBase>() => {
+const Cards = <T extends CardProps>() => {
   
     const [cardList, setCardList] = useState<T[]>([]);
 

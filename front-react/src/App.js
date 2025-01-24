@@ -1,6 +1,6 @@
 import './App.css';
-import Cards from './views/Cards.tsx';
-import FormRegister from './views/Register.tsx';
+import Cards from './views/Cards.js';
+import FormRegister from './views/Register.js';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 
