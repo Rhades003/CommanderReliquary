@@ -2,7 +2,6 @@ import React from 'react'
 import { useState } from 'react';
 
 interface CardProps {
-  card: {
     id:string;
     name:string;
     mana_cost:string;
@@ -14,7 +13,6 @@ interface CardProps {
       large:string;
       png:string;
     };
-  };
 }
 
 interface CardDoubleFaceProps {
@@ -78,6 +76,7 @@ const CardDoubleFace: React.FC<CardDoubleFaceProps> = ({ card }) => {
       </div>
     )
   }
+  else return null
 
 }
 
