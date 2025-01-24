@@ -1,6 +1,22 @@
 import React from 'react'
 
-const Card = ({card}) => {
+interface CardProps {
+  card: {
+    id:string;
+    name:string;
+    mana_cost:string;
+    rarity:string;
+    type_line:string;
+    image_uris: {
+      small:string;
+      normal:string;
+      large:string;
+      png:string;
+    };
+  };
+}
+
+const Card: React.FC<CardProps>  = ({card}) => {
   return (
     <div style={{display:'flex', width:'30%', border: '1px solid white', justifyContent:'center', flexDirection:'column', margin: '1rem',}}>
         <img src={card.image_uris.normal} className='imgCard' alt="Facecard"></img>

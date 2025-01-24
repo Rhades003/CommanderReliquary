@@ -1,8 +1,41 @@
 import React from 'react'
 import { useState } from 'react';
 
-const CardDoubleFace = ({ card }) => {
-  //class Card extends React.Component {
+interface CardProps {
+  card: {
+    id:string;
+    name:string;
+    mana_cost:string;
+    rarity:string;
+    type_line:string;
+    image_uris: {
+      small:string;
+      normal:string;
+      large:string;
+      png:string;
+    };
+  };
+}
+
+interface CardDoubleFaceProps {
+  card: {
+    id:string;
+    name:string;
+    mana_cost:string;
+    rarity:string;
+    type_line:string;
+    image_uris: {
+      small:string;
+      normal:string;
+      large:string;
+      png:string;
+    };
+    card_faces: [CardProps, CardProps];
+  };
+}
+
+const CardDoubleFace: React.FC<CardDoubleFaceProps> = ({ card }) => {
+
   const [face, setKey] = useState(false)
 
   function changeFace() {
@@ -14,6 +47,7 @@ const CardDoubleFace = ({ card }) => {
     console.log(face);
 
   }
+  
   if (face === false) {
     return (
       <div style={{ display: 'flex', width: '30%', border: '1px solid white', justifyContent: 'center', flexDirection: 'column', margin: '1rem', }}>        <script src="./SwapFaces.js"></script>
