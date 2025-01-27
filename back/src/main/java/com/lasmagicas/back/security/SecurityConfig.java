@@ -9,18 +9,21 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class WebConfig {
+public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        return http
-                /*.authorizeHttpRequests(authorize -> authorize
-                        .anyRequest().authenticated()
-                )*/
+        return http.authorizeHttpRequests(request ->
+                request.requestMatchers("/cards/**")
+                        .permitAll()
+                        .requestMatchers("/users/**")
+                        .authenticated()
+                )
                 .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
+                .cors(cors -> cors.disable())
                 .build();
 
     }

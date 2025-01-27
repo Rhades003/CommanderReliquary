@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 
-const EmailInput = () => {
+const EmailInput = ({ onEmailChange }: { onEmailChange: (isValid: boolean) => void }) => {
     const [email, setEmail] = useState('');
     const [errorEmailMessage, setErrorEmailMessage] = useState(validateEmail(email));
 
     const handleInputChange = (ev: any) => {
-        const { name, value } = ev.target;
-        if (name === "email") {
-            setEmail(value);
-            setErrorEmailMessage(validateEmail(value)); // Validar el email al cambiarlo
-        }
+        const { value } = ev.target;
+        setEmail(value);
+        const error = validateEmail(value);
+        setErrorEmailMessage(error);
+        onEmailChange(error === "");
     };
+    
     return(
 
         <div>

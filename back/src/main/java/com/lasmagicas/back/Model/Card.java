@@ -1,4 +1,4 @@
-package com.lasmagicas.back;
+package com.lasmagicas.back.Model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;

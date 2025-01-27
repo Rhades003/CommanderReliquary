@@ -1,16 +1,16 @@
-package com.lasmagicas.back;
+package com.lasmagicas.back.Controller;
 
+import com.lasmagicas.back.Repository.CardRepository;
+import com.lasmagicas.back.Model.Card;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("cards")
 public class CardController {
 
     @Autowired
@@ -18,7 +18,7 @@ public class CardController {
 
 
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
-    @GetMapping("/getAllCard/{index}")
+    @GetMapping("/{index}")
     public Page<Card> getAllCards(@PathVariable int index){
         return cardRepository.findAll(Pageable.ofSize(25).withPage(index));
     }

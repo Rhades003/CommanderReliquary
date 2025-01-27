@@ -1,4 +1,4 @@
-package com.lasmagicas.back;
+package com.lasmagicas.back.Repository;
 
 import com.lasmagicas.back.Model.User;
 import org.springframework.data.jpa.repository.JpaRepository;

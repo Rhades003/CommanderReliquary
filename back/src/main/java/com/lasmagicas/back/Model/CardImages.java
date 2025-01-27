@@ -1,4 +1,4 @@
-package com.lasmagicas.back;
+package com.lasmagicas.back.Model;
 
 public class CardImages {
 

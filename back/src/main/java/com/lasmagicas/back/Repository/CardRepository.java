@@ -1,4 +1,4 @@
-package com.lasmagicas.back;
+package com.lasmagicas.back.Repository;
 
 import com.lasmagicas.back.Model.Card;
 import org.springframework.data.mongodb.repository.MongoRepository;

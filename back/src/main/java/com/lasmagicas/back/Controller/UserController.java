@@ -1,13 +1,12 @@
-package com.lasmagicas.back;
+package com.lasmagicas.back.Controller;
 
+import com.lasmagicas.back.Model.User;
+import com.lasmagicas.back.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
+@RequestMapping("users")
 public class UserController {
 
     @Autowired
