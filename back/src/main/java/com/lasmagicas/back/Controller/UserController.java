@@ -2,8 +2,11 @@ package com.lasmagicas.back.Controller;
 
 import com.lasmagicas.back.Model.User;
 import com.lasmagicas.back.Repository.UserRepository;
+import org.apache.catalina.connector.RequestFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("users")
@@ -17,5 +20,11 @@ public class UserController {
     @GetMapping("/getAllUsers")
     public @ResponseBody Iterable<User> getAllUser(){
         return userRepository.findAll();
+    }
+
+
+    @GetMapping("/getUser/{id}")
+    public @ResponseBody Optional<User> getUser(@PathVariable long id){
+        return userRepository.findById(id);
     }
 }

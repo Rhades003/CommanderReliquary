@@ -14,7 +14,7 @@ public class Card {
     private String mana_cost;
     private String rarity;
     private String type_line;
-    private CardImages image_uris;
+    private CardImage image_uris;
     private String[] keywords;
     //@JsonProperty("legalities")
     //private Legalities legalities;
@@ -22,7 +22,7 @@ public class Card {
     @JsonProperty("card_faces")
     private List<Card> card_faces;
 
-    public Card(String id, String name, String mana_cost, String rarity, String type_line, CardImages image_uris) {
+    public Card(String id, String name, String mana_cost, String rarity, String type_line, CardImage image_uris) {
         this.id = id;
         this.name = name;
         this.mana_cost = mana_cost;
@@ -73,11 +73,11 @@ public class Card {
         this.type_line = type_line;
     }
 
-    public CardImages getImage_uris() {
+    public CardImage getImage_uris() {
         return image_uris;
     }
 
-    public void setImage_uris(CardImages image_uris) {
+    public void setImage_uris(CardImage image_uris) {
         this.image_uris = image_uris;
     }
 

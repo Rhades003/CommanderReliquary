@@ -1,13 +1,13 @@
 package com.lasmagicas.back.Model;
 
-public class CardImages {
+public class CardImage {
 
     private String small;
     private String normal;
     private String large;
     private String png;
 
-    public CardImages(String small, String normal, String large, String png) {
+    public CardImage(String small, String normal, String large, String png) {
         this.small = small;
         this.normal = normal;
         this.large = large;
