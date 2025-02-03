@@ -15,10 +15,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         return http.authorizeHttpRequests(request ->
-                request.requestMatchers("/cards/**")
-                        .permitAll()
-                        .requestMatchers("/users/**")
-                        .permitAll()
+                request.requestMatchers("/cards/**").permitAll()
+                        .requestMatchers("/users/**").permitAll()
+                        .requestMatchers("/decks/getDecks/**").permitAll()
                         //.authenticated()
                 )
                 .formLogin(Customizer.withDefaults())
