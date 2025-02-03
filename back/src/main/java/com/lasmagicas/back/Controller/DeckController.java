@@ -10,7 +10,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import java.net.http.HttpRequest;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,7 +32,7 @@ public class DeckController {
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
     @PostMapping("/createDeck")
     public Deck create(@RequestBody DeckDto deck) {
-
+        //System.out.println(request.uri().getUserInfo());
         Optional<User> user = userRepository.findById(deck.getId());
 
         if (user.isPresent()) {
@@ -47,6 +50,9 @@ public class DeckController {
     @GetMapping("/getDecks/{id_user}")
     public @ResponseBody List<DeckDto> getDecksByUser(@PathVariable long id_user) {
         //return deckRepository.findAll(Pageable.ofSize(25));
+        //System.out.println(request.uri().getUserInfo());
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        System.out.println("---------------------"+attr.getRequest().getSession(true).getId());
         Optional<User> user = userRepository.findById(id_user);
 
         if(user != null) return user.get().getDecks().stream().map(DeckDto::new).collect(Collectors.toList());
