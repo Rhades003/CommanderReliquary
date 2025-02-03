@@ -17,6 +17,8 @@ public class SecurityConfig {
         return http.authorizeHttpRequests(request ->
                 request.requestMatchers("/cards/**").permitAll()
                         .requestMatchers("/users/**").permitAll()
+                        .requestMatchers("/decks/**").permitAll()
+                        .requestMatchers("/decks/create").permitAll()
                         .requestMatchers("/decks/getDecks/**").permitAll()
                         //.authenticated()
                 )

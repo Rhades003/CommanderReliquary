@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 //
 //@Entity
-//@Getter
-//@Setter
-//@NoArgsConstructor
-//@AllArgsConstructor
-//@Table(name = "decks-cards")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "decks-cards")
 public class DeckCard {
 
     @ManyToMany(cascade = CascadeType.ALL)

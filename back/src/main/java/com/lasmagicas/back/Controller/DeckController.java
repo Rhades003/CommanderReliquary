@@ -1,5 +1,7 @@
 package com.lasmagicas.back.Controller;
 
+import com.lasmagicas.back.DTO.DeckDto;
+import com.lasmagicas.back.Model.Card;
 import com.lasmagicas.back.Model.Deck;
 import com.lasmagicas.back.Model.User;
 import com.lasmagicas.back.Repository.DeckRepository;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("decks")
@@ -25,27 +28,33 @@ public class DeckController {
 
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
     @PostMapping("/createDeck")
-    public Deck create(@RequestBody Deck deck) {
+    public Deck create(@RequestBody DeckDto deck) {
 
-        Optional<User> user = userRepository.findById(deck.getUser().getId());
-        logger.info("----------------------------------------------------"+user);
-        System.out.println("//////////////////////////////////////////////"+user);
+        Optional<User> user = userRepository.findById(deck.getId());
+
         if (user.isPresent()) {
-            deckRepository.save(deck);
-        return deck;
+            System.out.println(deck.getId());
+            System.out.println(deck.getUserId());
+            System.out.println(deck.getName());
+            //deckRepository.save(deck);
+            //System.out.println(deck.getId());
+        //return deck;
         }
         return null;
     }
 
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
     @GetMapping("/getDecks/{id_user}")
-    public @ResponseBody List<Deck> getDecksByUser(@PathVariable long id_user) {
+    public @ResponseBody List<DeckDto> getDecksByUser(@PathVariable long id_user) {
         //return deckRepository.findAll(Pageable.ofSize(25));
         Optional<User> user = userRepository.findById(id_user);
 
-        logger.info("----------------------------------------------------"+user);
-        if(user != null) return user.get().getDecks();
+        if(user != null) return user.get().getDecks().stream().map(DeckDto::new).collect(Collectors.toList());
             //return deckRepository.findByUser(user);
         else return null;
+    }
+
+    public void setCardDeck(){
+
     }
 }
