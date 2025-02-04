@@ -1,7 +1,6 @@
 package com.lasmagicas.back.Controller;
 
 import com.lasmagicas.back.DTO.DeckDto;
-import com.lasmagicas.back.Model.Card;
 import com.lasmagicas.back.Model.Deck;
 import com.lasmagicas.back.Model.User;
 import com.lasmagicas.back.Repository.DeckRepository;
@@ -13,10 +12,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import java.net.http.HttpRequest;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping("decks")
@@ -33,14 +33,26 @@ public class DeckController {
     @PostMapping("/createDeck")
     public Deck create(@RequestBody DeckDto deck) {
         //System.out.println(request.uri().getUserInfo());
-        Optional<User> user = userRepository.findById(deck.getId());
+        Optional<User> user = userRepository.findById(1L);
 
         if (user.isPresent()) {
-            System.out.println(deck.getId());
-            System.out.println(deck.getUserId());
-            System.out.println(deck.getName());
-            //deckRepository.save(deck);
-            //System.out.println(deck.getId());
+            deck.setUserId(user.get().getId());
+            Deck deckEntity = new Deck();
+            deckEntity.setName(deck.getName());
+            deckEntity.setCommander(deck.getCommander());
+            deckEntity.setIdentity(deck.getIdentity());
+
+            //List<User> userrr = user.stream().map(User::new).toList();
+            User userrr = new User();
+            userrr.setId(user.get().getId());
+            userrr.setCreatedAt(user.get().getCreatedAt());
+            userrr.setDecks(user.get().getDecks());
+            userrr.setName(user.get().getName());
+            userrr.setEmail(user.get().getEmail());
+            userrr.setPassword(user.get().getPassword());
+            deckEntity.setUser(userrr);
+            deckRepository.save(deckEntity);
+            System.out.println(deckEntity.getId()+" "+  deckEntity.getCommander()+" "+ deckEntity.getUser()+" "+deckEntity.getIdentity()+" "+ deckEntity.getName());
         //return deck;
         }
         return null;
@@ -55,7 +67,7 @@ public class DeckController {
         System.out.println("---------------------"+attr.getRequest().getSession(true).getId());
         Optional<User> user = userRepository.findById(id_user);
 
-        if(user != null) return user.get().getDecks().stream().map(DeckDto::new).collect(Collectors.toList());
+        if(user != null) return user.get().getDecks().stream().map(DeckDto::new).collect(toList());
             //return deckRepository.findByUser(user);
         else return null;
     }

@@ -11,6 +11,8 @@ public class DeckDto {
     Long id;
     String name;
     Long userId;
+    String commander;
+    String identity;
     //Card[] cards;
 
     public DeckDto(Deck deckEntity){
@@ -18,5 +20,7 @@ public class DeckDto {
         this.id = deckEntity.getId();
         this.userId = deckEntity.getId();
         this.name = deckEntity.getName();
+        this.commander = deckEntity.getCommander();
+        this.identity = deckEntity.getIdentity();
     }
 }
