@@ -22,6 +22,9 @@ public class Card {
     @JsonProperty("card_faces")
     private List<Card> card_faces;
 
+    public Card() {
+    }
+
     public Card(String id, String name, String mana_cost, String rarity, String type_line, CardImage image_uris) {
         this.id = id;
         this.name = name;

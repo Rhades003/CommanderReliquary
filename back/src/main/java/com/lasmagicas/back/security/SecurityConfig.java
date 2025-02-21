@@ -20,6 +20,7 @@ public class SecurityConfig {
                         .requestMatchers("/decks/**").permitAll()
                         .requestMatchers("/decks/create").permitAll()
                         .requestMatchers("/decks/getDecks/**").permitAll()
+                        .requestMatchers("/decks/{id_deck}/cards/{idCard}").permitAll()
                         //.authenticated()
                 )
                 .formLogin(Customizer.withDefaults())
