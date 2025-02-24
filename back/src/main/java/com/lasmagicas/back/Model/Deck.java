@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
@@ -26,9 +28,11 @@ public class Deck {
     @JoinColumn(name = "id_user")
     private User user;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "id_card")
-    private DeckCard deckCard;
+
+//    @ManyToOne(cascade = CascadeType.MERGE)
+//    @JoinColumn(name = "id_card")
+//    private DeckCard deckCard;
+
 
     @Column(name="commander")
     //Id de la carta del mongo
@@ -36,4 +40,5 @@ public class Deck {
 
     @Column(name="identity")
     private String identity;
+
 }
