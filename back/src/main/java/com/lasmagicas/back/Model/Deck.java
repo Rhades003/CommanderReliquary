@@ -26,9 +26,9 @@ public class Deck {
     @JoinColumn(name = "id_user")
     private User user;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "id_card")
-    private DeckCard deckCard;
+    //@ManyToOne(cascade = CascadeType.MERGE)
+    //@JoinColumn(name = "id_card")
+    //private DeckCard deckCard;
 
     @Column(name="commander")
     //Id de la carta del mongo

@@ -5,7 +5,7 @@ import com.lasmagicas.back.Model.Card;
 import com.lasmagicas.back.Model.Deck;
 import com.lasmagicas.back.Model.DeckCard;
 import com.lasmagicas.back.Model.User;
-import com.lasmagicas.back.Repository.DeckCardRepository;
+//import com.lasmagicas.back.Repository.DeckCardRepository;
 import com.lasmagicas.back.Repository.DeckRepository;
 import com.lasmagicas.back.Repository.UserRepository;
 import org.slf4j.Logger;
@@ -28,8 +28,8 @@ public class DeckController {
     private DeckRepository deckRepository;
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private DeckCardRepository deckCardRepository;
+    //@Autowired
+    //private DeckCardRepository deckCardRepository;
 
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
     @PostMapping("/createDeck")
@@ -91,7 +91,7 @@ public class DeckController {
             Card card = new Card();
             card.setId(id_card);
             DeckCard deckCard = new DeckCard(deck1, card);
-            deckCardRepository.save(deckCard);
+            //deckCardRepository.save(deckCard);
         }
 
         //DeckCard  se compone de Card y Deck
