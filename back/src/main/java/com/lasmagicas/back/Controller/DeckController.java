@@ -12,6 +12,7 @@ import com.lasmagicas.back.Repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -80,18 +81,20 @@ public class DeckController {
         else return null;
     }
 
+    @Transactional
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
-    @PutMapping("/decks/{id_deck}/cards/{idCard}")
-    public void setCardDeck(@PathVariable String id_card, @PathVariable long id_deck){
+    @GetMapping("/{id_deck}/cards/{id_card}")
+    public void setCardDeck(@PathVariable long id_deck, @PathVariable String id_card){
 
         //puedes ir a base de datos a checkar que los ids existen
         Optional<Deck> deck = deckRepository.findById(1L);
         if (deck.isPresent()) {
             Deck deck1 = new Deck();
             deck1.setId(id_deck);
-            Card card = new Card();
-            card.setId(id_card);
-            DeckCard deckCard = new DeckCard(deck1, card);
+            DeckCard deckCard = new DeckCard(deck1, id_card);
+            System.out.println("-------------PRINT------------------------");
+            System.out.println("Crd: "+deckCard.getId_card()+" Deck: "+deckCard.getDeck().getId()+" Id_Propio del deckCard:"+deckCard.getId());
+            System.out.println("------------------------------------------");
             deckCardRepository.save(deckCard);
         }
 
