@@ -87,15 +87,15 @@ public class DeckController {
     public void setCardDeck(@PathVariable long id_deck, @PathVariable String id_card){
 
         //puedes ir a base de datos a checkar que los ids existen
-        Optional<Deck> deck = deckRepository.findById(1L);
+        Optional<Deck> deck = deckRepository.findById(id_deck);
         if (deck.isPresent()) {
-            Deck deck1 = new Deck();
-            deck1.setId(id_deck);
-            DeckCard deckCard = new DeckCard(deck1, id_card);
+            Deck deckEntity = deck.get();  // No es necesario crear un nuevo objeto Deck
+            DeckCard deckCard = new DeckCard(deckEntity, id_card);
+//            deckCard.setId(0L);
             System.out.println("-------------PRINT------------------------");
             System.out.println("Crd: "+deckCard.getId_card()+" Deck: "+deckCard.getDeck().getId()+" Id_Propio del deckCard:"+deckCard.getId());
             System.out.println("------------------------------------------");
-            deckCardRepository.save(deckCard);
+            deckCardRepository.save(deckCard);  // Guarda el DeckCard
         }
 
         //DeckCard  se compone de Card y Deck

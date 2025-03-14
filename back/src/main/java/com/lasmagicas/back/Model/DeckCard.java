@@ -32,14 +32,15 @@ public class DeckCard {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_deck")
+    @JoinColumn(name = "deck_id")
     private Deck deck;
 
     //@ManyToOne
-    @JoinColumn(name = "id_card")
+    @Column(name = "card_id")
     private String id_card;
 
     public DeckCard(Deck deck, String id_card) {
+        this.id = null;
         this.deck = deck;
         this.id_card = id_card;
     }
