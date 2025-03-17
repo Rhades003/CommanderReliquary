@@ -1,8 +1,12 @@
 package com.lasmagicas.back.DTO;
 
+import com.lasmagicas.back.Model.Card;
 import com.lasmagicas.back.Model.Deck;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
+import java.util.Optional;
 
 @Data
 @NoArgsConstructor
@@ -12,7 +16,7 @@ public class DeckResponse {
     Long userId;
     String commander;
     String identity;
-    String cards [];
+    List<Optional<Card>> cards;
 
     public DeckResponse(Deck deckEntity){
 

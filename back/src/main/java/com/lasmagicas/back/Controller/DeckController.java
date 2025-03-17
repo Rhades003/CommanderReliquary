@@ -9,12 +9,14 @@ import com.lasmagicas.back.Model.User;
 import com.lasmagicas.back.Repository.DeckCardRepository;
 import com.lasmagicas.back.Repository.DeckRepository;
 import com.lasmagicas.back.Repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,8 +24,8 @@ import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping("decks")
+@Slf4j
 public class DeckController {
-
     private static final Logger logger = LoggerFactory.getLogger(DeckController.class);
 
     @Autowired
@@ -32,6 +34,9 @@ public class DeckController {
     private UserRepository userRepository;
     @Autowired
     private DeckCardRepository deckCardRepository;
+
+    @Autowired
+    private CardController cardController;
 
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
     @PostMapping("/createDeck")
@@ -46,20 +51,9 @@ public class DeckController {
             deckEntity.setCommander(deck.getCommander());
             deckEntity.setIdentity(deck.getIdentity());
 
-            //List<User> userrr = user.stream().map(User::new).toList();
-
             //Forma nueva
             deckEntity.setUser(user.orElseThrow());
 
-            /*Forma Old
-            User userrr = new User();
-            userrr.setId(user.get().getId());
-            userrr.setCreatedAt(user.get().getCreatedAt());
-            userrr.setDecks(user.get().getDecks());
-            userrr.setName(user.get().getName());
-            userrr.setEmail(user.get().getEmail());
-            userrr.setPassword(user.get().getPassword());
-            deckEntity.setUser(userrr);*/
             deckRepository.save(deckEntity);
             System.out.println(deckEntity.getId()+" "+  deckEntity.getCommander()+" "+ deckEntity.getUser()+" "+deckEntity.getIdentity()+" "+ deckEntity.getName());
         //return deck;
@@ -67,17 +61,41 @@ public class DeckController {
         return null;
     }
 
+    public @ResponseBody List<DeckCard> getAllCardsFromDeck(@PathVariable long deck_id) {
+        return deckCardRepository.findByDeck_Id(deck_id);
+    }
+
+
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
     @GetMapping("/getDecks/{id_user}")
     public @ResponseBody List<DeckResponse> getDecksByUser(@PathVariable long id_user) {
-        //return deckRepository.findAll(Pageable.ofSize(25));
-        //System.out.println(request.uri().getUserInfo());
-        //ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        //System.out.println("---------------------"+attr.getRequest().getSession(true).getId());
-        Optional<User> user = userRepository.findById(id_user);
 
-        if(user != null) return user.get().getDecks().stream().map(DeckResponse::new).collect(toList());
-            //return deckRepository.findByUser(user);
+        Optional<User> user = userRepository.findById(id_user);
+        if(user.isPresent()) {
+
+            //return user.get().getDecks().stream().map(DeckResponse::new).collect(toList());
+            List<DeckResponse> decks = user.get().getDecks().stream().map(DeckResponse::new).collect(toList());
+
+            decks.forEach((deck) -> {
+                List<Optional<Card>> cards = new ArrayList<>();
+                List<DeckCard> decksCards= getAllCardsFromDeck(deck.getId());
+
+                    decksCards.forEach((deckCard -> {
+                        Optional<Card> card = cardController.getCard(deckCard.getId_card());
+                        if(card.isPresent()) {
+                            System.out.println(card.get().getName());
+                            cards.add(cardController.getCard(deckCard.getId_card()));
+                        }
+                    }));
+
+                deck.setCards(cards);
+                deck.getCards().forEach(card -> {
+                    if(card.isPresent()) log.info(card.get().getName());
+                });
+            });
+            return decks;
+        }
+
         else return null;
     }
 
@@ -86,20 +104,13 @@ public class DeckController {
     @GetMapping("/{id_deck}/cards/{id_card}")
     public void setCardDeck(@PathVariable long id_deck, @PathVariable String id_card){
 
-        //puedes ir a base de datos a checkar que los ids existen
+
         Optional<Deck> deck = deckRepository.findById(id_deck);
         if (deck.isPresent()) {
             Deck deckEntity = deck.get();  // No es necesario crear un nuevo objeto Deck
             DeckCard deckCard = new DeckCard(deckEntity, id_card);
-//            deckCard.setId(0L);
-            System.out.println("-------------PRINT------------------------");
-            System.out.println("Crd: "+deckCard.getId_card()+" Deck: "+deckCard.getDeck().getId()+" Id_Propio del deckCard:"+deckCard.getId());
-            System.out.println("------------------------------------------");
+
             deckCardRepository.save(deckCard);  // Guarda el DeckCard
         }
-
-        //DeckCard  se compone de Card y Deck
-        //creamos un objeto del deckCard con los ids, invoco al repo.save y se lo paso.
-
     }
 }
