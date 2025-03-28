@@ -1,30 +1,18 @@
 package com.lasmagicas.back.Model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 @Entity
-@Getter
-@Setter
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Table(name = "decksCards")
 public class DeckCard {
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "deck_id")
-
-
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "id_deck", referencedColumnName = "id")
-//    @Column(name="id_deck")
-//    private Deck id_deck;
-
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "card_id")
-//    @Column(name="id_card")
-//    private Card id_card;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

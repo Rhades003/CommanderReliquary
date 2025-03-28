@@ -1,5 +1,6 @@
 package com.lasmagicas.back.Model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,6 +13,7 @@ import java.util.Set;
 
 @Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Table(name = "decks")
 public class Deck {
 
@@ -29,9 +31,6 @@ public class Deck {
     private User user;
 
 
-    //@ManyToOne(cascade = CascadeType.MERGE)
-    //@JoinColumn(name = "id_card")
-    //private DeckCard deckCard;
     @OneToMany(mappedBy = "deck", cascade = CascadeType.ALL)
     private List<DeckCard> deckCards;
 

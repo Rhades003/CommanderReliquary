@@ -1,8 +1,7 @@
 package com.lasmagicas.back.Model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,22 +16,25 @@ import java.util.List;
 
 
 @Entity
-@Getter @Setter @NoArgsConstructor
+@Getter
+@Setter
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@NoArgsConstructor
 @Table(name = "users")
 public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name="user")
+    @Column(name = "user")
     private String name;
 
-    @Column(name="email", unique = true, nullable = false)
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
 
-    @Column(name = "password",  nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
     @CreationTimestamp

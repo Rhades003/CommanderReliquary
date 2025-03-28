@@ -5,7 +5,6 @@ import com.lasmagicas.back.Model.Card;
 import com.lasmagicas.back.Model.Deck;
 import com.lasmagicas.back.Model.DeckCard;
 import com.lasmagicas.back.Model.User;
-//import com.lasmagicas.back.Repository.DeckCardRepository;
 import com.lasmagicas.back.Repository.DeckCardRepository;
 import com.lasmagicas.back.Repository.DeckRepository;
 import com.lasmagicas.back.Repository.UserRepository;
@@ -81,17 +80,13 @@ public class DeckController {
                 List<DeckCard> decksCards= getAllCardsFromDeck(deck.getId());
 
                     decksCards.forEach((deckCard -> {
+
                         Optional<Card> card = cardController.getCard(deckCard.getId_card());
-                        if(card.isPresent()) {
-                            System.out.println(card.get().getName());
-                            cards.add(cardController.getCard(deckCard.getId_card()));
-                        }
+                        if(card.isPresent()) cards.add(cardController.getCard(deckCard.getId_card()));
+
                     }));
 
                 deck.setCards(cards);
-                deck.getCards().forEach(card -> {
-                    if(card.isPresent()) log.info(card.get().getName());
-                });
             });
             return decks;
         }
