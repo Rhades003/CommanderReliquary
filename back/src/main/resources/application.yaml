@@ -1,0 +1,57 @@
+spring:
+  application:
+    name: back
+  server:
+    port: 8080
+
+  # First DDBB connection (MongoDB)
+  data:
+    mongodb:
+      uri: mongodb://192.168.237.95:27017/MTGCards
+
+  # Second DDBB connection (MySQL)
+  datasource:
+    username: usuario
+    password: usuario
+    url: jdbc:mysql://192.168.237.95:3306/commander_reliquary
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
+# JWT Configuration
+application:
+  security:
+    jwt:
+      secret-key: McvbIKwPajhmKBwFUdHDxzvfWeAZgaJ8XJr6cBsvNkPI9VUvAWw7gzFMV6ZhHsI
+      expiration: 86400000
+      refresh-token:
+        expiration: 604800000
+
+# Session Configuration
+server:
+  servlet:
+    session:
+      timeout: 600
+      cookie:
+        name: commander_reliquary
+        http-only: true
+        secure: true
+
+# Logging Configuration
+logging:
+  level:
+    root: INFO
+    org:
+      springframework: INFO
+log4j:
+  logger:
+    org:
+      hibernate:
+        type: trace

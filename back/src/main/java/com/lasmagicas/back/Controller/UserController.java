@@ -58,7 +58,7 @@ public class UserController {
         Optional<User> user2 = userRepository.findByEmail(user.getEmail());
 
         if (user2.isPresent()) {
-            if (!passwordEncoder.matches(user.getPassword(), user2.get().getPassword())) return "Email incorrecto";
+            if (!passwordEncoder.matches(user.getPassword(), user2.get().getPassword())) return "Contraseña incorrecto";
         }
         else return "Usuario con el email requerido no encontrado";
 
