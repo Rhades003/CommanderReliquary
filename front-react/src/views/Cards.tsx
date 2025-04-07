@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../components/Card';
 import CardDoubleFace from '../components/CardDoubleFace';
-/*
+
 interface CardProps {
   id:string;
   name:string;
@@ -34,7 +34,7 @@ card: {
 };
 }
 
-type CardType = CardDoubleFaceProps | CardProps; */
+type CardType = CardDoubleFaceProps | CardProps; 
 
 const Cards = () => {
   
@@ -42,7 +42,7 @@ const Cards = () => {
 
     useEffect(() => {
         const obtenerCartas = async () => {
-          const res = await fetch('http://192.168.1.137:8080/cards/2', {
+          const res = await fetch('http://localhost:8080/cards/getAllCards/1', {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',

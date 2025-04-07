@@ -3,6 +3,7 @@ package com.lasmagicas.back.Controller;
 import com.lasmagicas.back.DTO.UserResponse;
 import com.lasmagicas.back.Model.User;
 import com.lasmagicas.back.Repository.UserRepository;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -54,14 +55,15 @@ public class UserController {
 
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
     @PostMapping("/login")
-    public String login(@Valid @RequestBody User user){
+    public String login(@Valid @RequestBody User user, HttpSession session){
         Optional<User> user2 = userRepository.findByEmail(user.getEmail());
 
         if (user2.isPresent()) {
             if (!passwordEncoder.matches(user.getPassword(), user2.get().getPassword())) return "Contraseña incorrecto";
         }
         else return "Usuario con el email requerido no encontrado";
-
+        session.setAttribute("userId", user.getId());
+        session.setAttribute("userName", user.getName());
         return "true";
     }
 }

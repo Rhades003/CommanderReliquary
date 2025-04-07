@@ -8,13 +8,13 @@ import com.lasmagicas.back.Model.User;
 import com.lasmagicas.back.Repository.DeckCardRepository;
 import com.lasmagicas.back.Repository.DeckRepository;
 import com.lasmagicas.back.Repository.UserRepository;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -39,9 +39,12 @@ public class DeckController {
 
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
     @PostMapping("/createDeck")
-    public Deck create(@RequestBody DeckResponse deck) {
-        //System.out.println(request.uri().getUserInfo());
+    public DeckResponse create(@RequestBody DeckResponse deck, HttpSession session) {
+        //Cambiar 1L de parámetro por el id del usuario de la session
         Optional<User> user = userRepository.findById(1L);
+        //Long idSessionUser = (Long) session.getAttribute("userId");
+        //System.out.println(idSessionUser);
+        //Optional<User> user = userRepository.findById(idSessionUser);
 
         if (user.isPresent()) {
             deck.setUserId(user.get().getId());
@@ -55,7 +58,9 @@ public class DeckController {
 
             deckRepository.save(deckEntity);
             System.out.println(deckEntity.getId()+" "+  deckEntity.getCommander()+" "+ deckEntity.getUser()+" "+deckEntity.getIdentity()+" "+ deckEntity.getName());
-        //return deck;
+
+
+        return deck;
         }
         return null;
     }
