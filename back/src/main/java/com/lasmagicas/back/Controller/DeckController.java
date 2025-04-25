@@ -8,7 +8,6 @@ import com.lasmagicas.back.Model.User;
 import com.lasmagicas.back.Repository.DeckCardRepository;
 import com.lasmagicas.back.Repository.DeckRepository;
 import com.lasmagicas.back.Repository.UserRepository;
-import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,9 +38,9 @@ public class DeckController {
 
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
     @PostMapping("/createDeck")
-    public DeckResponse create(@RequestBody DeckResponse deck, HttpSession session) {
+    public DeckResponse create(@RequestBody DeckResponse deck) {
         //Cambiar 1L de parámetro por el id del usuario de la session
-        Optional<User> user = userRepository.findById(1L);
+        Optional<User> user = userRepository.findById(2L);
         //Long idSessionUser = (Long) session.getAttribute("userId");
         //System.out.println(idSessionUser);
         //Optional<User> user = userRepository.findById(idSessionUser);
@@ -102,15 +101,22 @@ public class DeckController {
     @Transactional
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
     @GetMapping("/{id_deck}/cards/{id_card}")
-    public void setCardDeck(@PathVariable long id_deck, @PathVariable String id_card){
+    public DeckCard setCardDeck(@PathVariable long id_deck, @PathVariable String id_card){
 
 
         Optional<Deck> deck = deckRepository.findById(id_deck);
         if (deck.isPresent()) {
+            System.out.println(id_card);
+            deck.get().getDeckCards().forEach(c -> System.out.println(c.getId_card()));
+            if(deck.get().getDeckCards().stream().anyMatch(b -> b.getId_card().equals(id_card))){
+                return null;
+            }
             Deck deckEntity = deck.get();  // No es necesario crear un nuevo objeto Deck
             DeckCard deckCard = new DeckCard(deckEntity, id_card);
 
             deckCardRepository.save(deckCard);  // Guarda el DeckCard
+            return deckCard;
         }
+        return null;
     }
 }

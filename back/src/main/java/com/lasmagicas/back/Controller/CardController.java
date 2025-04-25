@@ -24,7 +24,7 @@ public class CardController {
     }
 
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
-    @GetMapping("/{id}")
+    @GetMapping("card/{id}")
     public Optional<Card> getCard(@PathVariable String id){
         return cardRepository.findById(id);
     }

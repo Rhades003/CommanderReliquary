@@ -3,6 +3,9 @@ package com.lasmagicas.back.Controller;
 import com.lasmagicas.back.DTO.UserResponse;
 import com.lasmagicas.back.Model.User;
 import com.lasmagicas.back.Repository.UserRepository;
+import com.lasmagicas.back.security.JwtUtil;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtBuilder;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.http.HttpRequest;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,15 +61,16 @@ public class UserController {
 
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
     @PostMapping("/login")
-    public String login(@Valid @RequestBody User user, HttpSession session){
+    public String login(@Valid @RequestBody User user, HttpSession session) throws NoSuchAlgorithmException, KeyStoreException {
         Optional<User> user2 = userRepository.findByEmail(user.getEmail());
 
         if (user2.isPresent()) {
-            if (!passwordEncoder.matches(user.getPassword(), user2.get().getPassword())) return "Contraseña incorrecto";
+            if (!passwordEncoder.matches(user.getPassword(), user2.get().getPassword())) return "Contraseña incorrecta";
         }
-        else return "Usuario con el email requerido no encontrado";
-        session.setAttribute("userId", user.getId());
-        session.setAttribute("userName", user.getName());
-        return "true";
+        else return "aAAAAAAAAAaaaa";
+
+        JwtUtil jwtUtil = new JwtUtil();
+        return jwtUtil.generateToken(user.getUsername());
     }
+
 }

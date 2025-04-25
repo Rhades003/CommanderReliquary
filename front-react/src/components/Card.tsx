@@ -26,7 +26,7 @@ const Card: React.FC<CardProps>  = ({card}) => {
             <p className='typeCard'>{card.type_line}</p> 
         </div>        
     </div>
-  )
+  );
 }
 
 export default Card;

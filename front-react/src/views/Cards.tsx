@@ -2,40 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Card from '../components/Card';
 import CardDoubleFace from '../components/CardDoubleFace';
 
-interface CardProps {
-  id:string;
-  name:string;
-  mana_cost:string;
-  rarity:string;
-  type_line:string;
-  image_uris: {
-    small:string;
-    normal:string;
-    large:string;
-    png:string;
-  };
-}
-
-interface CardDoubleFaceProps {
-card: {
-  id:string;
-  name:string;
-  mana_cost:string;
-  rarity:string;
-  type_line:string;
-  card_faces: [CardProps, CardProps];
-  image_uris: {
-    small:string;
-    normal:string;
-    large:string;
-    png:string;
-  };
-  
-};
-}
-
-type CardType = CardDoubleFaceProps | CardProps; 
-
 const Cards = () => {
   
     const [cardList, setCardList] = useState<any[]>([]);

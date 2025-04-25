@@ -55,3 +55,5 @@ log4j:
     org:
       hibernate:
         type: trace
+key:
+  secret: "oYvyCQpju9nFAC2r9Q9kkh8l0Nawi7ITnIZGs9Id"
