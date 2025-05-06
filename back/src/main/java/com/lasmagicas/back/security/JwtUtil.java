@@ -21,8 +21,8 @@ import java.util.Date;
 import static org.springframework.cache.interceptor.SimpleKeyGenerator.generateKey;
 
 public class JwtUtil {
-    @Value("#{aplication.security.jwt.secret-key}")
-    private String keyOrigin;
+    //@Value("#{aplication.security.jwt.secret-key}")
+    private String keyOrigin = "+Ck0TDxFSrboNXUZxLZEDSMZK4glQ3EJJyeFAaQe4ghKXftfH2Hyi5eDjEwTg";
 
     public String generateToken(String email) throws NoSuchAlgorithmException, KeyStoreException {
         byte[] keyBytes = Decoders.BASE64URL.decode(keyOrigin);

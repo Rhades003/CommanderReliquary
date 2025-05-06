@@ -1,6 +1,6 @@
 import './App.css';
 import Cards from './views/Cards.tsx';
-import FormRegister from './views/Login';
+import Login from './views/Login';
 import HomeDecks from './views/Deck';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -14,7 +14,7 @@ function App() {
       <Router>
       <Routes>
         <Route path="/" element={<Cards />} />
-        <Route path="/register" element={<FormRegister />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/deck" element={<HomeDecks />} />
         
       </Routes>

@@ -18,6 +18,7 @@ import java.net.http.HttpRequest;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,16 +62,24 @@ public class UserController {
 
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
     @PostMapping("/login")
-    public String login(@Valid @RequestBody User user, HttpSession session) throws NoSuchAlgorithmException, KeyStoreException {
+    public HashMap<String, String> login(@Valid @RequestBody User user, HttpSession session) throws NoSuchAlgorithmException, KeyStoreException {
         Optional<User> user2 = userRepository.findByEmail(user.getEmail());
-
+        HashMap<String, String> data = new HashMap<>();
+        data.put("status", "401");
+        data.put("message","credenciales incorrectas");
         if (user2.isPresent()) {
-            if (!passwordEncoder.matches(user.getPassword(), user2.get().getPassword())) return "Contraseña incorrecta";
+            if (!passwordEncoder.matches(user.getPassword(), user2.get().getPassword())) return data;
         }
-        else return "aAAAAAAAAAaaaa";
+        else return data;
 
         JwtUtil jwtUtil = new JwtUtil();
-        return jwtUtil.generateToken(user.getUsername());
+        String token = jwtUtil.generateToken(user.getUsername());
+
+
+        data.put("status", "200");
+        data.put("message","login succesfull");
+        data.put("token", token);
+        return data;
     }
 
 }

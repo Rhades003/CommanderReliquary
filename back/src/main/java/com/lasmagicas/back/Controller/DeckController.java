@@ -65,6 +65,14 @@ public class DeckController {
         return deckCardRepository.findByDeck_Id(deck_id);
     }
 
+    @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
+    @GetMapping("/prueba")
+    public String prueba() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        return email;
+    }
+
+
 
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
     @GetMapping("/getDecks/{id_user}")
@@ -109,6 +117,8 @@ public class DeckController {
             if(deck.get().getDeckCards().stream().anyMatch(b -> b.getId_card().equals(id_card))){
                 return null;
             }
+
+
             Deck deckEntity = deck.get();  // No es necesario crear un nuevo objeto Deck
             DeckCard deckCard = new DeckCard(deckEntity, id_card);
 
