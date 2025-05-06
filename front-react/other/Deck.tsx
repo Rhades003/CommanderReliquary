@@ -1,4 +1,4 @@
-import React from 'react'
+/*import React from 'react'
 import { useState, useEffect } from 'react';
 import Card from '../components/Card';
 import CardDoubleFace from '../components/CardDoubleFace';
@@ -96,4 +96,4 @@ const Deck= () => {
 
 }
 
-export default Deck;
+export default Deck;*/

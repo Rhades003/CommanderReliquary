@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
@@ -39,11 +40,7 @@ public class DeckController {
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
     @PostMapping("/createDeck")
     public DeckResponse create(@RequestBody DeckResponse deck) {
-        //Cambiar 1L de parámetro por el id del usuario de la session
         Optional<User> user = userRepository.findById(2L);
-        //Long idSessionUser = (Long) session.getAttribute("userId");
-        //System.out.println(idSessionUser);
-        //Optional<User> user = userRepository.findById(idSessionUser);
 
         if (user.isPresent()) {
             deck.setUserId(user.get().getId());
@@ -73,10 +70,11 @@ public class DeckController {
     @GetMapping("/getDecks/{id_user}")
     public @ResponseBody List<DeckResponse> getDecksByUser(@PathVariable long id_user) {
 
-        Optional<User> user = userRepository.findById(id_user);
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        Optional<User> user = userRepository.findByEmail(email);
         if(user.isPresent()) {
 
-            //return user.get().getDecks().stream().map(DeckResponse::new).collect(toList());
             List<DeckResponse> decks = user.get().getDecks().stream().map(DeckResponse::new).collect(toList());
 
             decks.forEach((deck) -> {
