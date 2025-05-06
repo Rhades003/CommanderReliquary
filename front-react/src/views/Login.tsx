@@ -28,7 +28,7 @@ const Register = () => {
                 "email":"ruben@gmail.com",
                 "password":"ruben1234"
             })
-            .then((response) => {
+            .then((response:any) => {
                 if(response.status == 200) {
                     console.log(response.data);
                     if(response.data.status == "200"){
@@ -47,13 +47,14 @@ const Register = () => {
         ev.preventDefault(); 
 
         let token:string = localStorage.getItem("token")!;
+        console.log(token);
         axios.get(api+"/decks/prueba",{
             headers: {
-                'Authorization': 'Bearer '+token,
+                'Authorization': `Bearer ${token}`,
             }
         }
             )
-            .then((response) => {
+            .then((response:any) => {
                     console.log(response);
             });
     }

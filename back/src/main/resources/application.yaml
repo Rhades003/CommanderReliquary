@@ -13,7 +13,7 @@ spring:
   datasource:
     username: usuario
     password: usuario
-    url: jdbc:mysql://192.168.237.95:3306/commander_reliquary
+    url: jdbc:mysql://10.2.244.119:3306/commander_reliquary
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:

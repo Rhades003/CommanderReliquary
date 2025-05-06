@@ -1,5 +1,6 @@
 package com.lasmagicas.back.security;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -33,12 +34,36 @@ public class JwtUtil {
 
         Date creationDate = new Date();
         Date expirationDate = new Date(creationDate.getTime() + 86400000);
+        System.out.println("email: "+email);
         return Jwts.builder()
                 .setSubject(email)
                 .setIssuedAt(creationDate)
                 .setExpiration(expirationDate)
                 .signWith(key)
                 .compact();
+    }
+
+    public String getEmailFromToken(String token) {
+        System.out.println(token);
+        if (token.startsWith("Bearer ") && !token.substring(7).equals("null")) {
+
+            byte[] keyBytes = Decoders.BASE64URL.decode(keyOrigin);
+            Key key = Keys.hmacShaKeyFor(keyBytes);
+            String tokenFinal = token.substring(7);
+
+            Claims claims = Jwts.parser()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(tokenFinal)
+                    .getBody();
+
+            System.out.println(claims);
+            System.out.println(claims.getSubject());
+            return claims.getSubject();
+        }
+        System.out.println("skip if");
+        return null;
+
     }
 }
 

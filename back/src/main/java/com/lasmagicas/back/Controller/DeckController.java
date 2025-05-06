@@ -8,6 +8,9 @@ import com.lasmagicas.back.Model.User;
 import com.lasmagicas.back.Repository.DeckCardRepository;
 import com.lasmagicas.back.Repository.DeckRepository;
 import com.lasmagicas.back.Repository.UserRepository;
+import com.lasmagicas.back.security.JwtUtil;
+import io.jsonwebtoken.security.Request;
+import jakarta.security.auth.message.callback.SecretKeyCallback;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +39,8 @@ public class DeckController {
 
     @Autowired
     private CardController cardController;
+
+    JwtUtil jwtUtil = new JwtUtil();
 
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
     @PostMapping("/createDeck")
@@ -67,18 +72,20 @@ public class DeckController {
 
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
     @GetMapping("/prueba")
-    public String prueba() {
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        return email;
+    public String prueba(@RequestHeader("Authorization") String token) {
+        String email = jwtUtil.getEmailFromToken(token);
+
+        if(email != null) return email;
+        else return "email null";
     }
 
 
 
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
     @GetMapping("/getDecks/{id_user}")
-    public @ResponseBody List<DeckResponse> getDecksByUser(@PathVariable long id_user) {
+    public @ResponseBody List<DeckResponse> getDecksByUser(@RequestHeader("Authorization") String token) {
 
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        String email = jwtUtil.getEmailFromToken(token);
 
         Optional<User> user = userRepository.findByEmail(email);
         if(user.isPresent()) {

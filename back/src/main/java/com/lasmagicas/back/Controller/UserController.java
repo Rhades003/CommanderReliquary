@@ -33,6 +33,8 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    JwtUtil jwtUtil = new JwtUtil();
+
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
     @GetMapping("/getAllUsers")
     public @ResponseBody Iterable<UserResponse> getAllUser(){
@@ -72,8 +74,8 @@ public class UserController {
         }
         else return data;
 
-        JwtUtil jwtUtil = new JwtUtil();
-        String token = jwtUtil.generateToken(user.getUsername());
+        System.out.println("Emial en el matodo login "+user.getEmail());
+        String token = jwtUtil.generateToken(user.getEmail());
 
 
         data.put("status", "200");
