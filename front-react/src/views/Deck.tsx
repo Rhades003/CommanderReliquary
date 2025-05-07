@@ -11,6 +11,9 @@ const Deck: React.FC = () => {
 
   const [decks, setDecks] = useState<any[]>([]);
 
+  const [commander, setCommander] = useState<any>();
+  let commanderInfo:any;
+
   useEffect(() => {
     const token = localStorage.getItem("token")!;
     axios
@@ -33,6 +36,8 @@ const Deck: React.FC = () => {
           const lastDeck = fullDecks[fullDecks.length - 1];
           setSelectedDeck(lastDeck.id);
           setCards(lastDeck.cards);
+          setCommander(lastDeck.commanderInfo);
+          commanderInfo = response.data.commanderInfo;
         }
       })
       .catch((error) => {
@@ -50,18 +55,20 @@ const Deck: React.FC = () => {
     const selected = decks.find((d) => d.id === deckId);
     if (selected) {
       setCards(selected.cards);
+      setCommander(selected.commanderInfo);
       console.log(cards);
     }
     
   };
-
+  console.log("commander?");
+  console.log(commanderInfo);
   return (
     <div className="min-h-screen bg-gray-950 text-white">
       <Header />
       <div className="flex">
         <DeckSidebar decks={nameDecks} onSelect={handleSelectDeck} />
 
-        <MainContent results={[]} selected={cards} />
+        <MainContent results={[]} selected={cards} commander={commander}/>
       </div>
     </div>
   );

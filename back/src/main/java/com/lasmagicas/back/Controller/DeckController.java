@@ -83,6 +83,8 @@ public class DeckController {
             List<DeckResponse> decks = user.get().getDecks().stream().map(DeckResponse::new).collect(toList());
 
             decks.forEach((deck) -> {
+                Optional<Card> cardCommander = cardController.getCard(deck.getCommander());
+                deck.setCommanderInfo(cardCommander);
                 List<Optional<Card>> cards = new ArrayList<>();
                 List<DeckCard> decksCards= getAllCardsFromDeck(deck.getId());
 

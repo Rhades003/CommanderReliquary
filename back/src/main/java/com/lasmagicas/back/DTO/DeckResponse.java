@@ -17,6 +17,7 @@ public class DeckResponse {
     String name;
     Long userId;
     String commander;
+    Optional<Card> commanderInfo;
     String identity;
     List<Optional<Card>> cards;
 

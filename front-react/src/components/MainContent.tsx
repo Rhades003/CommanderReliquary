@@ -1,6 +1,7 @@
 import React from 'react';
 import CardGrid from './CardGrid';
 import Card from './Card';
+import SearchBar from './SearchBar';
 
 interface CardProps {
   id:string;
@@ -19,12 +20,15 @@ interface CardProps {
 interface MainContentProps {
   results: CardProps[];
   selected: CardProps[];
+  commander: CardProps;
 }
 
-const MainContent: React.FC<MainContentProps> = ({ results, selected }) => (
+const MainContent: React.FC<MainContentProps> = ({ results, selected, commander }) => (
   <main className="flex w-full gap-4 p-4">
+    <SearchBar />
     <CardGrid title="Search Results" cards={results} />
-    <CardGrid title="Commander" cards={selected} />
+    
+    <CardGrid title="Commander" cards={selected}  commander={commander}/>
   </main>
 );
 

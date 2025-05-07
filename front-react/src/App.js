@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Cards />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/deck" element={<HomeDecks />} />
+        <Route path="/decks" element={<HomeDecks />} />
         
       </Routes>
       </Router>
