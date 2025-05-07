@@ -7,7 +7,7 @@ spring:
   # First DDBB connection (MongoDB)
   data:
     mongodb:
-      uri: mongodb://192.168.237.95:27017/MTGCards
+      uri: mongodb://10.2.244.119:27017/MTGCards
 
   # Second DDBB connection (MySQL)
   datasource:

@@ -1,5 +1,6 @@
 package com.lasmagicas.back.Controller;
 
+import com.lasmagicas.back.DTO.DeckCardResponse;
 import com.lasmagicas.back.DTO.DeckResponse;
 import com.lasmagicas.back.Model.Card;
 import com.lasmagicas.back.Model.Deck;
@@ -9,13 +10,10 @@ import com.lasmagicas.back.Repository.DeckCardRepository;
 import com.lasmagicas.back.Repository.DeckRepository;
 import com.lasmagicas.back.Repository.UserRepository;
 import com.lasmagicas.back.security.JwtUtil;
-import io.jsonwebtoken.security.Request;
-import jakarta.security.auth.message.callback.SecretKeyCallback;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
@@ -24,6 +22,7 @@ import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
+@CrossOrigin(origins = "http://127.0.0.1:3000")
 @RestController
 @RequestMapping("decks")
 @Slf4j
@@ -45,7 +44,7 @@ public class DeckController {
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
     @PostMapping("/createDeck")
     public DeckResponse create(@RequestBody DeckResponse deck) {
-        Optional<User> user = userRepository.findById(2L);
+        Optional<User> user = userRepository.findById(10L);
 
         if (user.isPresent()) {
             deck.setUserId(user.get().getId());
@@ -70,24 +69,15 @@ public class DeckController {
         return deckCardRepository.findByDeck_Id(deck_id);
     }
 
-    @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
-    @GetMapping("/prueba")
-    public String prueba(@RequestHeader("Authorization") String token) {
-        String email = jwtUtil.getEmailFromToken(token);
-
-        if(email != null) return email;
-        else return "email null";
-    }
-
-
 
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
-    @GetMapping("/getDecks/{id_user}")
+    @GetMapping("/getDecks")
     public @ResponseBody List<DeckResponse> getDecksByUser(@RequestHeader("Authorization") String token) {
 
         String email = jwtUtil.getEmailFromToken(token);
-
+        System.out.println("email es este: "+email);
         Optional<User> user = userRepository.findByEmail(email);
+        System.out.println("Id es este: "+user.get().getId());
         if(user.isPresent()) {
 
             List<DeckResponse> decks = user.get().getDecks().stream().map(DeckResponse::new).collect(toList());
@@ -114,7 +104,7 @@ public class DeckController {
     @Transactional
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
     @GetMapping("/{id_deck}/cards/{id_card}")
-    public DeckCard setCardDeck(@PathVariable long id_deck, @PathVariable String id_card){
+    public DeckCardResponse setCardDeck(@PathVariable long id_deck, @PathVariable String id_card){
 
 
         Optional<Deck> deck = deckRepository.findById(id_deck);
@@ -129,8 +119,9 @@ public class DeckController {
             Deck deckEntity = deck.get();  // No es necesario crear un nuevo objeto Deck
             DeckCard deckCard = new DeckCard(deckEntity, id_card);
 
-            deckCardRepository.save(deckCard);  // Guarda el DeckCard
-            return deckCard;
+            deckCardRepository.save(deckCard);
+            DeckCardResponse deckCardResponse = new DeckCardResponse(deckCard, deckCard.getId_card());// Guarda el DeckCard
+            return deckCardResponse;
         }
         return null;
     }

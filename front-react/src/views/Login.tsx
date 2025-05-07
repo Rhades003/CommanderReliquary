@@ -59,7 +59,7 @@ const Register = () => {
             });
     }
     return (
-        <form method="post" onSubmit={ev => { prueba(ev) }}>
+        <form method="post" onSubmit={ev => { login(ev) }}>
             <EmailInput onEmailChange={handleEmailChange} />
             <PasswordInput onPasswordChange={handlePasswordChange} />
             <button type="submit" disabled={disabled}>Login</button>

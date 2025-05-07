@@ -2,15 +2,23 @@ import React from 'react';
 import CardGrid from './CardGrid';
 import Card from './Card';
 
-interface CardData {
-  id: string;
-  img: string;
-  title: string;
-}
+interface CardProps {
+  id:string;
+  name:string;
+  mana_cost:string;
+  rarity:string;
+  type_line:string;
+  image_uris: {
+    small:string;
+    normal:string;
+    large:string;
+    png:string;
+  };
+};
 
 interface MainContentProps {
-  results: CardData[];
-  selected: CardData[];
+  results: CardProps[];
+  selected: CardProps[];
 }
 
 const MainContent: React.FC<MainContentProps> = ({ results, selected }) => (

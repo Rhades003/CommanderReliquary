@@ -23,13 +23,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         return http.authorizeHttpRequests(request ->
-                request.requestMatchers("/cards/**").permitAll()
-                        .requestMatchers("/users/**").permitAll()
-                        .requestMatchers("/decks/**").permitAll()
-                        .requestMatchers("/decks/create").authenticated()
-                        .requestMatchers("/decks/**").permitAll()
-                        .requestMatchers("/decks/getDecks/**").permitAll()
-                        .requestMatchers("/decks/{id_deck}/cards/{id_card}").permitAll()
+                request.requestMatchers("/**").permitAll()
                         //.authenticated()
                 )
                 .formLogin(Customizer.withDefaults())

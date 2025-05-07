@@ -3,10 +3,14 @@ import ColorCheckbox from './ColorCheckbox';
 import DeckItem from './DeckItem';
 
 interface DeckSidebarProps {
-  decks: { name: string; colors: string[] }[] | null;
+  decks: {
+    id: number;
+    name: string;
+    identity: string;
+  }[];
+  onSelect: (deckId: number) => void;
 }
-
-const DeckSidebar: React.FC<DeckSidebarProps> = ({ decks }) => {
+const DeckSidebar: React.FC<DeckSidebarProps> = ({ decks, onSelect }) => {
   if (!decks) return null;
 
   return (
@@ -20,9 +24,15 @@ const DeckSidebar: React.FC<DeckSidebarProps> = ({ decks }) => {
       </div>
       <button className="bg-purple-600 px-3 py-1 rounded text-white mb-4">Create</button>
       <div className="space-y-2">
-        {decks.map((deck, i) => (
-          <DeckItem key={i} name={deck.name} colors={deck.colors} />
-        ))}
+      {decks.map((deck, i) => (
+  <DeckItem
+    key={i}
+    name={deck.name}
+    colors={deck.identity}
+    onClick={() => onSelect(deck.id)}
+  />
+))}
+
       </div>
     </aside>
   );
