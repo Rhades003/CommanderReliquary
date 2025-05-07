@@ -12,7 +12,6 @@ interface DeckSidebarProps {
 }
 const DeckSidebar: React.FC<DeckSidebarProps> = ({ decks, onSelect }) => {
   if (!decks) return null;
-
   return (
     <aside className="w-1/5 bg-gray-900 text-white p-4">
       <h2 className="text-lg font-semibold mb-2">Decks</h2>
