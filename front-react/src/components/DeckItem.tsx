@@ -55,7 +55,7 @@ const DeckItem: React.FC<DeckItemProps> = ({ name, colors, onClick }) => {
       <p>{name}</p>
       <div className='identityColor'>
         {identity.map(color =>
-          <img src={color} height={"30rem"} />
+          <img src={color} height={"30rem"} key={color}/>
         )}
 
       </div>

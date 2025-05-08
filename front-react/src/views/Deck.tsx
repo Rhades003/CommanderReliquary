@@ -3,6 +3,21 @@ import Header from '../components/Header';
 import DeckSidebar from '../components/DeckSidebar';
 import MainContent from '../components/MainContent';
 import axios from "axios";
+import SearchBar from '../components/SearchBar';
+
+interface CardProps {
+  id:string;
+  name:string;
+  mana_cost:string;
+  rarity:string;
+  type_line:string;
+  image_uris: {
+    small:string;
+    normal:string;
+    large:string;
+    png:string;
+  };
+};
 
 const Deck: React.FC = () => {
   const [nameDecks, setNameDecks] = useState<{ id: number; name: string; identity: string }[]>([]);
@@ -11,9 +26,19 @@ const Deck: React.FC = () => {
 
   const [decks, setDecks] = useState<any[]>([]);
 
-  const [commander, setCommander] = useState<any>();
+  const [commander, setCommander] = useState<CardProps>();
   let commanderInfo:any;
 
+  const [selectedDeck, setSelectedDeck] = useState<number | null>(null);
+  const [cards, setCards] = useState<CardProps[]>([]);
+
+
+  const [results, setResults] = useState<CardProps[] | null>(null);
+
+  const handleChangeSerchBar = (cards: CardProps[]) => {
+    console.log('Valor después del debounce:', cards);
+    setResults(cards);
+  };
   useEffect(() => {
     const token = localStorage.getItem("token")!;
     axios
@@ -45,8 +70,7 @@ const Deck: React.FC = () => {
       });
   }, []);
 
-  const [selectedDeck, setSelectedDeck] = useState<number | null>(null);
-  const [cards, setCards] = useState<any[]>([]);
+ 
 
   const handleSelectDeck = (deckId: number) => {
     //console.log("aaaaaaaaaaa");
@@ -60,15 +84,18 @@ const Deck: React.FC = () => {
     }
     
   };
+
   console.log("commander?");
   console.log(commanderInfo);
   return (
     <div className="min-h-screen bg-gray-950 text-white">
       <Header />
-      <div className="flex">
+      <div className="flex" style={{display: "grid", gridTemplateColumns:"auto auto"}}>
         <DeckSidebar decks={nameDecks} onSelect={handleSelectDeck} />
-
-        <MainContent results={[]} selected={cards} commander={commander}/>
+        <div className="contentCards">
+          <SearchBar resultForParent={handleChangeSerchBar}/>
+          <MainContent results={results} selected={cards} commander={commander}/>
+        </div>
       </div>
     </div>
   );

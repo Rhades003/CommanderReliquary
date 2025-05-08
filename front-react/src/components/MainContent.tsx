@@ -18,16 +18,14 @@ interface CardProps {
 };
 
 interface MainContentProps {
-  results: CardProps[];
+  results: CardProps[] | null;
   selected: CardProps[];
-  commander: CardProps;
+  commander?: CardProps;
 }
 
 const MainContent: React.FC<MainContentProps> = ({ results, selected, commander }) => (
-  <main className="flex w-full gap-4 p-4">
-    <SearchBar />
+  <main className="flex w-full gap-4 p-4" style={{display: "grid", gridTemplateColumns:"1fr 1fr"}}>
     <CardGrid title="Search Results" cards={results} />
-    
     <CardGrid title="Commander" cards={selected}  commander={commander}/>
   </main>
 );
