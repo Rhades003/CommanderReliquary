@@ -21,9 +21,11 @@ interface CardGridProps {
   title: string;
   cards: CardProps[] | null;
   commander?: CardProps;
+  resultForParent?: (cardId: string, action: string) => void;
+  //searchResult: boolean;
 }
 
-const CardGrid: React.FC<CardGridProps> = ({ title, cards, commander }) => {
+const CardGrid: React.FC<CardGridProps> = ({ title, cards, commander, resultForParent }) => {
   console.log("fukin commadner");
   console.log(cards);
   if (!cards) return null;
@@ -40,14 +42,13 @@ const CardGrid: React.FC<CardGridProps> = ({ title, cards, commander }) => {
             console.log(card.card_faces[0].image_uris);
             return (
               <>
-                <CardSimple key={card.id} id={card.card_faces[0].id} image_uris={card.card_faces[0].image_uris} name={card.card_faces[0].name} mana_cost={card.card_faces[0].mana_cost} rarity={card.card_faces[0].rarity}  type_line={card.card_faces[0].type_line}/>
+                <CardSimple key={card.id} id={card.card_faces[0].id} image_uris={card.card_faces[0].image_uris} name={card.card_faces[0].name} mana_cost={card.card_faces[0].mana_cost} rarity={card.card_faces[0].rarity}  type_line={card.card_faces[0].type_line} action={"rest"} resultForParent={resultForParent}/>
               </>
             );
           } else {
             console.log(card);
             return (
-              <CardSimple key={card.id} id={card.id} image_uris={card.image_uris} name={card.name} mana_cost={card.mana_cost} rarity={card.rarity} type_line={card.type_line}
-              />
+              <CardSimple key={card.id} id={card.id} image_uris={card.image_uris} name={card.name} mana_cost={card.mana_cost} rarity={card.rarity} type_line={card.type_line} action={"rest"} resultForParent={resultForParent}/>
             );
           }
         })}
@@ -67,14 +68,13 @@ else {
             console.log(card.card_faces[0].image_uris);
             return (
               <>
-                <CardSimple key={card.id} id={card.card_faces[0].id} image_uris={card.card_faces[0].image_uris} name={card.card_faces[0].name} mana_cost={card.card_faces[0].mana_cost} rarity={card.card_faces[0].rarity}  type_line={card.card_faces[0].type_line}/>
+                <CardSimple key={card.id} id={card.card_faces[0].id} image_uris={card.card_faces[0].image_uris} name={card.card_faces[0].name} mana_cost={card.card_faces[0].mana_cost} rarity={card.card_faces[0].rarity}  type_line={card.card_faces[0].type_line} action={"sum"} resultForParent={resultForParent}/>
               </>
             );
           } else {
             console.log(card);
             return (
-              <CardSimple key={card.id} id={card.id} image_uris={card.image_uris} name={card.name} mana_cost={card.mana_cost} rarity={card.rarity} type_line={card.type_line}
-              />
+              <CardSimple key={card.id} id={card.id} image_uris={card.image_uris} name={card.name} mana_cost={card.mana_cost} rarity={card.rarity} type_line={card.type_line} action={"sum"} resultForParent={resultForParent}/>
             );
           }
         })}

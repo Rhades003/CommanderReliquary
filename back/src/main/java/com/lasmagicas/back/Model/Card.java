@@ -25,27 +25,11 @@ public class Card {
     private String type_line;
     private CardImage image_uris;
     private String[] keywords;
+
     //@JsonProperty("legalities")
-    //private Legalities legalities;
+    private Legalities legalities;
 
     @JsonProperty("card_faces")
     private List<Card> card_faces;
 
-    /*
-    public String[] getKeywords() {
-        return keywords;
-    }
-
-    public void setKeywords(String[] keywords) {
-        this.keywords = keywords;
-    }
-
-    public Legalities getLegalities() {
-        return legalities;
-    }
-
-    public void setLegalities(Legalities legalities) {
-        this.legalities = legalities;
-    }
-    */
 }

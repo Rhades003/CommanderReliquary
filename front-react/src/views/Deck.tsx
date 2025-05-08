@@ -85,6 +85,11 @@ const Deck: React.FC = () => {
     
   };
 
+  const handleCardToDeck = (cardId:string, action:string) => {
+    if(action == "sum") console.log("sum "+cardId);
+    else console.log("rest "+cardId);
+  }
+
   console.log("commander?");
   console.log(commanderInfo);
   return (
@@ -94,7 +99,7 @@ const Deck: React.FC = () => {
         <DeckSidebar decks={nameDecks} onSelect={handleSelectDeck} />
         <div className="contentCards">
           <SearchBar resultForParent={handleChangeSerchBar}/>
-          <MainContent results={results} selected={cards} commander={commander}/>
+          <MainContent results={results} selected={cards} commander={commander} resultForParent={handleCardToDeck}/>
         </div>
       </div>
     </div>

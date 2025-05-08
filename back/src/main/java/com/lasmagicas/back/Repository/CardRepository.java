@@ -11,6 +11,8 @@ import java.util.List;
 
 public interface CardRepository extends MongoRepository<Card,String>{
 
-    Page<Card> findByNameContainingIgnoreCase(String name, Pageable pageable);
+    //AndLegalitiesCommander
+    Page<Card> findAllByLegalitiesCommander(String commander, Pageable pageable);
+    Page<Card> findByNameContainingIgnoreCaseAndLegalitiesCommander(String name ,String commander ,Pageable pageable);
 
 }

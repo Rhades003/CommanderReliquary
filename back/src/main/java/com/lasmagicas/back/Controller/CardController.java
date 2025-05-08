@@ -24,7 +24,7 @@ public class CardController {
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
     @GetMapping("/getAllCards/{index}")
     public Page<Card> getAllCards(@PathVariable int index){
-        return cardRepository.findAll(Pageable.ofSize(25).withPage(index));
+        return cardRepository.findAllByLegalitiesCommander("legal", Pageable.ofSize(100).withPage(index));
     }
 
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
@@ -37,7 +37,7 @@ public class CardController {
     public List<Card> getCardByName(@RequestParam String name){
         Pageable pageable = PageRequest.of(0, 100);
         //return cardRepository.findByNameContainingIgnoreCase(name, pageable);
-        Page page = cardRepository.findByNameContainingIgnoreCase(name, pageable);
+        Page page = cardRepository.findByNameContainingIgnoreCaseAndLegalitiesCommander(name, "legal" , pageable);
 
         List<Card> listCards = page.getContent();
 

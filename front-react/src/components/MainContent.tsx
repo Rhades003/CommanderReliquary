@@ -21,12 +21,13 @@ interface MainContentProps {
   results: CardProps[] | null;
   selected: CardProps[];
   commander?: CardProps;
+  resultForParent?: (cardId: string, action: string) => void;
 }
 
-const MainContent: React.FC<MainContentProps> = ({ results, selected, commander }) => (
+const MainContent: React.FC<MainContentProps> = ({ results, selected, commander, resultForParent }) => (
   <main className="flex w-full gap-4 p-4" style={{display: "grid", gridTemplateColumns:"1fr 1fr"}}>
-    <CardGrid title="Search Results" cards={results} />
-    <CardGrid title="Commander" cards={selected}  commander={commander}/>
+    <CardGrid title="Search Results" cards={results} resultForParent={resultForParent}/>
+    <CardGrid title="Commander" cards={selected}  commander={commander} resultForParent={resultForParent}/>
   </main>
 );
 
