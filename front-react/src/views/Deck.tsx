@@ -86,12 +86,59 @@ const Deck: React.FC = () => {
   };
 
   const handleCardToDeck = (cardId:string, action:string) => {
-    if(action == "sum") console.log("sum "+cardId);
-    else console.log("rest "+cardId);
+    
+    if(action == "sum") addCardToDeck(cardId);
+    
+    else removeCardToDeck(cardId);
+    }
+
+  function addCardToDeck(idCard:string){
+    const token = localStorage.getItem("token")!;
+    console.log("sum "+idCard);
+    axios
+    .get(api + "/decks/"+selectedDeck+"/card/"+idCard, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response: any) => {
+      if(response.status == 200 && response.data != ""){
+        //Add card to deck
+        const clonCards = [...cards];
+        clonCards.push(response.data.card);
+        setCards(clonCards);
+      }
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.error("Error fetching decks:", error);
+    });
+
   }
 
-  console.log("commander?");
-  console.log(commanderInfo);
+  function removeCardToDeck(idCard:string){
+    const token = localStorage.getItem("token")!;
+    console.log("rest "+idCard);
+    axios
+    .delete(api + "/decks/"+selectedDeck+"/card/"+idCard, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response: any) => {
+      if(response.status == 200 && response.data != ""){
+        //Delete card from deck
+        console.log(response.data);
+        const clonCards = cards.filter((card)=> card.id  !== idCard);
+        setCards(clonCards);
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching decks:", error);
+    });
+
+  }
+
   return (
     <div className="min-h-screen bg-gray-950 text-white">
       <Header />

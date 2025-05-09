@@ -18,12 +18,7 @@ interface CardProps {
 };
 
 const CardSimple: React.FC<CardProps> = ({ id, image_uris, name, isCommander, action, resultForParent}) => {
- //console.log("Que coño me llega: "+image_uris+" "+name);
- const apaño= (id:string, action:string) => {
-  resultForParent!(id, action);
-  let a:MouseEventHandler<HTMLImageElement> |undefined;
-  return a;
- }
+
  if(isCommander){
   return(
   <div className="border border-gray-700 rounded" >
@@ -31,19 +26,24 @@ const CardSimple: React.FC<CardProps> = ({ id, image_uris, name, isCommander, ac
   </div>);
 }
 else if(resultForParent){
+  console.log(name);
+  console.log(image_uris);
   if(action == "sum"){
   return(
     <div className="border border-gray-700 rounded">
-      <img src={image_uris.normal} alt={name} className="w-full h-auto" onClick={apaño(id, action)} style={{height:"20rem", borderRadius:"15px", border: "8px solid rgb(11, 156, 30)"}} />
+      <img src={image_uris.normal} alt={name} className="w-full h-auto" onClick={() => resultForParent(id, "sum")} style={{height:"20rem", borderRadius:"15px", border: "8px solid rgb(11, 156, 30)"}} />
     </div>);
   }
   else {
+    console.log(name);
+    console.log(image_uris);
     return(
       <div className="border border-gray-700 rounded">
-        <img src={image_uris.normal} alt={name} className="w-full h-auto" onClick={resultForParent(id, "rest")} style={{height:"20rem", borderRadius:"15px", border: "8px solid rgb(172, 11, 11)"}} />
+        <img src={image_uris.normal} alt={name} className="w-full h-auto" onClick={() => resultForParent(id, "rest")} style={{height:"20rem", borderRadius:"15px", border: "8px solid rgb(172, 11, 11)"}} />
       </div>);
     }
   }
+  return null;
 };
 
 export default CardSimple;

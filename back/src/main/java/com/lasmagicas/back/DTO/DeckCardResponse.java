@@ -2,6 +2,7 @@ package com.lasmagicas.back.DTO;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.lasmagicas.back.Model.Card;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,12 +14,12 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DeckCardResponse {
     Long deckId;
-    String cardId;
+    Card card;
 
-    public DeckCardResponse(com.lasmagicas.back.Model.DeckCard deckCardEntity, String id_card){
+    public DeckCardResponse(com.lasmagicas.back.Model.DeckCard deckCardEntity, Card card){
 
         this.deckId = deckCardEntity.getDeck().getId();
-        this.cardId = id_card;
+        this.card = card;
 
     }
 }

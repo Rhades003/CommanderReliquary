@@ -105,7 +105,7 @@ public class DeckController {
 
     @Transactional
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
-    @GetMapping("/{id_deck}/cards/{id_card}")
+    @GetMapping("/{id_deck}/card/{id_card}")
     public DeckCardResponse setCardDeck(@PathVariable long id_deck, @PathVariable String id_card){
 
 
@@ -118,13 +118,38 @@ public class DeckController {
             }
 
 
-            Deck deckEntity = deck.get();  // No es necesario crear un nuevo objeto Deck
+            Deck deckEntity = deck.get();
+            // No es necesario crear un nuevo objeto Deck
             DeckCard deckCard = new DeckCard(deckEntity, id_card);
 
             deckCardRepository.save(deckCard);
-            DeckCardResponse deckCardResponse = new DeckCardResponse(deckCard, deckCard.getId_card());// Guarda el DeckCard
-            return deckCardResponse;
+            Optional<Card> card = cardController.getCard(id_card);
+            if(card.isPresent()) {
+                Card cardNormal = card.get();
+                DeckCardResponse deckCardResponse = new DeckCardResponse(deckCard, cardNormal);// Guarda el DeckCard
+                return deckCardResponse;
+            }
+            return null;
+
         }
+        return null;
+    }
+
+    @Transactional
+    @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
+    @DeleteMapping("/{id_deck}/card/{id_card}")
+    public String deleteCardDeck(@PathVariable long id_deck, @PathVariable String id_card){
+
+        //Optional<Deck> deck = deckRepository.findById(id_deck);
+        List<DeckCard> deckCards = deckCardRepository.findByDeck_Id(id_deck);
+        Optional<DeckCard> deckCardOptional = deckCards.stream().filter(a -> a.getId_card().equals(id_card)).findFirst();
+
+        if (deckCardOptional.isPresent()) {
+            DeckCard deckCard = deckCardOptional.get();
+            deckCardRepository.delete(deckCard);
+            return "Deleted card with id: "+id_card;
+        }
+
         return null;
     }
 }
