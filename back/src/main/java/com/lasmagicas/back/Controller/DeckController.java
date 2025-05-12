@@ -83,6 +83,7 @@ public class DeckController {
     @GetMapping("/getDecks")
     public @ResponseBody List<DeckResponse> getDecksByUser(@RequestHeader("Authorization") String token) {
 
+
         String email = jwtUtil.getEmailFromToken(token);
         System.out.println("email es este: " + email);
         Optional<User> user = userRepository.findByEmail(email);
@@ -115,12 +116,13 @@ public class DeckController {
     @GetMapping("/{id_deck}/card/{id_card}")
     public DeckCardResponse setCardDeck(@PathVariable long id_deck, @PathVariable String id_card) {
 
-
+        Optional<Card> card = cardController.getCard(id_card);
         Optional<Deck> deck = deckRepository.findById(id_deck);
+
         if (deck.isPresent()) {
             System.out.println(id_card);
             deck.get().getDeckCards().forEach(c -> System.out.println(c.getId_card()));
-            if (deck.get().getDeckCards().stream().anyMatch(b -> b.getId_card().equals(id_card))) {
+            if (deck.get().getDeckCards().stream().anyMatch(b -> b.getId_card().equals(id_card)) && !card.get().getTypeLine().contains("Basic Land")) {
                 return null;
             }
 
@@ -130,7 +132,7 @@ public class DeckController {
             DeckCard deckCard = new DeckCard(deckEntity, id_card);
 
             deckCardRepository.save(deckCard);
-            Optional<Card> card = cardController.getCard(id_card);
+
             if (card.isPresent()) {
                 Card cardNormal = card.get();
                 DeckCardResponse deckCardResponse = new DeckCardResponse(deckCard, cardNormal);// Guarda el DeckCard

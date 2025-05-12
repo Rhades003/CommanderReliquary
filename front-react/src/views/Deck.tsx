@@ -145,9 +145,9 @@ const Deck: React.FC = () => {
     }
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white">
+    <div className="min-h-screen bg-gray-950 text-white"  style={{backgroundColor: "#2B2A2A", height:"100%"}}>
       <Header />
-      <div className="flex" style={{display: "grid", gridTemplateColumns:"auto auto"}}>
+      <div className="flex"  style={{ display: "grid", gridTemplateColumns: "10% 1fr", width: "100%" }}>
         <DeckSidebar decks={nameDecks} onSelect={handleSelectDeck} />
         <div className="contentCards">
           <SearchBar resultForParent={handleChangeSerchBar}/>

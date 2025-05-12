@@ -1,4 +1,5 @@
-import React, { MouseEventHandler } from 'react';
+import React, { MouseEventHandler, useEffect, useState } from 'react';
+import { p } from 'react-router/dist/development/fog-of-war-Ckdfl79L';
 
 interface CardProps {
     id:string;
@@ -18,6 +19,14 @@ interface CardProps {
 };
 
 const CardSimple: React.FC<CardProps> = ({ id, image_uris, name, isCommander, action, resultForParent}) => {
+const [hovered, setHovered] = useState(false);
+
+  useEffect(() => {
+  console.log(hovered);
+}, [hovered]);
+
+  const sumImg = "/imgs/sum.svg";
+  const restImg = "/imgs/rest.svg";
 
  if(isCommander){
   return(
@@ -28,14 +37,64 @@ const CardSimple: React.FC<CardProps> = ({ id, image_uris, name, isCommander, ac
 else if(resultForParent){
   if(action == "sum"){
   return(
-    <div className="border border-gray-700 rounded">
-      <img src={image_uris.normal} alt={name} className="w-full h-auto" onClick={() => resultForParent(id, "sum")} style={{height:"20rem", borderRadius:"15px", border: "8px solid rgb(11, 156, 30)"}} />
-    </div>);
+    <div className="border border-gray-700 rounded" style={{ position: "relative" }}>
+      <img src={image_uris.normal} 
+        alt={name} 
+        className="w-full h-auto" 
+        onClick={() => resultForParent(id, "sum")} 
+        style={{height:"20rem", borderRadius:"15px", filter: hovered ? "brightness(50%)" : "none"}} 
+        onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
+        />
+    
+    {hovered && (
+      <img
+      src={sumImg}
+      alt="preview"
+      style={{
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-60%, -50%)",
+        maxHeight: "50%",
+        maxWidth: "50%",
+        zIndex: 10,
+        borderRadius: "10px",
+      }}
+      onClick={() => resultForParent(id, "sum")} 
+      onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
+    />
+  )}
+  </div>);
+    
   }
   else {
     return(
-      <div className="border border-gray-700 rounded">
-        <img src={image_uris.normal} alt={name} className="w-full h-auto" onClick={() => resultForParent(id, "rest")} style={{height:"20rem", borderRadius:"15px", border: "8px solid rgb(172, 11, 11)"}} />
+      <div className="border border-gray-700 rounded" style={{ position: "relative" }}>
+        <img src={image_uris.normal} 
+        alt={name} 
+        className="w-full h-auto" 
+        onClick={() => resultForParent(id, "rest")} 
+        style={{height:"20rem", borderRadius:"15px", filter: hovered ? "brightness(50%)" : "none"}} 
+        onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}/>
+      {hovered && (
+      <img
+      src={restImg}
+      alt="preview"
+      style={{
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-60%, -50%)",
+        maxHeight: "50%",
+        maxWidth: "50%",
+        zIndex: 10,
+        borderRadius: "10px",
+      }}
+      onClick={() => resultForParent(id, "rest")} 
+      onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
+    />
+  )}
+      
       </div>);
     }
   }

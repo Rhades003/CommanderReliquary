@@ -56,6 +56,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ resultForParent }) => {
         className="px-3 py-1 rounded bg-gray-800 text-white"
         value={inputValue}
         onChange={handleChange}
+        style={{backgroundColor:"#323232"}}
       />
     );
   }
@@ -67,6 +68,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ resultForParent }) => {
         className="px-3 py-1 rounded bg-gray-800 text-white"
         value={inputValue}
         onChange={handleChange}
+        style={{backgroundColor:"#323232"}}
       />
     );
   }
