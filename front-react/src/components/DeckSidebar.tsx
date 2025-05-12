@@ -152,11 +152,13 @@ const DeckSidebar: React.FC<DeckSidebarProps> = ({ decks, onSelect }) => {
             headers: {
               Authorization: `Bearer ${token}`,
             }
+          }).then(response => {
+            if(response.status == 200) window.location.reload();
           })
       }
-      window.location.reload();
+      //window.location.reload();
     });
-   // window.location.reload();
+   
   }
 
   return (

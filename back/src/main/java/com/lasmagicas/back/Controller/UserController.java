@@ -64,7 +64,7 @@ public class UserController {
 
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
     @PostMapping("/login")
-    public HashMap<String, String> login(@Valid @RequestBody User user, HttpSession session) throws NoSuchAlgorithmException, KeyStoreException {
+    public HashMap<String, String> login(@Valid @RequestBody User user) throws NoSuchAlgorithmException, KeyStoreException {
         Optional<User> user2 = userRepository.findByEmail(user.getEmail());
         HashMap<String, String> data = new HashMap<>();
         data.put("status", "401");
