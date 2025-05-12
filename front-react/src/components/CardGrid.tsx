@@ -32,7 +32,7 @@ const CardGrid: React.FC<CardGridProps> = ({ title, cards, commander, resultForP
   <section className="flex-1">
     <h3 className="text-lg font-semibold text-white mb-2">{title}</h3>
     <div className="grid grid-cols-3 gap-2" style={{display: "grid", gridTemplateColumns:"auto auto auto auto"}}>
-      <CardSimple id={commander.id} image_uris={commander.image_uris} name={commander.name} mana_cost={commander.mana_cost} rarity={commander.rarity} type_line={commander.type_line} isCommander={true}/>
+      <CardSimple key={commander.id} id={commander.id} image_uris={commander.image_uris} name={commander.name} mana_cost={commander.mana_cost} rarity={commander.rarity} type_line={commander.type_line} isCommander={true}/>
       {cards.map((card) => {
           if (card.card_faces && card.card_faces[0].image_uris) {
             return (

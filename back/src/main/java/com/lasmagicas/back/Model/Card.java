@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
@@ -22,9 +23,13 @@ public class Card {
     private String name;
     private String mana_cost;
     private String rarity;
-    private String type_line;
+
+    @Field("type_line")
+    @JsonProperty("type_line")
+    private String typeLine;
     private CardImage image_uris;
     private String[] keywords;
+    private String[] color_identity;
 
     //@JsonProperty("legalities")
     private Legalities legalities;

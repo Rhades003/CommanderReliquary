@@ -7,9 +7,16 @@ interface DeckSidebarProps {
     id: number;
     name: string;
     identity: string;
+    commander: CardProps;
   }[];
   onSelect: (deckId: number) => void;
 }
+
+interface CardProps {
+  id:string;
+  name:string;
+  mana_cost:string;
+};
 const DeckSidebar: React.FC<DeckSidebarProps> = ({ decks, onSelect }) => {
   if (!decks) return null;
   return (
@@ -28,6 +35,8 @@ const DeckSidebar: React.FC<DeckSidebarProps> = ({ decks, onSelect }) => {
     key={i}
     name={deck.name}
     colors={deck.identity}
+    commander={deck.commander}
+    id={deck.id}
     onClick={() => onSelect(deck.id)}
   />
 ))}

@@ -26,8 +26,6 @@ const CardSimple: React.FC<CardProps> = ({ id, image_uris, name, isCommander, ac
   </div>);
 }
 else if(resultForParent){
-  console.log(name);
-  console.log(image_uris);
   if(action == "sum"){
   return(
     <div className="border border-gray-700 rounded">
@@ -35,8 +33,6 @@ else if(resultForParent){
     </div>);
   }
   else {
-    console.log(name);
-    console.log(image_uris);
     return(
       <div className="border border-gray-700 rounded">
         <img src={image_uris.normal} alt={name} className="w-full h-auto" onClick={() => resultForParent(id, "rest")} style={{height:"20rem", borderRadius:"15px", border: "8px solid rgb(172, 11, 11)"}} />

@@ -18,27 +18,78 @@ interface CardProps {
     png:string;
   };
 };
+interface DeckProps {
+  id: number;
+  name: string;
+  identity: string;
+  cards: CardProps[];
+  commanderInfo: CardProps;
+}
+  
 
 const Deck: React.FC = () => {
-  const [nameDecks, setNameDecks] = useState<{ id: number; name: string; identity: string }[]>([]);
+  const [nameDecks, setNameDecks] = useState<{ id: number; name: string; identity: string, commander:CardProps}[]>([]);
 
+  const [selectedDeck, setSelectedDeck] = useState<number | null>(null);
+  const [cards, setCards] = useState<CardProps[]>([]);
   const api: string = "http://localhost:8080";
 
-  const [decks, setDecks] = useState<any[]>([]);
+  const [decks, setDecks] = useState<DeckProps[]>([]);
 
   const [commander, setCommander] = useState<CardProps>();
   let commanderInfo:any;
 
-  const [selectedDeck, setSelectedDeck] = useState<number | null>(null);
-  const [cards, setCards] = useState<CardProps[]>([]);
-
-
   const [results, setResults] = useState<CardProps[] | null>(null);
 
   const handleChangeSerchBar = (cards: CardProps[]) => {
-    console.log('Valor después del debounce:', cards);
     setResults(cards);
   };
+
+    function addCardToDeck(idCard:string){
+    const token = localStorage.getItem("token")!;
+    console.log("sum "+idCard);
+    axios
+    .get(api + "/decks/"+selectedDeck+"/card/"+idCard, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response: any) => {
+      if(response.status == 200 && response.data != ""){
+        //Add card to deck
+        const clonCards = [...cards];
+        clonCards.push(response.data.card);
+        setCards(clonCards);
+      }
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.error("Error fetching decks:", error);
+    });
+
+  }
+
+  function removeCardToDeck(idCard:string){
+    const token = localStorage.getItem("token")!;
+    console.log("rest "+idCard);
+    axios
+    .delete(api + "/decks/"+selectedDeck+"/card/"+idCard, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response: any) => {
+      if(response.status == 200 && response.data != ""){
+        const clonCards = cards.filter((card)=> card.id  !== idCard);
+        setCards(clonCards);
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching decks:", error);
+    });
+
+  }
+  
   useEffect(() => {
     const token = localStorage.getItem("token")!;
     axios
@@ -55,6 +106,7 @@ const Deck: React.FC = () => {
           id: deck.id,
           name: deck.name,
           identity: deck.identity,
+          commander: deck.commanderInfo,
         }));
         setNameDecks(deckSimple);
         if (fullDecks.length > 0) {
@@ -91,53 +143,6 @@ const Deck: React.FC = () => {
     
     else removeCardToDeck(cardId);
     }
-
-  function addCardToDeck(idCard:string){
-    const token = localStorage.getItem("token")!;
-    console.log("sum "+idCard);
-    axios
-    .get(api + "/decks/"+selectedDeck+"/card/"+idCard, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((response: any) => {
-      if(response.status == 200 && response.data != ""){
-        //Add card to deck
-        const clonCards = [...cards];
-        clonCards.push(response.data.card);
-        setCards(clonCards);
-      }
-      console.log(response.data);
-    })
-    .catch((error) => {
-      console.error("Error fetching decks:", error);
-    });
-
-  }
-
-  function removeCardToDeck(idCard:string){
-    const token = localStorage.getItem("token")!;
-    console.log("rest "+idCard);
-    axios
-    .delete(api + "/decks/"+selectedDeck+"/card/"+idCard, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((response: any) => {
-      if(response.status == 200 && response.data != ""){
-        //Delete card from deck
-        console.log(response.data);
-        const clonCards = cards.filter((card)=> card.id  !== idCard);
-        setCards(clonCards);
-      }
-    })
-    .catch((error) => {
-      console.error("Error fetching decks:", error);
-    });
-
-  }
 
   return (
     <div className="min-h-screen bg-gray-950 text-white">
