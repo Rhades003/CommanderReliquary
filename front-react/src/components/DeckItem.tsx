@@ -218,7 +218,7 @@ const DeckItem: React.FC<DeckItemProps> = ({ id, name, colors, commander, onClic
 
         </div>
       </div>
-      <button onClick={() => showFormToEdit()} />
+      <button onClick={() => showFormToEdit()}>Edit</button>
     </>
   );
 }
