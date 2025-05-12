@@ -49,8 +49,11 @@ public class DeckController {
 
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
     @PostMapping("/createDeck")
-    public DeckResponse create(@RequestBody DeckResponse deck) {
-        Optional<User> user = userRepository.findById(10L);
+    public DeckResponse create(@RequestBody DeckResponse deck, @RequestHeader("Authorization") String token) {
+
+        String email = jwtUtil.getEmailFromToken(token);
+        System.out.println("email es este: " + email);
+        Optional<User> user = userRepository.findByEmail(email);
 
         if (user.isPresent()) {
             deck.setUserId(user.get().getId());
@@ -83,7 +86,7 @@ public class DeckController {
         String email = jwtUtil.getEmailFromToken(token);
         System.out.println("email es este: " + email);
         Optional<User> user = userRepository.findByEmail(email);
-        System.out.println("Id es este: " + user.get().getId());
+        //System.out.println("Id es este: " + user.get().getId());
         if (user.isPresent()) {
 
             List<DeckResponse> decks = user.get().getDecks().stream().map(DeckResponse::new).collect(toList());

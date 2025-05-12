@@ -191,8 +191,7 @@ const DeckItem: React.FC<DeckItemProps> = ({ id, name, colors, commander, onClic
           name: result.value.name,
           commander: result.value.commander.id,
           identity: newIdentity
-        }
-          , {
+        }, {
             headers: {
               Authorization: `Bearer ${token}`,
             }

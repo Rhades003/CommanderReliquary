@@ -7,15 +7,15 @@ spring:
   # First DDBB connection (MongoDB)
   data:
     mongodb:
-      #uri: mongodb://192.168.237.95:27017/MTGCards
-      uri: mongodb://10.2.244.119:27017/MTGCards
+      uri: mongodb://localhost:27017/commander_reliquary
+      #uri: mongodb://10.2.244.119:27017/MTGCards
 
   # Second DDBB connection (MySQL)
   datasource:
-    username: usuario
+    username: root
     password: usuario
-    #url: jdbc:mysql://192.168.237.95:3306/commander_reliquary
-    url: jdbc:mysql://10.2.244.119:3306/commander_reliquary
+    url: jdbc:mysql://localhost:3306/commander_reliquary
+    #url: jdbc:mysql://10.2.244.119:3306/commander_reliquary
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:

@@ -3,6 +3,7 @@ import ColorCheckbox from './ColorCheckbox';
 import DeckItem from './DeckItem';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { ax } from 'react-router/dist/development/route-data-Cw8htKcF';
 
 interface DeckSidebarProps {
   decks: {
@@ -20,6 +21,53 @@ interface CardProps {
   mana_cost: string;
 };
 
+function setInversIdentity(colors: String[]) {
+  console.log(colors);
+  if (colors.length === 5) return "pentacolor";
+
+  if (colors.length === 1) {
+    if (colors.includes("W")) return "white";
+    if (colors.includes("U")) return "blue";
+    if (colors.includes("B")) return "black";
+    if (colors.includes("R")) return "red";
+    if (colors.includes("G")) return "green";
+  }
+
+  if (colors.length === 2) {
+    if (colors.includes("W") && colors.includes("U")) return "azorius";
+    if (colors.includes("U") && colors.includes("B")) return "dimir";
+    if (colors.includes("B") && colors.includes("R")) return "rakdos";
+    if (colors.includes("R") && colors.includes("G")) return "gruul";
+    if (colors.includes("G") && colors.includes("W")) return "selesnya";
+    if (colors.includes("W") && colors.includes("B")) return "orzhov";
+    if (colors.includes("U") && colors.includes("R")) return "izzet";
+    if (colors.includes("B") && colors.includes("G")) return "golgari";
+    if (colors.includes("R") && colors.includes("W")) return "boros";
+    if (colors.includes("G") && colors.includes("U")) return "simic";
+  }
+
+  if (colors.length === 3) {
+    if (colors.includes("W") && colors.includes("U") && colors.includes("B")) return "esper";
+    if (colors.includes("U") && colors.includes("B") && colors.includes("R")) return "grixis";
+    if (colors.includes("B") && colors.includes("R") && colors.includes("G")) return "jund";
+    if (colors.includes("R") && colors.includes("G") && colors.includes("W")) return "naya";
+    if (colors.includes("G") && colors.includes("W") && colors.includes("U")) return "bant";
+    if (colors.includes("W") && colors.includes("B") && colors.includes("G")) return "abzan";
+    if (colors.includes("W") && colors.includes("U") && colors.includes("R")) return "jeskai";
+    if (colors.includes("U") && colors.includes("B") && colors.includes("G")) return "sultai";
+    if (colors.includes("W") && colors.includes("B") && colors.includes("R")) return "mardu";
+    if (colors.includes("U") && colors.includes("R") && colors.includes("G")) return "temur";
+  }
+
+  if (colors.length === 4) {
+    if (colors.includes("W") && colors.includes("U") && colors.includes("B") && colors.includes("R")) return "yore-tiller";
+    if (colors.includes("U") && colors.includes("B") && colors.includes("R") && colors.includes("G")) return "glint-eye";
+    if (colors.includes("B") && colors.includes("R") && colors.includes("G") && colors.includes("W")) return "dune-brood";
+    if (colors.includes("R") && colors.includes("G") && colors.includes("W") && colors.includes("U")) return "ink-trader";
+    if (colors.includes("G") && colors.includes("W") && colors.includes("U") && colors.includes("B")) return "witch-maw";
+  }
+  return "";
+}
 
 const DeckSidebar: React.FC<DeckSidebarProps> = ({ decks, onSelect }) => {
   if (!decks) return null;
@@ -28,7 +76,7 @@ const DeckSidebar: React.FC<DeckSidebarProps> = ({ decks, onSelect }) => {
   const api: string = "http://localhost:8080";
   function createDeck() {
     Swal.fire({
-      title: 'Editar Deck',
+      title: 'Crear Deck',
       html: `<div id="swal-form-container" style="display: flex; flex-direction: column; gap: 1rem; text-align: left;">
               <label>Nombre del deck</label>
               <input className='swal2-input' id='deck-name'/>
@@ -76,10 +124,39 @@ const DeckSidebar: React.FC<DeckSidebarProps> = ({ decks, onSelect }) => {
       confirmButtonText: 'Guardar',
 
       preConfirm: () => {
- 
-        return {};
+        const nameInput = (document.getElementById('deck-name') as HTMLInputElement).value;
+        const commanderInput: HTMLInputElement = document.getElementById('commander-name') as HTMLInputElement;
+          
+        const selectedName = commanderInput.value;
+        const commanderCard = commandersList.find(card => card.name === selectedName);
+        //const commanderCard = commandersList.find(card => card.name == commanderInput.value);
+        console.log("commander card: ");
+        console.log(commanderCard);
+          if (!commanderInput.value || !nameInput) {
+            Swal.showValidationMessage('Ambos campos son obligatorios');
+            return false;
+            }
+          return { name: nameInput, commander: commanderCard }; 
       }
-    })
+    }).then((result) => {
+      if (result.isConfirmed) {
+          console.log(result.value.name);
+          console.log(result.value.commander);
+
+          let newIdentity:String = setInversIdentity(result.value.commander.color_identity);
+          axios.post(api + "/decks/createDeck", {
+            name: result.value.name,
+            commander: result.value.commander.id,
+            identity: newIdentity,
+          }, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            }
+          })
+      }
+      window.location.reload();
+    });
+   // window.location.reload();
   }
 
   return (
