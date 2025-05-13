@@ -81,6 +81,9 @@ public class UserController {
         data.put("status", "200");
         data.put("message","login succesfull");
         data.put("token", token);
+        System.out.println(user.getName());
+        System.out.println(user2.get().getName());
+        data.put("name", user2.get().getName());
         return data;
     }
 

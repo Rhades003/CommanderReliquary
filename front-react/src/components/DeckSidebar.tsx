@@ -76,14 +76,20 @@ const DeckSidebar: React.FC<DeckSidebarProps> = ({ decks, onSelect }) => {
   const api: string = "http://localhost:8080";
   function createDeck() {
     Swal.fire({
+
       title: 'Crear Deck',
-      html: `<div id="swal-form-container" style="display: flex; flex-direction: column; gap: 1rem; text-align: left;">
+      customClass: {
+        popup: 'swal-dark',
+        confirmButton: 'btnPurple',
+      },
+      html: `<div id="" style="display: flex; flex-direction: column; gap: 1rem; text-align: left;">
               <label>Nombre del deck</label>
-              <input className='swal2-input' id='deck-name'/>
+              <input class='search-input swal-input' id='deck-name'/>
               <label>Nombre del comandante</label>
-              <input list="commander-list" className='swal2-input' id='commander-name'/>
+              <input list="commander-list" class='search-input swal-input' id='commander-name'/>
               <datalist id="commander-list"></datalist>
             </div>`,
+
       didOpen: () => {
         const input: HTMLInputElement = document.getElementById("commander-name") as HTMLInputElement;
         const datalist: HTMLDataListElement = document.getElementById("commander-list") as HTMLDataListElement;
@@ -126,48 +132,49 @@ const DeckSidebar: React.FC<DeckSidebarProps> = ({ decks, onSelect }) => {
       preConfirm: () => {
         const nameInput = (document.getElementById('deck-name') as HTMLInputElement).value;
         const commanderInput: HTMLInputElement = document.getElementById('commander-name') as HTMLInputElement;
-          
+
         const selectedName = commanderInput.value;
         const commanderCard = commandersList.find(card => card.name === selectedName);
         //const commanderCard = commandersList.find(card => card.name == commanderInput.value);
         console.log("commander card: ");
         console.log(commanderCard);
-          if (!commanderInput.value || !nameInput) {
-            Swal.showValidationMessage('Ambos campos son obligatorios');
-            return false;
-            }
-          return { name: nameInput, commander: commanderCard }; 
+        if (!commanderInput.value || !nameInput) {
+          Swal.showValidationMessage('Ambos campos son obligatorios');
+          return false;
+        }
+        return { name: nameInput, commander: commanderCard };
       }
     }).then((result) => {
       if (result.isConfirmed) {
-          console.log(result.value.name);
-          console.log(result.value.commander);
+        console.log(result.value.name);
+        console.log(result.value.commander);
 
-          let newIdentity:String = setInversIdentity(result.value.commander.color_identity);
-          axios.post(api + "/decks/createDeck", {
-            name: result.value.name,
-            commander: result.value.commander.id,
-            identity: newIdentity,
-          }, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            }
-          }).then(response => {
-            if(response.status == 200) window.location.reload();
-          })
+        let newIdentity: String = setInversIdentity(result.value.commander.color_identity);
+        axios.post(api + "/decks/createDeck", {
+          name: result.value.name,
+          commander: result.value.commander.id,
+          identity: newIdentity,
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        }).then(response => {
+          if (response.status == 200) window.location.reload();
+        })
       }
       //window.location.reload();
     });
-   
+
   }
 
   return (
-    <aside className="w-1/5 bg-gray-900 text-white p-4">
-      <div className="space-y-2">
-        <h2 className="text-lg font-semibold mb-2">Decks</h2>
-        <button className="bg-purple-600 px-3 py-1 rounded text-white mb-4" onClick={() => createDeck()}>Create</button>
+    <aside style={{ paddingLeft: "2rem", paddingRight: "1.5rem", minWidth: "14rem"}}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <h2 style={{ color: " #ffffff" }}>Decks</h2>
+        <button className="btnPurple" onClick={() => createDeck() } style={{padding: "8px 16px"}}>Create</button>
       </div>
-      <div className="space-y-2">
+      <div style={{ width: "90%", border: "solid 1px #858585", alignSelf: "center" }}></div>
+      <div style={{ display: "flex", flexDirection: "column", gap: "2rem", marginTop: "1rem" }}>
         {decks.map((deck, i) => (
           <DeckItem
             key={i}

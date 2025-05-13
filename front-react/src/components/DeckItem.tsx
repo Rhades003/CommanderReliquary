@@ -23,42 +23,42 @@ const DeckItem: React.FC<DeckItemProps> = ({ id, name, colors, commander, onClic
   const api: string = "http://localhost:8080";
 
   function setIdentity(colors: string) {
-    if (colors == "white") return ['/identityColors/W.webp'];
-    if (colors == "blue") return ['/identityColors/U.webp'];
-    if (colors == "black") return ['/identityColors/B.webp'];
-    if (colors == "red") return ['/identityColors/R.webp'];
-    if (colors == "green") return ['/identityColors/G.webp'];
+    if (colors == "white") return ['/identityColors/W.svg'];
+    if (colors == "blue") return ['/identityColors/U.svg'];
+    if (colors == "black") return ['/identityColors/B.svg'];
+    if (colors == "red") return ['/identityColors/R.svg'];
+    if (colors == "green") return ['/identityColors/G.svg'];
 
-    if (colors == "azorius") return ['/identityColors/W.webp', '/identityColors/U.webp'];
-    if (colors == "dimir") return ['/identityColors/U.webp', '/identityColors/B.webp'];
-    if (colors == "rakdos") return ['/identityColors/B.webp', '/identityColors/R.webp'];
-    if (colors == "gruul") return ['/identityColors/R.webp', '/identityColors/G.webp'];
-    if (colors == "selesnya") return ['/identityColors/G.webp', '/identityColors/W.webp'];
-    if (colors == "orzhov") return ['/identityColors/W.webp', '/identityColors/B.webp'];
-    if (colors == "izzet") return ['/identityColors/A.webp', '/identityColors/R.webp'];
-    if (colors == "golgari") return ['/identityColors/G.webp', '/identityColors/B.webp'];
-    if (colors == "boros") return ['/identityColors/R.webp', '/identityColors/W.webp'];
-    if (colors == "simic") return ['/identityColors/G.webp', '/identityColors/U.webp'];
+    if (colors == "azorius") return ['/identityColors/W.svg', '/identityColors/U.svg'];
+    if (colors == "dimir") return ['/identityColors/U.svg', '/identityColors/B.svg'];
+    if (colors == "rakdos") return ['/identityColors/B.svg', '/identityColors/R.svg'];
+    if (colors == "gruul") return ['/identityColors/R.svg', '/identityColors/G.svg'];
+    if (colors == "selesnya") return ['/identityColors/G.svg', '/identityColors/W.svg'];
+    if (colors == "orzhov") return ['/identityColors/W.svg', '/identityColors/B.svg'];
+    if (colors == "izzet") return ['/identityColors/A.webp', '/identityColors/R.svg'];
+    if (colors == "golgari") return ['/identityColors/G.svg', '/identityColors/B.svg'];
+    if (colors == "boros") return ['/identityColors/R.svg', '/identityColors/W.svg'];
+    if (colors == "simic") return ['/identityColors/G.svg', '/identityColors/U.svg'];
 
-    if (colors == "esper") return ['/identityColors/W.webp', '/identityColors/U.webp', '/identityColors/B.webp'];
-    if (colors == "grixis") return ['/identityColors/U.webp', '/identityColors/B.webp', '/identityColors/R.webp'];
-    if (colors == "jund") return ['/identityColors/B.webp', '/identityColors/R.webp', '/identityColors/G.webp'];
-    if (colors == "naya") return ['/identityColors/R.webp', '/identityColors/G.webp', '/identityColors/W.webp'];
-    if (colors == "bant") return ['/identityColors/G.webp', '/identityColors/W.webp', '/identityColors/U.webp'];
-    if (colors == "abzan") return ['/identityColors/W.webp', '/identityColors/B.webp', '/identityColors/G.webp'];
-    if (colors == "jeskai") return ['/identityColors/A.webp', '/identityColors/R.webp', '/identityColors/W.webp'];
-    if (colors == "sultai") return ['/identityColors/G.webp', '/identityColors/B.webp', '/identityColors/A.webp'];
-    if (colors == "mardu") return ['/identityColors/R.webp', '/identityColors/W.webp', '/identityColors/B.webp'];
-    if (colors == "temur") return ['/identityColors/G.webp', '/identityColors/U.webp', '/identityColors/R.webp'];
+    if (colors == "esper") return ['/identityColors/W.svg', '/identityColors/U.svg', '/identityColors/B.svg'];
+    if (colors == "grixis") return ['/identityColors/U.svg', '/identityColors/B.svg', '/identityColors/R.svg'];
+    if (colors == "jund") return ['/identityColors/B.svg', '/identityColors/R.svg', '/identityColors/G.svg'];
+    if (colors == "naya") return ['/identityColors/R.svg', '/identityColors/G.svg', '/identityColors/W.svg'];
+    if (colors == "bant") return ['/identityColors/G.svg', '/identityColors/W.svg', '/identityColors/U.svg'];
+    if (colors == "abzan") return ['/identityColors/W.svg', '/identityColors/B.svg', '/identityColors/G.svg'];
+    if (colors == "jeskai") return ['/identityColors/A.webp', '/identityColors/R.svg', '/identityColors/W.svg'];
+    if (colors == "sultai") return ['/identityColors/G.svg', '/identityColors/B.svg', '/identityColors/A.webp'];
+    if (colors == "mardu") return ['/identityColors/R.svg', '/identityColors/W.svg', '/identityColors/B.svg'];
+    if (colors == "temur") return ['/identityColors/G.svg', '/identityColors/U.svg', '/identityColors/R.svg'];
 
 
-    if (colors == "yore-tiller") return ['/identityColors/W.webp', '/identityColors/U.webp', '/identityColors/B.webp', '/identityColors/R.webp'];
-    if (colors == "glint-eye") return ['/identityColors/U.webp', '/identityColors/B.webp', '/identityColors/R.webp', '/identityColors/G.webp'];
-    if (colors == "dune-brood") return ['/identityColors/B.webp', '/identityColors/R.webp', '/identityColors/G.webp', '/identityColors/W.webp'];
-    if (colors == "ink-trader") return ['/identityColors/R.webp', '/identityColors/G.webp', '/identityColors/W.webp', '/identityColors/A.webp'];
-    if (colors == "witch-maw") return ['/identityColors/G.webp', '/identityColors/W.webp', '/identityColors/U.webp', '/identityColors/B.webp'];
+    if (colors == "yore-tiller") return ['/identityColors/W.svg', '/identityColors/U.svg', '/identityColors/B.svg', '/identityColors/R.svg'];
+    if (colors == "glint-eye") return ['/identityColors/U.svg', '/identityColors/B.svg', '/identityColors/R.svg', '/identityColors/G.svg'];
+    if (colors == "dune-brood") return ['/identityColors/B.svg', '/identityColors/R.svg', '/identityColors/G.svg', '/identityColors/W.svg'];
+    if (colors == "ink-trader") return ['/identityColors/R.svg', '/identityColors/G.svg', '/identityColors/W.svg', '/identityColors/A.webp'];
+    if (colors == "witch-maw") return ['/identityColors/G.svg', '/identityColors/W.svg', '/identityColors/U.svg', '/identityColors/B.svg'];
 
-    if (colors == "pentacolor") return ['/identityColors/W.webp', '/identityColors/U.webp', '/identityColors/B.webp', '/identityColors/R.webp', '/identityColors/G.webp'];
+    if (colors == "pentacolor") return ['/identityColors/W.svg', '/identityColors/U.svg', '/identityColors/B.svg', '/identityColors/R.svg', '/identityColors/G.svg'];
     else return ["error"]
   }
 
@@ -114,11 +114,15 @@ const DeckItem: React.FC<DeckItemProps> = ({ id, name, colors, commander, onClic
     let commandersList: CardProps[] = [];
     Swal.fire({
       title: 'Editar Deck',
+      customClass: {
+        popup: 'swal-dark',
+        confirmButton: 'btnPurple'
+      },
       html: `<div id="swal-form-container" style="display: flex; flex-direction: column; gap: 1rem; text-align: left;">
               <label>Nombre del deck</label>
-              <input className='swal2-input' id='deck-name' placeholder='${name}'
+              <input class='search-input swal-input' id='deck-name' value='${name}'
               <label>Nombre del comandante</label>
-              <input list="commander-list" className='swal2-input' id='commander-name' placeholder='${commander.name}'/>
+              <input list="commander-list" class='search-input swal-input' id='commander-name' value='${commander.name}'/>
               <datalist id="commander-list"></datalist>
               <p style="color: red; font-size:14">⚠️ Advertencia: Al cambiar de comandante, se eliminarán automáticamente todas las cartas que no compartan la identidad de color del nuevo comandante.</p>
             </div>`,
@@ -170,7 +174,7 @@ const DeckItem: React.FC<DeckItemProps> = ({ id, name, colors, commander, onClic
         const selectedName = commanderInput.value;
         const commanderCard = commandersList.find(card => card.name === selectedName);
         //const commanderCard = commandersList.find(card => card.name == commanderInput.value);
-        console.log("commander card: "+commanderCard);
+        console.log("commander card: " + commanderCard);
         console.log(commandersList);
         if (!commanderInput.value || !nameInput) {
           Swal.showValidationMessage('Ambos campos son obligatorios');
@@ -184,7 +188,7 @@ const DeckItem: React.FC<DeckItemProps> = ({ id, name, colors, commander, onClic
         console.log(result.value.name);
         console.log(result.value);
 
-        let newIdentity:String = setInversIdentity(result.value.commander.color_identity);
+        let newIdentity: String = setInversIdentity(result.value.commander.color_identity);
         console.log(newIdentity)
         axios.put(api + "/decks/edit/" + id, {
           id: id,
@@ -192,13 +196,14 @@ const DeckItem: React.FC<DeckItemProps> = ({ id, name, colors, commander, onClic
           commander: result.value.commander.id,
           identity: newIdentity
         }, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            }
-          }).then(response => {
-            if(response.status == 200) window.location.reload();
+          headers: {
+            Authorization: `Bearer ${token}`,
           }
-          );
+        }).then(response => {
+          console.log("identidaddddddddddddddddddddddddd: "+identity);
+          if (response.status == 200) window.location.reload();
+        }
+        );
         console.log("confirm");
       }
     });
@@ -209,7 +214,13 @@ const DeckItem: React.FC<DeckItemProps> = ({ id, name, colors, commander, onClic
   return (
     <>
       <div className="bg-gray-800 p-2 rounded cursor-pointer" onClick={onClick}>
-        <p>{name}</p>
+        <div  style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.5rem" }}>
+          <h4 style={{ color: "#BEBEBE", margin:"0" }} className='header-left'>{name}</h4>
+          <div className='header-right' style={{ display: "flex", gap: "0" }}>
+            <button className="btnPurple" style={{marginTop:"0.3rem"}} onClick={() => showFormToEdit()} ><img src='/imgs/edit.svg' height="24rem"/></button>
+            <button className="btnRed" style={{marginTop:"0.3rem"}} onClick={() => showFormToEdit()} ><img src='/imgs/trash.svg' height="24rem"/></button>
+          </div>
+        </div>
         <div className='identityColor'>
           {identity.map(color =>
             <img src={color} height={"30rem"} key={color} />
@@ -217,7 +228,7 @@ const DeckItem: React.FC<DeckItemProps> = ({ id, name, colors, commander, onClic
 
         </div>
       </div>
-      <button onClick={() => showFormToEdit()}>Edit</button>
+
     </>
   );
 }

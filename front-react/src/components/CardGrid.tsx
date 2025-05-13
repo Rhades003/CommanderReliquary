@@ -30,8 +30,8 @@ const CardGrid: React.FC<CardGridProps> = ({ title, cards, commander, resultForP
   if(commander){
     if(cards !== null){
       return(
-  <section className="flex-1" id='commander' style={{width: "100%", height:"90vh", overflowY:"auto", backgroundColor:"rgba(217, 217, 217, 0.1)", minWidth: "100%"}}>
-    <div className="grid grid-cols-4 gap-2" style={{display: "grid", gridTemplateColumns:"auto auto auto auto"}}>
+  <section className="flex-1" id='commander' style={{width: "100%", height:"90vh", overflowY: "scroll", scrollbarWidth: "none", margin: "1rem", backgroundColor:"rgba(217, 217, 217, 0.1)", minWidth: "98%", maxWidth:"98%", borderRadius:"15px"}}>
+    <div className="grid grid-cols-4 gap-2" style={{display: "grid", gridTemplateColumns:"repeat(4, 1fr)", overflowY: "scroll", scrollbarWidth: "none"}}>
       <CardSimple key={commander.id} 
       id={commander.id} 
       image_uris={commander.image_uris} 
@@ -74,8 +74,8 @@ const CardGrid: React.FC<CardGridProps> = ({ title, cards, commander, resultForP
     }
     else {
       return(
-  <section className="flex-1" style={{width: "100%", height:"90vh", overflowY:"auto", backgroundColor:"rgba(217, 217, 217, 0.1)", minWidth: "100%"}}>
-    <div className="grid grid-cols-4 gap-2" style={{display: "grid", gridTemplateColumns:"auto auto auto auto"}}>
+  <section className="flex-1" style={{width: "100%", height:"90vh", overflowY: "scroll", scrollbarWidth: "none", margin: "1rem", backgroundColor:"rgba(217, 217, 217, 0.1)",  minWidth: "98%", maxWidth:"98%", borderRadius:"15px"}}>
+    <div className="grid grid-cols-4 gap-2" style={{display: "grid", gridTemplateColumns:"repeat(4, 1fr)",  overflowY: "auto"}}>
       <CardSimple key={commander.id} 
       id={commander.id} 
       image_uris={commander.image_uris} 
@@ -93,16 +93,16 @@ const CardGrid: React.FC<CardGridProps> = ({ title, cards, commander, resultForP
 else {
   if (cards === null || cards.length === 0) {
     return (
-      <section className="flex-1" id='search' style={{ width: "100%", height: "90vh", overflowY: "auto", backgroundColor: "rgba(217, 217, 217, 0.1)", minWidth: "100%" }}>
-        <div className="grid grid-cols-4 gap-2" style={{ display: "grid", gridTemplateColumns: "auto auto auto auto" }}>
-          <p>No se han encontrado cartas.</p>
+      <section className="flex-1" id='search' style={{ width: "100%", height: "90vh", overflowY: "scroll", scrollbarWidth: "none", margin: "1rem",  minWidth: "98%", maxWidth:"98%", backgroundColor: "rgba(217, 217, 217, 0.1)", borderRadius:"15px" }}>
+        <div className="grid grid-cols-4 gap-2" style={{ display: "grid", gridTemplateColumns:"repeat(4, 1fr)", overflowY: "auto"}}>
+          <p style={{fontSize:"6rem", textAlign: "center", paddingLeft: "50%", width: "35rem", color:"#858585"}}>No se han encontrado cartas.</p>
         </div>
       </section>
     );
   }
   return(
-    <section className="flex-1" id='search' style={{width: "100%", height:"90vh", overflowY:"auto", backgroundColor:"rgba(217, 217, 217, 0.1)", minWidth: "100%"}}>
-      <div className="grid grid-cols-4 gap-2" style={{display: "grid", gridTemplateColumns:"auto auto auto auto"}}>
+    <section className="flex-1" id='search' style={{width: "100%", height:"90vh", overflowY: "scroll", scrollbarWidth: "none", margin: "1rem", minWidth: "98%", maxWidth:"98%", backgroundColor:"rgba(217, 217, 217, 0.1)", borderRadius:"15px"}}>
+      <div className="grid grid-cols-4 gap-2" style={{display: "grid", gridTemplateColumns:"repeat(4, 1fr)", overflowY: "auto"}}>
       
       {cards.map((card) => {
         console.log(card.name);

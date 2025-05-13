@@ -33,7 +33,12 @@ const Register = () => {
                     console.log(response.data);
                     if(response.data.status == "200"){
                         let token:string = response.data.token;
+                        let name:string = response.data.name;
+
                         localStorage.setItem("token", token);
+                        localStorage.setItem("nameUser", name);
+
+                        window.location.href = "/decks";
                     }
                     else {
                         console.log("status: " + response.data.status);
@@ -41,21 +46,6 @@ const Register = () => {
                     }
                    
                 }
-            });
-    }
-    function prueba(ev:FormEvent) {
-        ev.preventDefault(); 
-
-        let token:string = localStorage.getItem("token")!;
-        console.log(token);
-        axios.get(api+"/decks/prueba",{
-            headers: {
-                'Authorization': `Bearer ${token}`,
-            }
-        }
-            )
-            .then((response:any) => {
-                    console.log(response);
             });
     }
     return (

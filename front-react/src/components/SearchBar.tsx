@@ -52,11 +52,11 @@ const SearchBar: React.FC<SearchBarProps> = ({ resultForParent }) => {
     return (
       <input
         type="text"
-        placeholder="Search"
-        className="px-3 py-1 rounded bg-gray-800 text-white"
+        placeholder="Jodah, The Unifier"
+        className="search-input"
         value={inputValue}
         onChange={handleChange}
-        style={{backgroundColor:"#323232"}}
+        style={{backgroundColor:"#323232", height:"2rem", marginTop:"1rem"}}
       />
     );
   }
@@ -64,11 +64,11 @@ const SearchBar: React.FC<SearchBarProps> = ({ resultForParent }) => {
     return (
       <input
         type="text"
-        placeholder="Search2"
-        className="px-3 py-1 rounded bg-gray-800 text-white"
+        placeholder="Search"
+        className="search-input"
         value={inputValue}
         onChange={handleChange}
-        style={{backgroundColor:"#323232"}}
+        style={{backgroundColor:"#323232", height:"4rem", width:"30rem", fontSize:"2.5rem"}}
       />
     );
   }

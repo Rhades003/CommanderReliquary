@@ -192,7 +192,8 @@ public class DeckController {
 
                 deck.setName(newDeck.getName());
                 deck.setCommander(newDeck.getCommander());
-
+                deck.setIdentity(newDeck.getIdentity());
+                System.out.println("Identityyyyyyyyyyyyyy: "+newDeck.getIdentity());
                 List<DeckCard> deckCards = getAllCardsFromDeck(oldDeck.get().getId());
                 List<String> identityNewCommander = Arrays.asList(newCommander.get().getColor_identity());
                 int i = 0;

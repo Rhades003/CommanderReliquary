@@ -6,16 +6,16 @@ import axios from "axios";
 import SearchBar from '../components/SearchBar';
 
 interface CardProps {
-  id:string;
-  name:string;
-  mana_cost:string;
-  rarity:string;
-  type_line:string;
+  id: string;
+  name: string;
+  mana_cost: string;
+  rarity: string;
+  type_line: string;
   image_uris: {
-    small:string;
-    normal:string;
-    large:string;
-    png:string;
+    small: string;
+    normal: string;
+    large: string;
+    png: string;
   };
 };
 interface DeckProps {
@@ -25,10 +25,13 @@ interface DeckProps {
   cards: CardProps[];
   commanderInfo: CardProps;
 }
-  
+
 
 const Deck: React.FC = () => {
-  const [nameDecks, setNameDecks] = useState<{ id: number; name: string; identity: string, commander:CardProps}[]>([]);
+  const token = localStorage.getItem("token");
+  console.log(token);
+  if (token == null) window.location.href = "/login";
+  const [nameDecks, setNameDecks] = useState<{ id: number; name: string; identity: string, commander: CardProps }[]>([]);
 
   const [selectedDeck, setSelectedDeck] = useState<number | null>(null);
   const [cards, setCards] = useState<CardProps[]>([]);
@@ -37,7 +40,7 @@ const Deck: React.FC = () => {
   const [decks, setDecks] = useState<DeckProps[]>([]);
 
   const [commander, setCommander] = useState<CardProps>();
-  let commanderInfo:any;
+  let commanderInfo: any;
 
   const [results, setResults] = useState<CardProps[] | null>(null);
 
@@ -45,51 +48,74 @@ const Deck: React.FC = () => {
     setResults(cards);
   };
 
-    function addCardToDeck(idCard:string){
-    const token = localStorage.getItem("token")!;
-    console.log("sum "+idCard);
+  function addCardToDeck(idCard: string) {
+
+    console.log("sum " + idCard);
     axios
-    .get(api + "/decks/"+selectedDeck+"/card/"+idCard, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((response: any) => {
-      if(response.status == 200 && response.data != ""){
-        //Add card to deck
-        const clonCards = [...cards];
-        clonCards.push(response.data.card);
-        setCards(clonCards);
-      }
-      console.log(response.data);
-    })
-    .catch((error) => {
-      console.error("Error fetching decks:", error);
-    });
+      .get(api + "/decks/" + selectedDeck + "/card/" + idCard, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response: any) => {
+        if (response.status == 200 && response.data != "") {
+          //Add card to deck
+          const clonCards = [...cards];
+          clonCards.push(response.data.card);
+          setCards(clonCards);
+
+          const deckWithoutChanges = decks.find(deck => deck.id === selectedDeck);
+          deckWithoutChanges?.cards.push(response.data.card);
+          if (deckWithoutChanges !== undefined) {
+            const clondDecks = [...decks]
+            clondDecks.push(deckWithoutChanges);
+            setDecks(clondDecks);
+          }
+          console.log("selecteeedddddd: "+selectedDeck);
+          /*setDecks(decks.map(deck =>
+            deck.id === selectedDeck ? { ...deck, cards: response.data.card } : deck
+          ));*/
+        }
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching decks:", error);
+      });
 
   }
 
-  function removeCardToDeck(idCard:string){
+  function removeCardToDeck(idCard: string) {
     const token = localStorage.getItem("token")!;
-    console.log("rest "+idCard);
+    console.log("rest " + idCard);
     axios
-    .delete(api + "/decks/"+selectedDeck+"/card/"+idCard, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((response: any) => {
-      if(response.status == 200 && response.data != ""){
-        const clonCards = cards.filter((card)=> card.id  !== idCard);
-        setCards(clonCards);
-      }
-    })
-    .catch((error) => {
-      console.error("Error fetching decks:", error);
-    });
+      .delete(api + "/decks/" + selectedDeck + "/card/" + idCard, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response: any) => {
+        if (response.status == 200 && response.data != "") {
+          const clonCards = cards.filter((card) => card.id !== idCard);
+          setCards(clonCards);
+          
+          const deckWithoutChanges = decks.find(deck => deck.id === selectedDeck);
+          if (deckWithoutChanges) {
+            deckWithoutChanges.cards = clonCards;
+            const clondDecks = [...decks]
+            clondDecks.push(deckWithoutChanges);
+            setDecks(clondDecks);
+          }
+          /*setDecks(decks.map(deck =>
+            deck.id === selectedDeck ? { ...deck, cards: clonCards } : deck
+          ));*/
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching decks:", error);
+      });
 
   }
-  
+
   useEffect(() => {
     const token = localStorage.getItem("token")!;
     axios
@@ -122,11 +148,11 @@ const Deck: React.FC = () => {
       });
   }, []);
 
- 
+
 
   const handleSelectDeck = (deckId: number) => {
     //console.log("aaaaaaaaaaa");
-    
+
     setSelectedDeck(deckId);
     const selected = decks.find((d) => d.id === deckId);
     if (selected) {
@@ -134,24 +160,24 @@ const Deck: React.FC = () => {
       setCommander(selected.commanderInfo);
       console.log(cards);
     }
-    
+
   };
 
-  const handleCardToDeck = (cardId:string, action:string) => {
-    
-    if(action == "sum") addCardToDeck(cardId);
-    
+  const handleCardToDeck = (cardId: string, action: string) => {
+
+    if (action == "sum") addCardToDeck(cardId);
+
     else removeCardToDeck(cardId);
-    }
+  }
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white"  style={{backgroundColor: "#2B2A2A", height:"100%"}}>
+    <div className="min-h-screen bg-gray-950 text-white" style={{ backgroundColor: "#2B2A2A", height: "100%" }}>
       <Header />
-      <div className="flex"  style={{ display: "grid", gridTemplateColumns: "10% 1fr", width: "100%" }}>
+      <div className="flex" style={{ display: "grid", gridTemplateColumns: "0.1fr 1fr", width: "99%" }}>
         <DeckSidebar decks={nameDecks} onSelect={handleSelectDeck} />
         <div className="contentCards">
-          <SearchBar resultForParent={handleChangeSerchBar}/>
-          <MainContent results={results} selected={cards} commander={commander} resultForParent={handleCardToDeck}/>
+          <SearchBar resultForParent={handleChangeSerchBar} />
+          <MainContent results={results} selected={cards} commander={commander} resultForParent={handleCardToDeck} />
         </div>
       </div>
     </div>

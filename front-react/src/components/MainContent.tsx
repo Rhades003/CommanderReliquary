@@ -25,7 +25,7 @@ interface MainContentProps {
 }
 
 const MainContent: React.FC<MainContentProps> = ({ results, selected, commander, resultForParent }) => (
-  <main className="flex w-full gap-4 p-4" style={{display: "grid", gap: "1rem", gridTemplateColumns:"1fr 1fr", height: "90vh", overflow: "hidden"}}>
+  <main className="flex w-full gap-4 p-4" style={{display: "grid", gap: "1rem", gridTemplateColumns:"0.8fr 0.8fr", height: "84vh", overflow: "hidden", marginRight:"1rem"}}>
     <CardGrid title="Search Results" cards={results} resultForParent={resultForParent}/>
     <CardGrid title="Commander" cards={selected}  commander={commander} resultForParent={resultForParent}/>
   </main>
