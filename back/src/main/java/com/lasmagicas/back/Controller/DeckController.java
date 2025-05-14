@@ -47,6 +47,10 @@ public class DeckController {
 
     JwtUtil jwtUtil = new JwtUtil();
 
+    public @ResponseBody List<DeckCard> getAllCardsFromDeck(@PathVariable long deck_id) {
+        return deckCardRepository.findByDeck_Id(deck_id);
+    }
+
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
     @PostMapping("/createDeck")
     public DeckResponse create(@RequestBody DeckResponse deck, @RequestHeader("Authorization") String token) {
@@ -74,10 +78,23 @@ public class DeckController {
         return null;
     }
 
-    public @ResponseBody List<DeckCard> getAllCardsFromDeck(@PathVariable long deck_id) {
-        return deckCardRepository.findByDeck_Id(deck_id);
-    }
+    @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
+    @DeleteMapping("/deleteDeck/{id}")
+    public String delete(@PathVariable long id, @RequestHeader("Authorization") String token) {
+        String email = jwtUtil.getEmailFromToken(token);
+        System.out.println("email es este: " + email);
+        Optional<User> user = userRepository.findByEmail(email);
 
+        if (user.isPresent()) {
+            Optional<Deck> deck = deckRepository.findById(id);
+            if(user.get().getId() == deck.get().getUser().getId()) {
+                deckRepository.deleteById(id);
+                return "Deck con id: "+id+"eliminado con éxito";
+            }
+            return "Error no tienes permisos sobre este deck";
+        }
+        return "Error usuario no encontrado";
+    }
 
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
     @GetMapping("/getDecks")

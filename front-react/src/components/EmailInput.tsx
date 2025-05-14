@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 
-const EmailInput = ({ onEmailChange }: { onEmailChange: (isValid: boolean) => void }) => {
+const EmailInput = ({ onEmailChange }: { onEmailChange: (isValid: boolean, value:string) => void }) => {
     const [email, setEmail] = useState('');
     const [errorEmailMessage, setErrorEmailMessage] = useState(validateEmail(email));
-
+    let isValid = false;
     const handleInputChange = (ev: any) => {
         const { value } = ev.target;
         setEmail(value);
         const error = validateEmail(value);
         setErrorEmailMessage(error);
-        onEmailChange(error === "");
+        if(validateEmail(value) == "") isValid = true;
+        else isValid = false;
+        onEmailChange(isValid, value);
     };
     
     return(
@@ -31,7 +33,7 @@ const EmailInput = ({ onEmailChange }: { onEmailChange: (isValid: boolean) => vo
         if (!email.includes("@gmail.com")
             && !email.includes("@hotmail.com")
             && !email.includes("@yahoo.com")
-            && email.trim() !== "") return "Email no válido.";
+            && email.trim().length > 0) return "Email no válido.";
         else return "";
     }
 

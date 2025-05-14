@@ -56,7 +56,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ resultForParent }) => {
         className="search-input"
         value={inputValue}
         onChange={handleChange}
-        style={{backgroundColor:"#323232", height:"2rem", marginTop:"1rem"}}
+        style={{backgroundColor:"#323232", height:"2rem", marginTop:"1rem", marginLeft:"1rem", paddingLeft:"1rem"}}
       />
     );
   }
@@ -68,7 +68,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ resultForParent }) => {
         className="search-input"
         value={inputValue}
         onChange={handleChange}
-        style={{backgroundColor:"#323232", height:"4rem", width:"30rem", fontSize:"2.5rem"}}
+        style={{backgroundColor:"#323232", height:"4rem", width:"30rem", fontSize:"2.5rem",  marginLeft:"2rem", paddingLeft:"1rem"}}
       />
     );
   }

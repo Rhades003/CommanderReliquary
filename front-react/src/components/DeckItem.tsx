@@ -200,7 +200,7 @@ const DeckItem: React.FC<DeckItemProps> = ({ id, name, colors, commander, onClic
             Authorization: `Bearer ${token}`,
           }
         }).then(response => {
-          console.log("identidaddddddddddddddddddddddddd: "+identity);
+          console.log("identidaddddddddddddddddddddddddd: " + identity);
           if (response.status == 200) window.location.reload();
         }
         );
@@ -209,16 +209,63 @@ const DeckItem: React.FC<DeckItemProps> = ({ id, name, colors, commander, onClic
     });
   }
 
+  function showAlertToDelete(id: number) {
+    Swal.fire({
+      title: "Estas seguro de elimiar el mazo?",
+      customClass: {
+        popup: 'swal-dark',
+        confirmButton: 'btnPurple'
+      },
+      text: "No podrás revertir los cambos!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(api + "/decks/deleteDeck/" + id, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        }).then(response => {
+          if (response.status == 200) {
+            console.log(response.data);
+            Swal.fire({
+              title: "Eliminado!",
+              customClass: {
+                popup: 'swal-dark',
+                confirmButton: 'btnPurple'
+              },
+              text: "Tu mazo ha sido elimino.",
+              icon: "success"
+            });
+          }
+          else {
+            Swal.fire({
+              title: "Error!",
+              customClass: {
+                popup: 'swal-dark',
+                confirmButton: 'btnPurple'
+              },
+              text: response.data,
+              icon: "error"
+            })
+          }
+        });
 
+      }
+    });
+  }
   identity = setIdentity(colors);
   return (
     <>
       <div className="bg-gray-800 p-2 rounded cursor-pointer" onClick={onClick}>
-        <div  style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.5rem" }}>
-          <h4 style={{ color: "#BEBEBE", margin:"0" }} className='header-left'>{name}</h4>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
+          <h4 style={{ color: "#BEBEBE", margin: "0" }} className='header-left'>{name}</h4>
           <div className='header-right' style={{ display: "flex", gap: "0" }}>
-            <button className="btnPurple" style={{marginTop:"0.3rem"}} onClick={() => showFormToEdit()} ><img src='/imgs/edit.svg' height="24rem"/></button>
-            <button className="btnRed" style={{marginTop:"0.3rem"}} onClick={() => showFormToEdit()} ><img src='/imgs/trash.svg' height="24rem"/></button>
+            <button className="btnPurple" style={{ marginTop: "0.3rem" }} onClick={() => showFormToEdit()} ><img src='/imgs/edit.svg' height="24rem" /></button>
+            <button className="btnRed" style={{ marginTop: "0.3rem" }} onClick={() => showAlertToDelete(id)} ><img src='/imgs/trash.svg' height="24rem" /></button>
           </div>
         </div>
         <div className='identityColor'>

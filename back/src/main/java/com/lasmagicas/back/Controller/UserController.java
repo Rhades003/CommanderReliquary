@@ -4,20 +4,13 @@ import com.lasmagicas.back.DTO.UserResponse;
 import com.lasmagicas.back.Model.User;
 import com.lasmagicas.back.Repository.UserRepository;
 import com.lasmagicas.back.security.JwtUtil;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtBuilder;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.http.HttpRequest;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -56,10 +49,16 @@ public class UserController {
 
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
     @PostMapping("/register")
-    public User register(@Valid @RequestBody User user){
+    public @Valid String register(@Valid @RequestBody User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-       userRepository.save(user);
-       return user;
+        try{
+            userRepository.save(user);
+            return user.getId().toString();
+        } catch (RuntimeException e) {
+            //throw new RuntimeException(e);
+            return  e.toString();
+        }
+
     }
 
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})

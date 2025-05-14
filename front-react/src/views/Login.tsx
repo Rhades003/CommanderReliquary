@@ -3,7 +3,7 @@ import EmailInput from '../components/EmailInput';
 import PasswordInput from '../components/PasswordInput';
 import axios from "axios";
 
-const Register = () => {
+const Login = () => {
     const [disabled, setDisabled] = useState(true);
     const [emailValid, setEmailValid] = useState(false);
     const [passwordValid, setPasswordValid] = useState(false);
@@ -59,4 +59,4 @@ const Register = () => {
 
 }
 
-export default Register;
+export default Login;
