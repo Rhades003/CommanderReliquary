@@ -16,15 +16,10 @@ public interface CardRepository extends MongoRepository<Card,String>{
     Page<Card> findAllByLegalitiesCommander(String commander, Pageable pageable);
     Page<Card> findByNameContainingIgnoreCaseAndLegalitiesCommander(String name ,String commander ,Pageable pageable);
 
-    /*@Query("{$and: ["
-            + "{ 'name': { $regex: ?0, $options: 'i' } },"
-            + "{ $or: ["
-            + "  { 'type_line': { $regex: 'Legendary Creature', $options: 'i' } },"
-            + "  { 'card_faces.type_line': { $regex: 'Legendary Creature', $options: 'i' } }"
-            + "] },"
-            + "{ 'legalities.commander': 'legal' }"
-            + "]}")*/
+
     Page<Card> findByNameContainingIgnoreCaseAndTypeLineContainingIgnoreCaseAndLegalitiesCommander(String name,String type_line, String commander, Pageable pageable);
 
-
+    //{ color_identity: { $eq: ["B", "U"] }, type_line: RegExp("legendary", "i" $and "", "i")}
+    //          Name IgnoreMayus                 TypeLine Ignore Mayus          Legal in commander    OracleText Ignore Mayus       Rarity
+    Page<Card> findByNameContainingIgnoreCaseAndTypeLineContainingIgnoreCaseAndLegalitiesCommanderAndOracleTextContainingIgnoreCaseAndRarityAndManaCost(String name,String type_line, String commander, Pageable pageable);
 }

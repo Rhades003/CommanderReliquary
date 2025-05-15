@@ -1,7 +1,3 @@
-import axios from "axios";
-import { useEffect } from "react";
-
-
 interface CardProps {
     id: string;
     name: string;
@@ -62,11 +58,11 @@ const FullCard: React.FC<FullCardProps> = ({ card }) => {
                         <div id="colors">
                             {card.color_identity.map(color => {
                                 console.log(color);
-                                if (color == "W") return <img src="/identityColors/W.svg" alt={color} />
-                                if (color == "U") return <img src="/identityColors/U.svg" alt={color} />
-                                if (color == "B") return <img src="/identityColors/B.svg" alt={color} />
-                                if (color == "R") return <img src="/identityColors/R.svg" alt={color} />
-                                if (color == "G") return <img src="/identityColors/G.svg" alt={color} />
+                                if (color == "W") return <img src="/identityColors/W.svg" alt={color} style={{height:"10rem"}}/>
+                                if (color == "U") return <img src="/identityColors/U.svg" alt={color} style={{height:"10rem"}}/>
+                                if (color == "B") return <img src="/identityColors/B.svg" alt={color} style={{height:"10rem"}}/>
+                                if (color == "R") return <img src="/identityColors/R.svg" alt={color} style={{height:"10rem"}}/>
+                                if (color == "G") return <img src="/identityColors/G.svg" alt={color} style={{height:"10rem"}}/>
                             })}
                         </div>
                     </div>

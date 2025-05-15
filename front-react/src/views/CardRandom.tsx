@@ -8,22 +8,29 @@ import FullCard from "../components/FullCard";
 const CardRandom = () => {
 
     const api: string = "http://localhost:8080";
-    let cardExample;
     const [card, setCard] = useState<any>();
-    useEffect(() => {
+    const [iterator, setIterator] = useState<number>(0);
+
         //const token = localStorage.getItem("token")!;
-        axios
+        if(iterator == 0){
+            setIterator(1);
+            axios
             .get(api + "/cards/getRandomCard")
             .then((response: any) => {
-                console.log(response.data.content[0]);
+                
                 setCard(response.data.content[0]);
+                
                 //console.log("-------------------");
                 //console.log(card);
             })
             .catch((error) => {
                 console.error("Error fetching cards:", error);
             });
-    }, []);
+        }
+
+    useEffect(() => {
+        console.log(iterator);
+    }, [iterator]);
 
     if (card != undefined && card != null) {
         //console.log(card);
