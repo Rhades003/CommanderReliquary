@@ -1,5 +1,4 @@
 import React from 'react';
-import ColorCheckbox from './ColorCheckbox';
 import DeckItem from './DeckItem';
 import axios from 'axios';
 import Swal from 'sweetalert2';

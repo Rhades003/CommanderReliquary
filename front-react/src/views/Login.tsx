@@ -49,11 +49,23 @@ const Login = () => {
             });
     }
     return (
-        <form method="post" onSubmit={ev => { login(ev) }}>
+        <div id="root" style={{ height: "100%", width: "100%", backgroundColor: "#1D1D1D"}}>
+            <div style={{display:"flex", alignItems: "center",  justifyContent: "center", paddingTop:"3rem"}}>
+                <img src="./logo/ReliquarySanctuaryLogo.svg" alt="logo" style={{ height: "8rem" }} />
+                <h1 style={{color:"white"}}>
+                    <span style={{ display: 'block' }}>COMMANDER</span>
+                    <span style={{ display: 'block' }}>RELIQUARY</span>
+                </h1>
+            </div>
+        <form method="post" onSubmit={ev => { login(ev) }} className="form">
             <EmailInput onEmailChange={handleEmailChange} />
             <PasswordInput onPasswordChange={handlePasswordChange} />
-            <button type="submit" disabled={disabled}>Login</button>
+            <button type="submit" disabled={disabled} className="btnPurple" style={{ padding: "8px 16px", margin: "1rem auto 0 auto", display: "block", }}>Iniciar Sesión</button>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
+                <a href="/register" className="linkForms"><p>¿Todavía no tienes cuenta?</p></a>
+            </div>
       </form>
+      </div>
     );
 
 

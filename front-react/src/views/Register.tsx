@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FormEvent  } from "react";
+import React, { useState, useEffect, FormEvent } from "react";
 import NameInput from "../components/NameInput";
 import EmailInput from '../components/EmailInput';
 import PasswordInput from '../components/PasswordInput';
@@ -17,24 +17,24 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    const api:string = "http://localhost:8080";
+    const api: string = "http://localhost:8080";
 
     // Validar si ambos campos están correctos para habilitar el botón
     useEffect(() => {
         setDisabled(!(emailValid && passwordValid));
-        
+
     }, [emailValid, passwordValid]);
 
     const handleNameChange = (isValid: boolean, value: string) => {
         setNameValid(isValid);
         setName(value);
-        
+
     };
 
     const handleEmailChange = (isValid: boolean, value: string) => {
         setEmailValid(isValid);
         setEmail(value);
-        
+
     };
 
     const handlePasswordChange = (isValid: boolean, value: string) => {
@@ -47,81 +47,69 @@ const Register = () => {
         setConfirmPassword(value);
     };
 
-    async function register(ev:FormEvent){
+    async function register(ev: FormEvent) {
         ev.preventDefault();
-        let name:HTMLInputElement = document.getElementById("nameInput") as HTMLInputElement;
+        //let name:HTMLInputElement = document.getElementById("nameInput") as HTMLInputElement;
         console.log(email);
         console.log(password);
         console.log(confirmPassword);
-        if(password == confirmPassword && name.value != "") {
+        if (password == confirmPassword && name != "") {
             const hashedPassword = bcrypt.hashSync(password, 11)
 
-            axios.post(api+"/users/register",
-            {
-                "name":name.value,
-                "email":email,
-                "password":hashedPassword,
-            })
-            .then((response:any) => {
-                if(response.status == 200) {
-                    console.log(response.data);
-                    if(response.data.status == "200"){
-                        /*let token:string = response.data.token;
-                        let name:string = response.data.name;
-
-                        localStorage.setItem("token", token);
-                        localStorage.setItem("nameUser", name);
-
-                        window.location.href = "/decks";*/
+            axios.post(api + "/users/register",
+                {
+                    "name": name,
+                    "email": email,
+                    "password": hashedPassword,
+                })
+                .then((response: any) => {
+                    if (response.status == 200) {
                         console.log(response.data);
+                        if (response.data.status == "200") {
+                            let token: string = response.data.token;
+                            let name: string = response.data.name;
+
+                            localStorage.setItem("token", token);
+                            localStorage.setItem("nameUser", name);
+                            console.log(response.data);
+                            window.location.href = "/decks";
+
+
+                        }
+                        else {
+                            console.log("status: " + response.data.status);
+                            console.log("message: " + response.data.message);
+                        }
+
                     }
-                    else {
-                        console.log("status: " + response.data.status);
-                        console.log("message: " + response.data.message);
-                    }
-                   
-                }
-            });
+                });
         }
         else {
-            let errorPassword:HTMLParagraphElement = document.getElementById("errorPassword") as HTMLParagraphElement;
+            let errorPassword: HTMLParagraphElement = document.getElementById("errorPassword") as HTMLParagraphElement;
             errorPassword.innerText = "Las contraseñas deben coincidir"
         }
-        /*axios.post(api+"/users/register",
-            {
-                "name":"",
-                "email":"ruben@gmail.com",
-                "password":"ruben1234"
-            })
-            .then((response:any) => {
-                if(response.status == 200) {
-                    console.log(response.data);
-                    if(response.data.status == "200"){
-                        let token:string = response.data.token;
-                        let name:string = response.data.name;
-
-                        localStorage.setItem("token", token);
-                        localStorage.setItem("nameUser", name);
-
-                        window.location.href = "/decks";
-                    }
-                    else {
-                        console.log("status: " + response.data.status);
-                        console.log("message: " + response.data.message);
-                    }
-                   
-                }
-            });*/
     }
     return (
-        <form method="post" onSubmit={ev => { register(ev) }}>
-            <NameInput onNameChange={handleNameChange}/>
-            <EmailInput onEmailChange={handleEmailChange}/>
-            <PasswordInput onPasswordChange={handlePasswordChange} />
-            <PasswordInput onPasswordChange={handleConfirmPasswordChange} />
-            <p id="errorPassword"/>
-            <button type="submit" disabled={disabled}>register</button>
-      </form>
+        <div id="root" style={{ height: "100%", width: "100%", backgroundColor: "#1D1D1D"}}>
+            <div style={{display:"flex", alignItems: "center",  justifyContent: "center", paddingTop:"3rem"}}>
+                <img src="./logo/ReliquarySanctuaryLogo.svg" alt="logo" style={{ height: "8rem" }} />
+                <h1 style={{color:"white"}}>
+                    <span style={{ display: 'block' }}>COMMANDER</span>
+                    <span style={{ display: 'block' }}>RELIQUARY</span>
+                </h1>
+            </div>
+            <form method="post" onSubmit={ev => { register(ev) }} className="form">
+                <NameInput onNameChange={handleNameChange} />
+                <EmailInput onEmailChange={handleEmailChange} />
+                <PasswordInput onPasswordChange={handlePasswordChange} />
+                <PasswordInput onPasswordChange={handleConfirmPasswordChange} />
+                <p id="errorPassword" />
+                <button type="submit" disabled={disabled} className="btnPurple" style={{ padding: "8px 16px", margin: "1rem auto 0 auto", display: "block", }}>Registrarse</button>
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
+                    <a href="/login" className="linkForms"><p>¿Ya tienes cuenta?</p></a>
+                </div>
+            </form>
+        </div>
     );
 
 

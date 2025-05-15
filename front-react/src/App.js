@@ -7,7 +7,7 @@ import SearchCard from './views/SearchCard';
 import CardRandom from './views/CardRandom';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
+import React, { StrictMode } from 'react';
 
 
 
@@ -15,6 +15,7 @@ function App() {
 
     
     return (
+      <StrictMode>
       <Router>
       <Routes>
         <Route path="/" element={<Cards />} />
@@ -25,6 +26,7 @@ function App() {
         <Route path="/random" element={<CardRandom />} />
       </Routes>
       </Router>
+      </StrictMode>
     );
   }
   

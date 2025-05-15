@@ -240,6 +240,7 @@ const DeckItem: React.FC<DeckItemProps> = ({ id, name, colors, commander, onClic
               text: "Tu mazo ha sido elimino.",
               icon: "success"
             });
+            window.location.reload();
           }
           else {
             Swal.fire({

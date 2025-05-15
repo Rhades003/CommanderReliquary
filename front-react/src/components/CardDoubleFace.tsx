@@ -7,6 +7,7 @@ interface CardProps {
     mana_cost:string;
     rarity:string;
     type_line:string;
+    oracle_text:string;
     image_uris: {
       small:string;
       normal:string;

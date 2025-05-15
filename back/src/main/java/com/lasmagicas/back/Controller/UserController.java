@@ -49,14 +49,20 @@ public class UserController {
 
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
     @PostMapping("/register")
-    public @Valid String register(@Valid @RequestBody User user){
+    public @Valid HashMap<String,String> register(@Valid @RequestBody User user){
+        User oldUser = new User();
+        oldUser.setEmail(user.getEmail());
+        oldUser.setPassword(user.getPassword());
+        oldUser.setName(user.getName());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         try{
             userRepository.save(user);
-            return user.getId().toString();
-        } catch (RuntimeException e) {
-            //throw new RuntimeException(e);
-            return  e.toString();
+            return login(oldUser);
+
+        }catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        } catch (KeyStoreException e) {
+            throw new RuntimeException(e);
         }
 
     }
@@ -68,12 +74,21 @@ public class UserController {
         HashMap<String, String> data = new HashMap<>();
         data.put("status", "401");
         data.put("message","credenciales incorrectas");
-        if (user2.isPresent()) {
-            if (!passwordEncoder.matches(user.getPassword(), user2.get().getPassword())) return data;
-        }
-        else return data;
 
-        System.out.println("Emial en el matodo login "+user.getEmail());
+        if (user2.isPresent()) {
+            System.out.println("despueeeeeeeeeeeeessssssssssssss dfer idddddddddddddd en el login");
+            String pass1 = user.getPassword();
+            String pass2 = user2.get().getPassword();
+            if (!passwordEncoder.matches(pass1, pass2)) {
+                System.out.println("yesssssssssss");
+                System.out.println(pass1);
+                System.out.println(pass2);
+                return data;
+            }
+        }
+        else{ return data;}
+
+        System.out.println("Email en el matodo login "+user.getEmail());
         String token = jwtUtil.generateToken(user.getEmail());
 
 

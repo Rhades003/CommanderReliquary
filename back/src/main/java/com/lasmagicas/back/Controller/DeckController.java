@@ -66,15 +66,15 @@ public class DeckController {
             deckEntity.setCommander(deck.getCommander());
             deckEntity.setIdentity(deck.getIdentity());
 
+            System.out.println("aaaaaaaaaaaaaaaaaaaaaaimai");
+
             //Forma nueva
             deckEntity.setUser(user.orElseThrow());
-
             deckRepository.save(deckEntity);
-            System.out.println(deckEntity.getId() + " " + deckEntity.getCommander() + " " + deckEntity.getUser() + " " + deckEntity.getIdentity() + " " + deckEntity.getName());
-
 
             return deck;
         }
+
         return null;
     }
 

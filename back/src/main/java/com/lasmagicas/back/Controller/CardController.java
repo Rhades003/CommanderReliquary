@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "http://127.0.0.1:3000")
@@ -25,6 +26,15 @@ public class CardController {
     @GetMapping("/getAllCards/{index}")
     public Page<Card> getAllCards(@PathVariable int index) {
         return cardRepository.findAllByLegalitiesCommander("legal", Pageable.ofSize(100).withPage(index));
+    }
+
+    @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
+    @GetMapping("/getRandomCard")
+    public Page<Card> getRandomCards() {
+        Random random = new Random();
+        Page<Card> page = cardRepository.findAllByLegalitiesCommander("legal", Pageable.ofSize(1));
+        int randomNumber = random.nextInt(1, page.getTotalPages());
+        return cardRepository.findAllByLegalitiesCommander("legal", Pageable.ofSize(1).withPage(randomNumber));
     }
 
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})

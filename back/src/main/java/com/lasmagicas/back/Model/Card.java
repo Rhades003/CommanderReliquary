@@ -30,8 +30,7 @@ public class Card {
     private CardImage image_uris;
     private String[] keywords;
     private String[] color_identity;
-
-    //@JsonProperty("legalities")
+    private String oracle_text;
     private Legalities legalities;
 
     @JsonProperty("card_faces")

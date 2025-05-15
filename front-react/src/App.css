@@ -41,16 +41,18 @@ html, body, #root {
   height: 100%;
   margin: 0;
   padding: 0;
+  background-color: #2B2A2A;
 }
 
 .btnPurple {
-  background-color: #a323b5;
+  background-color: #9E209C;
   color: white;
   border: 2px solid #3D054B;
   border-radius: 8px;
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .btnPurple:hover {
@@ -132,5 +134,42 @@ html, body, #root {
 }
 .linkMenu {
   color: "white";
-  text-decoration: "none";
+  text-decoration: none;
+}
+.linkForms {
+  color: white;
+  padding-right: 1rem;
+  padding-top: 2rem;
+}
+
+.input-group {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  font-size: 0.9rem;
+  color: #cccccc;
+  margin-bottom: 0.3rem;
+}
+
+.input-group input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #aaa;
+  padding: 0.5rem 0;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+}
+
+.form {
+  background-color: #2e2e2e;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 30rem;
+  margin: 0 auto;
+  color: white;
+  font-family: sans-serif;
 }
