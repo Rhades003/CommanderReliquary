@@ -19,7 +19,16 @@ public interface CardRepository extends MongoRepository<Card,String>{
 
     Page<Card> findByNameContainingIgnoreCaseAndTypeLineContainingIgnoreCaseAndLegalitiesCommander(String name,String type_line, String commander, Pageable pageable);
 
+    //    $and [
+    //      {type_line: RegExp("creature", "i")},
+    //      {type_line: RegExp("legendary", "i")}
+    //    ]
     //{ color_identity: { $eq: ["B", "U"] }, type_line: RegExp("legendary", "i" $and "", "i")}
     //          Name IgnoreMayus                 TypeLine Ignore Mayus          Legal in commander    OracleText Ignore Mayus       Rarity
-    Page<Card> findByNameContainingIgnoreCaseAndTypeLineContainingIgnoreCaseAndLegalitiesCommanderAndOracleTextContainingIgnoreCaseAndRarityAndManaCost(String name,String type_line, String commander, Pageable pageable);
+
+
+    //findByNameContainingIgnoreCaseAndTypeLineContainingIgnoreCaseAndLegalitiesCommanderAndOracleTextContainingIgnoreCaseAndRarityAndManaCost
+    @Query ("{ and: [ {type_line: RegExp('creature', 'i')}, {type_line: RegExp('legendary', 'i')} ], color_identity: { $eq: ['W'] }, name: RegExp('akroma', 'i'), $and: [ {keywords: RegExp('flying', 'i')}, {keywords: RegExp('first Strike', 'i')}]}")
+    Page<Card> prueba( Pageable pageable);
+    //String name,String type_line, String commander,
 }
