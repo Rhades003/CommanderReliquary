@@ -22,14 +22,16 @@ const LoginBtns: React.FC = () => {
     window.location.href = "/login";
   }
 
+  const goLogin = () => (window.location.href = "/login");
+  const goRegister = () => (window.location.href = "/register");
   //let nameUser:HTMLHeadingElement = document.getElementById("nameUserElement") as HTMLHeadingElement;
 
 
   if (token == null) {
     return (
       <div className="header-right" style={{ paddingRight: "2rem" }}>
-        <button className="btnPurple" style={{ height: "3rem", width: "6rem", padding: "8px 16px" }}>Sign In</button>
-        <button className="btnGrey" style={{ height: "3rem", width: "6rem" }}>Sign Up</button>
+        <button className="btnPurple" style={{ height: "3rem", width: "6rem", padding: "8px 16px" }} onClick={goLogin}>Sign In</button>
+        <button className="btnGrey" style={{ height: "3rem", width: "6rem" }} onClick={goRegister}>Sign Up</button>
       </div>
     );
   }
@@ -55,9 +57,9 @@ const LoginBtns: React.FC = () => {
             zIndex: 777,
             minWidth: "10rem",
           }} onMouseEnter={displayMenu} onMouseLeave={displayMenu}>
-        <a href="#" style={{ color: "white", textDecoration: "none" }}>Inicio</a>
-        <a href="#" style={{ color: "white", textDecoration: "none" }}>Decks</a>
-        <a href="#" style={{ color: "white", textDecoration: "none" }}>Carta Aleatoria</a>
+        <a href="/" style={{ color: "white", textDecoration: "none" }}>Inicio</a>
+        <a href="/decks" style={{ color: "white", textDecoration: "none" }}>Decks</a>
+        <a href="random" style={{ color: "white", textDecoration: "none" }}>Carta Aleatoria</a>
         <a href="#" style={{ color: "white", textDecoration: "none" }} onClick={logout}>Cerrar Sesión</a>
     </div>
     </div>);

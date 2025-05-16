@@ -23,6 +23,10 @@ public class Card {
     private String name;
     private String mana_cost;
     private String rarity;
+    private String power;
+    private String toughness;
+    private String set;
+    private String cmc;
 
     @Field("type_line")
     @JsonProperty("type_line")

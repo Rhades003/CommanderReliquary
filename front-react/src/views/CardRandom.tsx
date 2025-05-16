@@ -47,10 +47,6 @@ const CardRandom = () => {
         //console.log(card);
         return (
             <>
-                <Header />
-                <div className="MainContent">
-                    <h1>Ups! Algo ha ocurrido</h1>
-                </div>
             </>
         );
     }
