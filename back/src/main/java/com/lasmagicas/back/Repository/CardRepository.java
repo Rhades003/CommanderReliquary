@@ -30,11 +30,11 @@ public interface CardRepository extends MongoRepository<Card, String> {
                     { "card_faces.1.oracle_text": { "$regex": ?3, "$options": "i" } }
                   ]
                 },
-                { "cmc": ?4 }
+                { "set_name": { "$regex": ?4, "$options": "i" } }
               ]
             }
             """)
-    Page<Card> findCardsColorless(String name, String typeLine, String rarity, String pasive, int cmc, Pageable pageable);
+    Page<Card> findCardsColorless(String name, String typeLine, String rarity, String pasive, String setName, Pageable pageable);
 
 
     @Query("""
@@ -50,7 +50,7 @@ public interface CardRepository extends MongoRepository<Card, String> {
                     { "card_faces.1.oracle_text": { "$regex": ?4, "$options": "i" } }
                   ]
                 },
-                { "cmc": ?5 }
+                { "set_name": { "$regex": ?5, "$options": "i" } }
               ]
             }
             """)
@@ -60,7 +60,7 @@ public interface CardRepository extends MongoRepository<Card, String> {
             String color1,
             String rarity,
             String pasive,
-            int cmc,
+            String setName,
             Pageable pageable
     );
 
@@ -78,7 +78,7 @@ public interface CardRepository extends MongoRepository<Card, String> {
                     { "card_faces.1.oracle_text": { "$regex": ?5, "$options": "i" } }
                   ]
                 },
-                { "cmc": ?6 }
+                { "set_name": { "$regex": ?6, "$options": "i" } }
               ]
             }
             """)
@@ -89,7 +89,7 @@ public interface CardRepository extends MongoRepository<Card, String> {
             String color2,
             String rarity,
             String pasive,
-            int cmc,
+            String setName,
             Pageable pageable
     );
 
@@ -107,7 +107,7 @@ public interface CardRepository extends MongoRepository<Card, String> {
                     { "card_faces.1.oracle_text": { "$regex": ?6, "$options": "i" } }
                   ]
                 },
-                { "cmc": ?7 }
+                { "set_name": { "$regex": ?7, "$options": "i" } }
               ]
             }
             """)
@@ -119,7 +119,7 @@ public interface CardRepository extends MongoRepository<Card, String> {
             String color3,
             String rarity,
             String pasive,
-            int cmc,
+            String setName,
             Pageable pageable
     );
 
@@ -137,7 +137,7 @@ public interface CardRepository extends MongoRepository<Card, String> {
                     { "card_faces.1.oracle_text": { "$regex": ?7, "$options": "i" } }
                   ]
                 },
-                { "cmc": ?8 }
+                { "set_name": { "$regex": ?8, "$options": "i" } }
               ]
             }
             """)
@@ -150,7 +150,7 @@ public interface CardRepository extends MongoRepository<Card, String> {
             String color4,
             String rarity,
             String pasive,
-            int cmc,
+            String setName,
             Pageable pageable
     );
 
@@ -168,11 +168,11 @@ public interface CardRepository extends MongoRepository<Card, String> {
                     { "card_faces.1.oracle_text": { "$regex": ?8, "$options": "i" } }
                   ]
                 },
-                { "cmc": ?9 },
+                { "set_name": { "$regex": ?9, "$options": "i" } }
               ]
             }
             """)
-    Page<Card> findCardsFiveColors(String name, String type_line, String color1, String color2, String color3, String color4, String color5, String rarity, String pasive, int cmc, Pageable pageable);
+    Page<Card> findCardsFiveColors(String name, String type_line, String color1, String color2, String color3, String color4, String color5, String rarity, String pasive, String setName, Pageable pageable);
 }
 
 

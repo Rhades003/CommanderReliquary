@@ -19,6 +19,6 @@ public class Filter {
     private String typeLine;
     private String rarity;
     private String pasive;
-    private int cmc;
+    private String setName;
 
 }

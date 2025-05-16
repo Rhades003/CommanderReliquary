@@ -173,3 +173,12 @@ html, body, #root {
   color: white;
   font-family: sans-serif;
 }
+.formOnlyForFilters {
+  background-color: #2e2e2e;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 80rem;
+  margin: 0 auto;
+  color: white;
+  font-family: sans-serif;
+}

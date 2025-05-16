@@ -98,8 +98,6 @@ public class CardController {
 
 
         Pageable pageable = PageRequest.of(0, 20);
-        System.out.println("-----------------------------------------------------------------");
-        System.out.println(filter.getColorIdentity().size());
         Page<Card> result = null;
         filter.setColorIdentity(ordenarColoresMtg(filter.getColorIdentity()));
         System.out.println(filter.toString());
@@ -110,7 +108,7 @@ public class CardController {
                     filter.getTypeLine(),
                     filter.getRarity(),
                     filter.getPasive(),
-                    filter.getCmc(),
+                    filter.getSetName(),
                     pageable
             );
         }
@@ -122,7 +120,7 @@ public class CardController {
                     filter.getColorIdentity().get(0),
                     filter.getRarity(),
                     filter.getPasive(),
-                    filter.getCmc(),
+                    filter.getSetName(),
                     pageable
             );
         }
@@ -134,7 +132,7 @@ public class CardController {
                     filter.getColorIdentity().get(1),
                     filter.getRarity(),
                     filter.getPasive(),
-                    filter.getCmc(),
+                    filter.getSetName(),
                     pageable);
         }
         if(filter.getColorIdentity().size() == 3) {
@@ -146,7 +144,7 @@ public class CardController {
                     filter.getColorIdentity().get(2),
                     filter.getRarity(),
                     filter.getPasive(),
-                    filter.getCmc(),
+                    filter.getSetName(),
                     pageable);
         }
         if(filter.getColorIdentity().size() == 4) {
@@ -159,7 +157,7 @@ public class CardController {
                     filter.getColorIdentity().get(3),
                     filter.getRarity(),
                     filter.getPasive(),
-                    filter.getCmc(),
+                    filter.getSetName(),
                     pageable);
         }
         if (filter.getColorIdentity().size() == 5){
@@ -173,7 +171,7 @@ public class CardController {
                     filter.getColorIdentity().get(4),
                     filter.getRarity(),
                     filter.getPasive(),
-                    filter.getCmc(),
+                    filter.getSetName(),
                     pageable);
         }
 

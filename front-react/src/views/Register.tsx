@@ -19,7 +19,6 @@ const Register = () => {
 
     const api: string = "http://localhost:8080";
 
-    // Validar si ambos campos están correctos para habilitar el botón
     useEffect(() => {
         setDisabled(!(emailValid && passwordValid));
 
