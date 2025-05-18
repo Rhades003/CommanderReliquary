@@ -73,28 +73,26 @@ const Cards = () => {
     { value: "common", label: "Común" },
     { value: "uncommon", label: "Infrecuente" },
     { value: "rare", label: "Rara" },
-    { value: "mythic", label: "Mítica" },
-    { value: "token", label: "Token" },
-    { value: "land", label: "Tierra" },
+    { value: "mythic", label: "Mítica" }
   ];
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>, page = "0") {
     event.preventDefault();
 
-    var form = event.currentTarget;
-    var formData = new FormData(form);
+    let form = event.currentTarget;
+    let formData = new FormData(form);
 
-    var name = formData.get("name");
-    var pasive = formData.get("pasive");
-    var typeLine = formData.get("typeLine");
-    var setName = formData.get("setName");
-    var rarity = formData.get("rarity");
+    let name = formData.get("name");
+    let pasive = formData.get("pasive");
+    let typeLine = formData.get("typeLine");
+    let setName = formData.get("setName");
+    let rarity = formData.get("rarity");
 
-    var colorIdentity = [];
-    var checkboxes = form.querySelectorAll('input[name="colorIdentity"]');
+    let colorIdentity = [];
+    let checkboxes = form.querySelectorAll('input[name="colorIdentity"]');
 
-    for (var i = 0; i < checkboxes.length; i++) {
-      var checkbox = checkboxes[i];
+    for (let i = 0; i < checkboxes.length; i++) {
+      let checkbox = checkboxes[i];
       if ((checkbox as HTMLInputElement).checked) {
         colorIdentity.push((checkbox as HTMLInputElement).value);
       }
@@ -139,21 +137,21 @@ const Cards = () => {
 
 
   function changePage(page: string) {
-    var form: HTMLFormElement = document.getElementById("formOnlyForFilters") as HTMLFormElement;
+    let form: HTMLFormElement = document.getElementById("formOnlyForFilters") as HTMLFormElement;
 
-    var formData = new FormData(form);
+    let formData = new FormData(form);
 
-    var name = formData.get("name");
-    var pasive = formData.get("pasive");
-    var typeLine = formData.get("typeLine");
-    var setName = formData.get("setName");
-    var rarity = formData.get("rarity");
+    let name = formData.get("name");
+    let pasive = formData.get("pasive");
+    let typeLine = formData.get("typeLine");
+    let setName = formData.get("setName");
+    let rarity = formData.get("rarity");
 
-    var colorIdentity = [];
-    var checkboxes = form.querySelectorAll('input[name="colorIdentity"]');
+    let colorIdentity = [];
+    let checkboxes = form.querySelectorAll('input[name="colorIdentity"]');
 
-    for (var i = 0; i < checkboxes.length; i++) {
-      var checkbox = checkboxes[i];
+    for (let i = 0; i < checkboxes.length; i++) {
+      let checkbox = checkboxes[i];
       if ((checkbox as HTMLInputElement).checked) {
         colorIdentity.push((checkbox as HTMLInputElement).value);
       }
