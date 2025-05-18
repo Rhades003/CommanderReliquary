@@ -1,15 +1,17 @@
 package com.lasmagicas.back.Model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@ToString
 @Table(name = "decks")
 public class Deck {
 
@@ -26,9 +28,15 @@ public class Deck {
     @JoinColumn(name = "id_user")
     private User user;
 
+<<<<<<< HEAD
     //@ManyToOne(cascade = CascadeType.MERGE)
     //@JoinColumn(name = "id_card")
     //private DeckCard deckCard;
+=======
+
+    @OneToMany(mappedBy = "deck", cascade = CascadeType.ALL)
+    private List<DeckCard> deckCards;
+>>>>>>> deckCardsNotWorking
 
     @Column(name="commander")
     //Id de la carta del mongo
@@ -36,4 +44,5 @@ public class Deck {
 
     @Column(name="identity")
     private String identity;
+
 }
