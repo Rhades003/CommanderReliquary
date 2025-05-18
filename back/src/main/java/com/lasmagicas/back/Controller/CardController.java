@@ -93,11 +93,11 @@ public class CardController {
 
 
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
-    @PostMapping("/megaFilter")
-    public Page<Card> megaFilter(@RequestBody Filter filter){
+    @PostMapping("/megaFilter/{index}")
+    public Page<Card> megaFilter(@RequestBody Filter filter, @PathVariable int index){
 
 
-        Pageable pageable = PageRequest.of(0, 20);
+        Pageable pageable = PageRequest.of(0, 20).withPage(index);
         Page<Card> result = null;
         filter.setColorIdentity(ordenarColoresMtg(filter.getColorIdentity()));
         System.out.println(filter.toString());

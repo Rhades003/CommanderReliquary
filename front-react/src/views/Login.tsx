@@ -2,31 +2,43 @@ import React, { useState, useEffect, FormEvent  } from "react";
 import EmailInput from '../components/EmailInput';
 import PasswordInput from '../components/PasswordInput';
 import axios from "axios";
+import bcrypt from "bcryptjs-react";
 
 const Login = () => {
     const [disabled, setDisabled] = useState(true);
     const [emailValid, setEmailValid] = useState(false);
     const [passwordValid, setPasswordValid] = useState(false);
     const api:string = "http://localhost:8080";
-    // Validar si ambos campos están correctos para habilitar el botón
+   
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
     useEffect(() => {
         setDisabled(!(emailValid && passwordValid));
     }, [emailValid, passwordValid]);
 
-    const handleEmailChange = (isValid: boolean) => {
+    const handleEmailChange = (isValid: boolean, value: string) => {
         setEmailValid(isValid);
+        setEmail(value);
     };
 
-    const handlePasswordChange = (isValid: boolean) => {
+    const handlePasswordChange = (isValid: boolean, value: string) => {
         setPasswordValid(isValid);
+        setPassword(value);
     };
     function login(ev:FormEvent){
         ev.preventDefault();
 
+        const hashedPassword = bcrypt.hashSync(password, 11);
+
+        console.log(email);
+        console.log(password);
+        console.log(hashedPassword);
+
         axios.post(api+"/users/login",
             {
-                "email":"ruben@gmail.com",
-                "password":"ruben1234"
+                "email":email,
+                "password":hashedPassword
             })
             .then((response:any) => {
                 if(response.status == 200) {

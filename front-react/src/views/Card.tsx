@@ -13,8 +13,6 @@ const CardRandom = () => {
 
     const path = window.location.pathname;
     console.log(path);
-
-        //const token = localStorage.getItem("token")!;
         if(iterator == 0){
             setIterator(1);
             axios
@@ -22,9 +20,6 @@ const CardRandom = () => {
             .then((response: any) => {
                 console.log(response.data);
                 setCard(response.data);
-                
-                //console.log("-------------------");
-                //console.log(card);
             })
             .catch((error) => {
                 console.error("Error fetching cards:", error);
@@ -46,7 +41,6 @@ const CardRandom = () => {
         );
     }
     else {
-        //console.log(card);
         return (
             <>
             </>

@@ -30,7 +30,8 @@ public interface CardRepository extends MongoRepository<Card, String> {
                     { "card_faces.1.oracle_text": { "$regex": ?3, "$options": "i" } }
                   ]
                 },
-                { "set_name": { "$regex": ?4, "$options": "i" } }
+                { "set_name": { "$regex": ?4, "$options": "i" } },
+                { "legalities.commander": "legal" }
               ]
             }
             """)
@@ -50,7 +51,8 @@ public interface CardRepository extends MongoRepository<Card, String> {
                     { "card_faces.1.oracle_text": { "$regex": ?4, "$options": "i" } }
                   ]
                 },
-                { "set_name": { "$regex": ?5, "$options": "i" } }
+                { "set_name": { "$regex": ?5, "$options": "i" } },
+                { "legalities.commander": "legal" }
               ]
             }
             """)
@@ -78,7 +80,8 @@ public interface CardRepository extends MongoRepository<Card, String> {
                     { "card_faces.1.oracle_text": { "$regex": ?5, "$options": "i" } }
                   ]
                 },
-                { "set_name": { "$regex": ?6, "$options": "i" } }
+                { "set_name": { "$regex": ?6, "$options": "i" } },
+                { "legalities.commander": "legal" }
               ]
             }
             """)
@@ -107,7 +110,8 @@ public interface CardRepository extends MongoRepository<Card, String> {
                     { "card_faces.1.oracle_text": { "$regex": ?6, "$options": "i" } }
                   ]
                 },
-                { "set_name": { "$regex": ?7, "$options": "i" } }
+                { "set_name": { "$regex": ?7, "$options": "i" } },
+                { "legalities.commander": "legal" }
               ]
             }
             """)
@@ -137,7 +141,8 @@ public interface CardRepository extends MongoRepository<Card, String> {
                     { "card_faces.1.oracle_text": { "$regex": ?7, "$options": "i" } }
                   ]
                 },
-                { "set_name": { "$regex": ?8, "$options": "i" } }
+                { "set_name": { "$regex": ?8, "$options": "i" } },
+                { "legalities.commander": "legal" }
               ]
             }
             """)
@@ -168,7 +173,8 @@ public interface CardRepository extends MongoRepository<Card, String> {
                     { "card_faces.1.oracle_text": { "$regex": ?8, "$options": "i" } }
                   ]
                 },
-                { "set_name": { "$regex": ?9, "$options": "i" } }
+                { "set_name": { "$regex": ?9, "$options": "i" } },
+                { "legalities.commander": "legal" }
               ]
             }
             """)

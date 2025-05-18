@@ -17,14 +17,10 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps>  = ({card}) => {
+  
   return (
-    <div style={{display:'flex', width:'30%', border: '1px solid white', justifyContent:'center', flexDirection:'column', margin: '1rem',}}>
-        <img src={card.image_uris.normal} className='imgCard' alt="Facecard"></img>
-        <div style={{height: '30vh'}}>
-            <h1 className='nameCard'>{card.name}</h1><p>{card.mana_cost}</p>
-            <p className='rarityCard'>{card.rarity}</p>
-            <p className='typeCard'>{card.type_line}</p> 
-        </div>        
+    <div style={{display:'flex', width:'30%', justifyContent:'center', flexDirection:'column', margin: '1rem'}}>
+        <a href={"/card/"+card.id} target="_blank"><img src={card.image_uris.normal} className='imgCard' alt="Facecard" style={{borderRadius:"25px"}}/></a>     
     </div>
   );
 }

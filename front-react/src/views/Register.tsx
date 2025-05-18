@@ -48,12 +48,11 @@ const Register = () => {
 
     async function register(ev: FormEvent) {
         ev.preventDefault();
-        //let name:HTMLInputElement = document.getElementById("nameInput") as HTMLInputElement;
         console.log(email);
         console.log(password);
         console.log(confirmPassword);
         if (password == confirmPassword && name != "") {
-            const hashedPassword = bcrypt.hashSync(password, 11)
+            const hashedPassword = bcrypt.hashSync(password, 11);
 
             axios.post(api + "/users/register",
                 {
