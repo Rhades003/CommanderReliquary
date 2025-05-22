@@ -35,7 +35,7 @@ public class Card {
     private String[] keywords;
     private String[] color_identity;
     private String oracle_text;
-    private Legalities legalities;
+    private Legality legalities;
 
     @JsonProperty("card_faces")
     private List<Card> card_faces;
