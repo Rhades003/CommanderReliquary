@@ -3,8 +3,9 @@ import Cards from './views/Cards.tsx';
 import Login from './views/Login';
 import HomeDecks from './views/Deck';
 import Register from './views/Register';
-import SearchCard from './views/SearchCard';
 import CardRandom from './views/CardRandom';
+import PublicDecks from './views/PublicDecks';
+import PublicDeck from './views/PublicDeck';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React, { StrictMode } from 'react';
@@ -23,8 +24,9 @@ function App() {
         <Route path="/cards" element={<Cards />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/search" element={<SearchCard />} />
         <Route path="/decks" element={<HomeDecks />} />
+        <Route path="/public/decks" element={<PublicDecks />} />
+        <Route path="/public/deck/:id" element={<PublicDeck />} />
         <Route path="/random" element={<CardRandom />} />
         <Route path="/card/:id" element={<Card />} />
       </Routes>

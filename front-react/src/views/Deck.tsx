@@ -10,6 +10,7 @@ interface CardProps {
   name: string;
   mana_cost: string;
   rarity: string;
+  set: string;
   type_line: string;
   image_uris: {
     small: string;
@@ -17,12 +18,14 @@ interface CardProps {
     large: string;
     png: string;
   };
-};
+}
+
 interface DeckProps {
   id: number;
   name: string;
   identity: string;
   cards: CardProps[];
+  public: boolean;
   commanderInfo: CardProps;
 }
 
@@ -72,9 +75,6 @@ const Deck: React.FC = () => {
             setDecks(clondDecks);
           }
           console.log("selecteeedddddd: "+selectedDeck);
-          /*setDecks(decks.map(deck =>
-            deck.id === selectedDeck ? { ...deck, cards: response.data.card } : deck
-          ));*/
         }
         console.log(response.data);
       })
@@ -105,9 +105,6 @@ const Deck: React.FC = () => {
             clondDecks.push(deckWithoutChanges);
             setDecks(clondDecks);
           }
-          /*setDecks(decks.map(deck =>
-            deck.id === selectedDeck ? { ...deck, cards: clonCards } : deck
-          ));*/
         }
       })
       .catch((error) => {
@@ -151,7 +148,6 @@ const Deck: React.FC = () => {
 
 
   const handleSelectDeck = (deckId: number) => {
-    //console.log("aaaaaaaaaaa");
 
     setSelectedDeck(deckId);
     const selected = decks.find((d) => d.id === deckId);
@@ -177,7 +173,7 @@ const Deck: React.FC = () => {
         <DeckSidebar decks={nameDecks} onSelect={handleSelectDeck} />
         <div className="contentCards">
           <SearchBar resultForParent={handleChangeSerchBar} />
-          <MainContent results={results} selected={cards} commander={commander} resultForParent={handleCardToDeck} />
+          <MainContent results={results} selected={cards} commander={commander} resultForParent={handleCardToDeck} id={selectedDeck}/>
         </div>
       </div>
     </div>

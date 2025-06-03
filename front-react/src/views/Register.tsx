@@ -58,7 +58,7 @@ const Register = () => {
                 {
                     "name": name,
                     "email": email,
-                    "password": hashedPassword,
+                    "password": password,
                 })
                 .then((response: any) => {
                     if (response.status == 200) {

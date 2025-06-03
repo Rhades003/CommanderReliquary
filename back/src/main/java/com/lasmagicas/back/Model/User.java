@@ -21,7 +21,6 @@ import java.util.List;
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @NoArgsConstructor
-@ToString
 @Table(name = "users")
 public class User implements UserDetails {
 

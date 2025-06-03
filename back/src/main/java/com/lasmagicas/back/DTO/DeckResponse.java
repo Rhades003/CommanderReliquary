@@ -20,6 +20,7 @@ public class DeckResponse {
     Optional<Card> commanderInfo;
     String identity;
     List<Optional<Card>> cards;
+    Boolean isPublic;
 
     public DeckResponse(Deck deckEntity){
 
@@ -28,6 +29,7 @@ public class DeckResponse {
         this.name = deckEntity.getName();
         this.commander = deckEntity.getCommander();
         this.identity = deckEntity.getIdentity();
+        this.isPublic = deckEntity.getIsPublic();
         //this.cards = deckEntity.getDeckCards().g.stream().map(Card::new).collect(Collectors.toList());
     }
     

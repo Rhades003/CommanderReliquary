@@ -38,7 +38,7 @@ const Login = () => {
         axios.post(api+"/users/login",
             {
                 "email":email,
-                "password":hashedPassword
+                "password":password
             })
             .then((response:any) => {
                 if(response.status == 200) {

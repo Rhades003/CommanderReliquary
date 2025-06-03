@@ -65,13 +65,11 @@ const LoginBtns: React.FC = () => {
             >
                 <h1 style={{color:"white"}} id='nameUserElement'>{name}</h1>
                 <img 
-                    src={downArrow} 
+                    src={isMenuOpen ? upArrow : downArrow} 
                     alt="logoMenu" 
                     style={{
                         height:"2rem", 
                         paddingTop: "2rem",
-                        transform: isMenuOpen ? "rotate(180deg)" : "none",
-                        transition: "transform 0.3s ease"
                     }} 
                     id='imgArrow'
                 />
