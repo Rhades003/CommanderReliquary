@@ -107,7 +107,33 @@ const CardSimple: React.FC<CardProps> = ({ id, image_uris, name, isCommander, ac
       );
     }
   }
-  return null;
+  return (
+        <div style={{ padding: '1rem' }}>
+          <div className="border border-gray-700 rounded" style={{ position: "relative" }}>
+            <img src={image_uris.normal}
+              alt={name}
+              className="w-full h-auto"
+              style={{ height: "20rem", borderRadius: "15px", filter: hovered ? "brightness(50%)" : "none" }}/>
+            {hovered && (
+              <img
+                src={restImg}
+                alt="preview"
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-60%, -50%)",
+                  maxHeight: "50%",
+                  maxWidth: "50%",
+                  zIndex: 10,
+                  borderRadius: "10px",
+                }}
+              />
+            )}
+
+          </div>
+        </div>
+      );;
 };
 
 export default CardSimple;

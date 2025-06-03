@@ -2,6 +2,7 @@ package com.lasmagicas.back.Controller;
 
 import com.lasmagicas.back.DTO.DeckCardResponse;
 import com.lasmagicas.back.DTO.DeckResponse;
+import com.lasmagicas.back.DTO.DeckWithoutCardsResponse;
 import com.lasmagicas.back.Model.Card;
 import com.lasmagicas.back.Model.Deck;
 import com.lasmagicas.back.Model.DeckCard;
@@ -15,6 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -70,11 +73,40 @@ public class DeckController {
 
             //Forma nueva
             deckEntity.setUser(user.orElseThrow());
+            deckEntity.setIsPublic(true);
             deckRepository.save(deckEntity);
 
             return deck;
         }
 
+        return null;
+    }
+
+    @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
+    @GetMapping("/getDeck/{id}")
+    public DeckResponse getDeckById(@PathVariable long id){
+
+        Optional<Deck> deckOptional = deckRepository.findDeckById(id);
+        System.out.println(deckOptional);
+        if (deckOptional.isPresent()) {
+            Deck deck = deckOptional.get();
+            DeckResponse deckResponse = new DeckResponse(deck);
+            List<Optional<Card>> cards = new ArrayList<>();
+            List<DeckCard> deckCards = getAllCardsFromDeck(id);
+
+            deckCards.forEach((deckCard -> {
+
+                Optional<Card> card = cardController.getCard(deckCard.getId_card());
+                if (card.isPresent()) cards.add(cardController.getCard(deckCard.getId_card()));
+
+            }));
+
+            Optional<Card> commander = cardController.getCard(deckOptional.get().getCommander());
+            deckResponse.setCommanderInfo(commander);
+
+            deckResponse.setCards(cards);
+            return  deckResponse;
+        }
         return null;
     }
 
@@ -126,6 +158,22 @@ public class DeckController {
             });
             return decks;
         } else return null;
+    }
+
+    @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
+    @GetMapping("/getPublicDecks")
+    public @ResponseBody Page<DeckWithoutCardsResponse> getPublicDecks(@RequestParam String name, @RequestParam String identity, @RequestParam  int page) {
+
+        PageRequest pageable = PageRequest.of(page, 20);
+        Page<DeckWithoutCardsResponse> decksResponse = null;
+
+        if (identity.equals("*")){
+             decksResponse = deckRepository.findPublicDecksWithoutIdentity(name, pageable);
+        }
+        else {
+            decksResponse = deckRepository.findPublicDecksWithIdentity(name, identity, pageable);
+        }
+            return decksResponse;
     }
 
     @Transactional
@@ -192,7 +240,7 @@ public class DeckController {
         Optional<Deck> oldDeck = deckRepository.findById(id_deck);
 
         if (user.isPresent() && oldDeck.isPresent() && user.get().getId().equals(oldDeck.get().getUser().getId())) {
-            System.out.println(oldDeck.toString());
+
             Optional<Card> oldCommander = cardRepository.findById(oldDeck.get().getCommander());
             Optional<Card> newCommander = cardRepository.findById(newDeck.getCommander());
             Deck deck = oldDeck.get();

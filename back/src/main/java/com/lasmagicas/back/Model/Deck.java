@@ -39,4 +39,7 @@ public class Deck {
     @Column(name="identity")
     private String identity;
 
+    @Column(name="isPublic")
+    private Boolean isPublic;
+
 }

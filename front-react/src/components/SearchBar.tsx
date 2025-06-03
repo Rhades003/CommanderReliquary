@@ -9,6 +9,7 @@ interface CardProps {
   name: string;
   mana_cost: string;
   rarity: string;
+  set: string;
   type_line: string;
   image_uris: {
     small: string;
