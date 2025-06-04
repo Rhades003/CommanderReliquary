@@ -25,16 +25,17 @@ interface DeckProps {
   name: string;
   identity: string;
   cards: CardProps[];
-  public: boolean;
+  isPublic: boolean;
   commanderInfo: CardProps;
 }
 
 
 const Deck: React.FC = () => {
+  document.title = "Mis Mazos";
   const token = localStorage.getItem("token");
   console.log(token);
   if (token == null) window.location.href = "/login";
-  const [nameDecks, setNameDecks] = useState<{ id: number; name: string; identity: string, commander: CardProps }[]>([]);
+  const [nameDecks, setNameDecks] = useState<{ id: number; name: string; identity: string, isPublic:boolean, commander: CardProps }[]>([]);
 
   const [selectedDeck, setSelectedDeck] = useState<number | null>(null);
   const [cards, setCards] = useState<CardProps[]>([]);
@@ -66,7 +67,7 @@ const Deck: React.FC = () => {
           const clonCards = [...cards];
           clonCards.push(response.data.card);
           setCards(clonCards);
-
+          
           const deckWithoutChanges = decks.find(deck => deck.id === selectedDeck);
           deckWithoutChanges?.cards.push(response.data.card);
           if (deckWithoutChanges !== undefined) {
@@ -124,12 +125,15 @@ const Deck: React.FC = () => {
       .then((response: any) => {
         console.log(response.data);
         const fullDecks = response.data;
+        console.log("dataaaaaaaaaaaa");
+        console.log(response.data);
         setDecks(fullDecks);
         const deckSimple = fullDecks.map((deck: any) => ({
           id: deck.id,
           name: deck.name,
           identity: deck.identity,
           commander: deck.commanderInfo,
+          isPublic: deck.isPublic,
         }));
         setNameDecks(deckSimple);
         if (fullDecks.length > 0) {

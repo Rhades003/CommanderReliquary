@@ -30,7 +30,7 @@ interface CardProps {
 const api: string = "http://localhost:8080";
 
 const Decks = () => {
-
+    
     const [cards, setCards] = useState<CardProps[]>([]);
     const [commander, setCommander] = useState<CardProps>();
     const [iterator, setIterator] = useState<number>(0);
@@ -60,7 +60,7 @@ const Decks = () => {
         }
       });
     }
-
+    document.title = titleDeck;
   return (
     <>
     <Header />

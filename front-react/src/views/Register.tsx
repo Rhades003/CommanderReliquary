@@ -6,6 +6,7 @@ import axios from "axios";
 import bcrypt from "bcryptjs-react";
 
 const Register = () => {
+    document.title = "Register";
     const [disabled, setDisabled] = useState(true);
     const [nameValid, setNameValid] = useState(false);
     const [emailValid, setEmailValid] = useState(false);

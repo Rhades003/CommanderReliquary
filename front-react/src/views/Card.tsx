@@ -7,6 +7,7 @@ import FullCard from "../components/FullCard";
 
 const CardRandom = () => {
 
+    document.title = "Carta";
     const api: string = "http://localhost:8080";
     const [card, setCard] = useState<any>();
     const [iterator, setIterator] = useState<number>(0);

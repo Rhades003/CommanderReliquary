@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Document(value = "Cards")
+@Document(value = "cards")
 public class Card {
     @Id
     private String id;

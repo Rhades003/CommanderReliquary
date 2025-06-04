@@ -8,6 +8,7 @@ interface DeckItemProps {
   name: string;
   colors: string;
   commander: CardProps;
+  isPublic: boolean;
   onClick: () => void;
 }
 
@@ -17,7 +18,7 @@ interface CardProps {
   mana_cost: string;
 };
 
-const DeckItem: React.FC<DeckItemProps> = ({ id, name, colors, commander, onClick }) => {
+const DeckItem: React.FC<DeckItemProps> = ({ id, name, colors, commander, isPublic, onClick }) => {
   let identity: string[] = [];
   const token = localStorage.getItem("token")!;
   const api: string = "http://localhost:8080";
@@ -124,6 +125,8 @@ const DeckItem: React.FC<DeckItemProps> = ({ id, name, colors, commander, onClic
               <label>Nombre del comandante</label>
               <input list="commander-list" class='search-input swal-input' id='commander-name' value='${commander.name}'/>
               <datalist id="commander-list"></datalist>
+              <label for="public-checkbox">¿Es público?</label>
+              <input type="checkbox" id="public-checkbox" ${isPublic ? 'checked' : ''} />
               <p style="color: red; font-size:14">⚠️ Advertencia: Al cambiar de comandante, se eliminarán automáticamente todas las cartas que no compartan la identidad de color del nuevo comandante.</p>
             </div>`,
       didOpen: () => {
@@ -169,38 +172,49 @@ const DeckItem: React.FC<DeckItemProps> = ({ id, name, colors, commander, onClic
 
       preConfirm: () => {
         const nameInput = (document.getElementById('deck-name') as HTMLInputElement).value;
+        const publicCheckbox: HTMLInputElement = (document.getElementById('public-checkbox') as HTMLInputElement);
+        let checkIsPublic: boolean;
+        if (publicCheckbox.checked) checkIsPublic = true;
+        else checkIsPublic = false;
         const commanderInput: HTMLInputElement = document.getElementById('commander-name') as HTMLInputElement;
 
         const selectedName = commanderInput.value;
         const commanderCard = commandersList.find(card => card.name === selectedName);
         //const commanderCard = commandersList.find(card => card.name == commanderInput.value);
-        console.log("commander card: " + commanderCard);
-        console.log(commandersList);
+        console.log("IsPublic value??"+checkIsPublic);
         if (!commanderInput.value || !nameInput) {
           Swal.showValidationMessage('Ambos campos son obligatorios');
           return false;
         }
-        return { name: nameInput, commander: commanderCard };
+        return { name: nameInput, commander: commanderCard, isPublic: checkIsPublic };
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log("cosassssssssssssss");
-        console.log(result.value.name);
+
+        console.log("------------------------");
         console.log(result.value);
+        console.log("------------------------");
 
         let newIdentity: String = setInversIdentity(result.value.commander.color_identity);
-        console.log(newIdentity)
-        axios.put(api + "/decks/edit/" + id, {
+
+        console.log("Enviando estos datos: ", {
           id: id,
           name: result.value.name,
           commander: result.value.commander.id,
+          isPublic: result.value.checkIsPublic,
+          identity: newIdentity
+        });
+        axios.put(api + "/decks/edit/" + id + "?isPublic=" + result.value.isPublic, {
+          id: id,
+          name: result.value.name,
+          commander: result.value.commander.id,
+          isPublic: result.value.isPublic,
           identity: newIdentity
         }, {
           headers: {
             Authorization: `Bearer ${token}`,
           }
         }).then(response => {
-          console.log("identidaddddddddddddddddddddddddd: " + identity);
           if (response.status == 200) window.location.reload();
         }
         );

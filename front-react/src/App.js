@@ -7,13 +7,14 @@ import CardRandom from './views/CardRandom';
 import PublicDecks from './views/PublicDecks';
 import PublicDeck from './views/PublicDeck';
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route  } from 'react-router-dom';
 import React, { StrictMode } from 'react';
 import Card from './views/Card';
 
 
 
 function App() {
+
 
     
     return (
@@ -32,6 +33,8 @@ function App() {
       </Routes>
       </Router>
       </StrictMode>
+
+
     );
   }
   

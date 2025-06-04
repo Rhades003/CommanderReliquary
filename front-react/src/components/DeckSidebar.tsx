@@ -10,6 +10,7 @@ interface DeckSidebarProps {
     name: string;
     identity: string;
     commander: CardProps;
+    isPublic:boolean;
   }[];
   onSelect: (deckId: number) => void;
 }
@@ -174,16 +175,20 @@ const DeckSidebar: React.FC<DeckSidebarProps> = ({ decks, onSelect }) => {
       </div>
       <div style={{ width: "90%", border: "solid 1px #858585", alignSelf: "center" }}></div>
       <div style={{ display: "flex", flexDirection: "column", gap: "2rem", marginTop: "1rem" }}>
-        {decks.map((deck, i) => (
+        {decks.map((deck, i) => { 
+          console.log("deck");
+          console.log(deck);
+          return (
           <DeckItem
             key={i}
             name={deck.name}
             colors={deck.identity}
             commander={deck.commander}
             id={deck.id}
+            isPublic={true}
             onClick={() => onSelect(deck.id)}
           />
-        ))}
+        )})}
 
       </div>
     </aside>

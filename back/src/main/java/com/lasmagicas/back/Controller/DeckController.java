@@ -230,9 +230,10 @@ public class DeckController {
     @Transactional
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
     @PutMapping("/edit/{id_deck}")
-    public DeckResponse editDeck(@RequestBody DeckResponse newDeck, @PathVariable long id_deck, @RequestHeader("Authorization") String token) {
+    public DeckResponse editDeck(@RequestBody DeckResponse newDeck, @PathVariable long id_deck, @RequestParam String isPublic, @RequestHeader("Authorization") String token) {
         System.out.println(newDeck);
         System.out.println(id_deck);
+        System.out.println(isPublic);
 
         String email = jwtUtil.getEmailFromToken(token);
         Optional<User> user = userRepository.findByEmail(email);
@@ -249,6 +250,7 @@ public class DeckController {
 
                 deck.setName(newDeck.getName());
                 deck.setCommander(newDeck.getCommander());
+                deck.setIsPublic(newDeck.getIsPublic());
                 deckRepository.save(deck);
                 return newDeck;
             }
@@ -257,6 +259,7 @@ public class DeckController {
 
                 deck.setName(newDeck.getName());
                 deck.setCommander(newDeck.getCommander());
+                deck.setIsPublic(newDeck.getIsPublic());
                 deck.setIdentity(newDeck.getIdentity());
                 System.out.println("Identityyyyyyyyyyyyyy: "+newDeck.getIdentity());
                 List<DeckCard> deckCards = getAllCardsFromDeck(oldDeck.get().getId());

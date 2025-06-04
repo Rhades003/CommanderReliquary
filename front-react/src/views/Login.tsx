@@ -5,6 +5,7 @@ import axios from "axios";
 import bcrypt from "bcryptjs-react";
 
 const Login = () => {
+    document.title = "Login";
     const [disabled, setDisabled] = useState(true);
     const [emailValid, setEmailValid] = useState(false);
     const [passwordValid, setPasswordValid] = useState(false);

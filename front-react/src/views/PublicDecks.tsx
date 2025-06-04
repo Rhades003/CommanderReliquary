@@ -16,6 +16,7 @@ const api: string = "http://localhost:8080";
 
 const Decks = () => {
 
+  document.title = "Mazos Públicos";
   const [decks, setDecks] = useState<(DeckProps)[]>([]);
   const [totalPages, setTotalPages] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(0);

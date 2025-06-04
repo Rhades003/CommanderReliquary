@@ -51,7 +51,7 @@ type FullCardProps = {
 
 
 const Cards = () => {
-
+  document.title = "Buscador de cartas";
   const [cardList, setCardList] = useState<(CardProps | CardDoubleFaceProps['card'])[]>([]);
   const [totalPages, setTotalPages] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(0);
