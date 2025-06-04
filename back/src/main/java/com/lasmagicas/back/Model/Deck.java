@@ -28,9 +28,15 @@ public class Deck {
     @JoinColumn(name = "id_user")
     private User user;
 
+<<<<<<< HEAD
+    //@ManyToOne(cascade = CascadeType.MERGE)
+    //@JoinColumn(name = "id_card")
+    //private DeckCard deckCard;
+=======
 
     @OneToMany(mappedBy = "deck", cascade = CascadeType.ALL)
     private List<DeckCard> deckCards;
+>>>>>>> deckCardsNotWorking
 
     @Column(name="commander")
     //Id de la carta del mongo
