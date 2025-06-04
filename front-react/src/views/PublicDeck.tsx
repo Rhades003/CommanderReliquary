@@ -64,7 +64,10 @@ const Decks = () => {
   return (
     <>
     <Header />
+    <div style={{display: "flex", }}>
     <h1 style={{margin: "1rem", color:"#858585"}}>{titleDeck}</h1>
+    <h1 style={{margin: "1rem", color:"#fff", justifySelf: 'flex-end'}}>Cartas totales: {cards.length+1}</h1>
+    </div>
     <CardGrid title={titleDeck} commander={commander} cards={cards}/>
     </>
   )
