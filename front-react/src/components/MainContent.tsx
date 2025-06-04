@@ -52,7 +52,7 @@ const MainContent: React.FC<MainContentProps> = ({ results, selected, commander,
   return (
   <>
   <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-    <h1 style={{color:"#fff", paddingRight:"1rem"}}>Cartas totales: {selected.length+1}</h1>
+    <h1 style={{color:"#fff", paddingRight:"1rem"}}>Cartas totales: {selected.length === 0 ? 0 : selected.length + 1}</h1>
     <button 
       className="btnExport" 
       style={{ marginTop: "0.3rem", marginRight:"1rem", width:"6rem"  }} 

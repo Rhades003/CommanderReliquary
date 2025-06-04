@@ -128,13 +128,16 @@ const Deck: React.FC = () => {
         console.log("dataaaaaaaaaaaa");
         console.log(response.data);
         setDecks(fullDecks);
-        const deckSimple = fullDecks.map((deck: any) => ({
+        const deckSimple = response.data.map((deck: any) => ({
           id: deck.id,
           name: deck.name,
           identity: deck.identity,
           commander: deck.commanderInfo,
           isPublic: deck.isPublic,
         }));
+        console.log("------DecksSimple------");
+        console.log(decks);
+        console.log("-----------------");
         setNameDecks(deckSimple);
         if (fullDecks.length > 0) {
           const lastDeck = fullDecks[fullDecks.length - 1];
@@ -169,6 +172,10 @@ const Deck: React.FC = () => {
 
     else removeCardToDeck(cardId);
   }
+
+  console.log("------nameDecks------");
+  console.log(nameDecks);
+  console.log("-----------------");
 
   return (
     <div className="min-h-screen bg-gray-950 text-white" style={{ backgroundColor: "#2B2A2A", height: "100%" }}>
