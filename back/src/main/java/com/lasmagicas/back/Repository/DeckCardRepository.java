@@ -7,10 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-<<<<<<< HEAD
-//public interface DeckCardRepository extends JpaRepository<DeckCard,String> {
-//}
-=======
+
 @Repository
 public interface DeckCardRepository extends JpaRepository<DeckCard,Long> {
 
@@ -18,4 +15,4 @@ public interface DeckCardRepository extends JpaRepository<DeckCard,Long> {
 
     //Optional<DeckCard> findById_card(String card_id);
 }
->>>>>>> deckCardsNotWorking
+

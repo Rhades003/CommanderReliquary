@@ -7,12 +7,8 @@ import com.lasmagicas.back.Model.Card;
 import com.lasmagicas.back.Model.Deck;
 import com.lasmagicas.back.Model.DeckCard;
 import com.lasmagicas.back.Model.User;
-<<<<<<< HEAD
-//import com.lasmagicas.back.Repository.DeckCardRepository;
-=======
 import com.lasmagicas.back.Repository.CardRepository;
 import com.lasmagicas.back.Repository.DeckCardRepository;
->>>>>>> deckCardsNotWorking
 import com.lasmagicas.back.Repository.DeckRepository;
 import com.lasmagicas.back.Repository.UserRepository;
 import com.lasmagicas.back.security.JwtUtil;
@@ -44,10 +40,6 @@ public class DeckController {
     private DeckRepository deckRepository;
     @Autowired
     private UserRepository userRepository;
-<<<<<<< HEAD
-    //@Autowired
-    //private DeckCardRepository deckCardRepository;
-=======
     @Autowired
     private DeckCardRepository deckCardRepository;
     @Autowired
@@ -61,7 +53,6 @@ public class DeckController {
     public @ResponseBody List<DeckCard> getAllCardsFromDeck(@PathVariable long deck_id) {
         return deckCardRepository.findByDeck_Id(deck_id);
     }
->>>>>>> deckCardsNotWorking
 
     @CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.137:3000"})
     @PostMapping("/createDeck")
@@ -194,14 +185,6 @@ public class DeckController {
         Optional<Deck> deck = deckRepository.findById(id_deck);
 
         if (deck.isPresent()) {
-<<<<<<< HEAD
-            Deck deck1 = new Deck();
-            deck1.setId(id_deck);
-            Card card = new Card();
-            card.setId(id_card);
-            DeckCard deckCard = new DeckCard(deck1, card);
-            //deckCardRepository.save(deckCard);
-=======
             System.out.println(id_card);
             deck.get().getDeckCards().forEach(c -> System.out.println(c.getId_card()));
             if (deck.get().getDeckCards().stream().anyMatch(b -> b.getId_card().equals(id_card)) && !card.get().getTypeLine().contains("Basic Land")) {
@@ -239,7 +222,6 @@ public class DeckController {
             DeckCard deckCard = deckCardOptional.get();
             deckCardRepository.delete(deckCard);
             return "Deleted card with id: " + id_card;
->>>>>>> deckCardsNotWorking
         }
 
         return null;

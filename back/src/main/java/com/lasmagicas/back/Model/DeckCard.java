@@ -6,14 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-<<<<<<< HEAD
-//@Entity
-@Getter
-@Setter
-=======
 @Entity
 @Getter @Setter
->>>>>>> deckCardsNotWorking
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
