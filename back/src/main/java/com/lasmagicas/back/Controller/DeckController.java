@@ -21,10 +21,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static java.util.stream.Collectors.toList;
@@ -182,9 +179,11 @@ public class DeckController {
     public DeckCardResponse setCardDeck(@PathVariable long id_deck, @PathVariable String id_card) {
 
         Optional<Card> card = cardController.getCard(id_card);
+
         Optional<Deck> deck = deckRepository.findById(id_deck);
 
         if (deck.isPresent()) {
+            Optional<Card> commander = cardController.getCard(deck.get().getCommander());
             System.out.println(id_card);
             deck.get().getDeckCards().forEach(c -> System.out.println(c.getId_card()));
             if (deck.get().getDeckCards().stream().anyMatch(b -> b.getId_card().equals(id_card)) && !card.get().getTypeLine().contains("Basic Land")) {
@@ -193,7 +192,15 @@ public class DeckController {
 
 
             Deck deckEntity = deck.get();
-            // No es necesario crear un nuevo objeto Deck
+            if (commander.isPresent()) {
+                String[] cardColors = card.get().getColor_identity();
+                String[] commanderColors = commander.get().getColor_identity();
+
+                if (!Arrays.asList(commanderColors).containsAll(Arrays.asList(cardColors))) {
+                    return null;
+                }
+            }
+
             DeckCard deckCard = new DeckCard(deckEntity, id_card);
 
             deckCardRepository.save(deckCard);

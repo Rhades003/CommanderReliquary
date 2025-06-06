@@ -166,7 +166,9 @@ const DeckSidebar: React.FC<DeckSidebarProps> = ({ decks, onSelect }) => {
     });
 
   }
-
+  console.log("------Decks------");
+  console.log(decks);
+  console.log("-----------------");
   return (
     <aside style={{ paddingLeft: "2rem", paddingRight: "1.5rem", minWidth: "14rem"}}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -175,6 +177,7 @@ const DeckSidebar: React.FC<DeckSidebarProps> = ({ decks, onSelect }) => {
       </div>
       <div style={{ width: "90%", border: "solid 1px #858585", alignSelf: "center" }}></div>
       <div style={{ display: "flex", flexDirection: "column", gap: "2rem", marginTop: "1rem" }}>
+        
         {decks.map((deck, i) => { 
           console.log("deck");
           console.log(deck);
